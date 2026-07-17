@@ -275,21 +275,31 @@ body {
 }
 
 .back-button {
-  position: absolute;
-  top: 25px;
-  left: 25px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 22px;
-  border-radius: 14px;
-  border: none;
-  background: linear-gradient(145deg, #8b5cf6, #6d28d9);
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s ease;
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:12px 22px;
+
+  border-radius:14px;
+  border:none;
+
+  background:linear-gradient(
+    145deg,
+    #8b5cf6,
+    #6d28d9
+  );
+
+  color:white;
+  font-size:1rem;
+  font-weight:700;
+
+  cursor:pointer;
+  transition:0.2s ease;
+
+  margin:20px;
 }
 
 .back-button:hover {
@@ -1374,4 +1384,29 @@ body {
   h2 { font-size: 1.4rem; }
 
   .subject-icon { font-size: 45px; }
+}
+@media (max-height:600px) and (orientation:landscape){
+
+  .back-button{
+
+    position:relative;
+
+    margin:10px;
+
+    padding:10px 16px;
+
+    font-size:0.9rem;
+
+  }
+
+
+  .back-icon{
+
+    width:28px;
+    height:28px;
+
+    font-size:16px;
+
+  }
+
 }
