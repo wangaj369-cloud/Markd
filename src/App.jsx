@@ -51,9 +51,7 @@ export default function App() {
 
   try {
 
-    const explanationRes = await fetch(
-      "http://localhost:5000/generate-explanation",
-      {
+    const explanationRes = await fetch("https://markd-ltw1.onrender.com/generate-explanation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +106,7 @@ async function generateQuestions(customData = null) {
   subtopic: currentSubtopic,
 });
       try {
-        const res = await fetch("http://localhost:5000/generate-resources", {
+        const res = await fetch("https://markd-ltw1.onrender.com/generate-resources", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -140,9 +138,7 @@ async function generateQuestions(customData = null) {
 });
 
 console.log("Generated explanation:", explanationResult);
-      const questionsRes = await fetch(
-        "http://localhost:5000/generate-questions",
-        {
+      const questionsRes = await fetch("https://markd-ltw1.onrender.com/generate-questions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -178,9 +174,7 @@ setLoading(false);
 async function markAnswer(question, index, diagram) {
   console.log("Diagram sent:", diagram);
     try {
-      const res = await fetch(
-        "http://localhost:5000/mark-answer",
-        {
+      const res = await fetch("https://markd-ltw1.onrender.com/mark-answer", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -210,7 +204,7 @@ async function markAnswer(question, index, diagram) {
   async function generateSummary() {
     try {
       console.log("Generating summary with:", { subject, topic, subtopic, questions, answers, results });
-      const res = await fetch("http://localhost:5000/api/generate-summary", {
+      const res = await fetch("https://markd-ltw1.onrender.com/api/generate-summary", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -289,9 +283,7 @@ async function markAnswer(question, index, diagram) {
 
   try {
 
-    const resourcesRes = await fetch(
-      "http://localhost:5000/generate-resources",
-      {
+    const resourcesRes = await fetch("https://markd-ltw1.onrender.com/generate-resources", {
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -311,9 +303,7 @@ async function markAnswer(question, index, diagram) {
 
 
 
-    const explanationRes = await fetch(
-      "http://localhost:5000/generate-explanation",
-      {
+    const explanationRes = await fetch("https://markd-ltw1.onrender.com/generate-explanation", {
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -333,9 +323,7 @@ async function markAnswer(question, index, diagram) {
 
 
 
-    const questionsRes = await fetch(
-      "http://localhost:5000/generate-questions",
-      {
+    const questionsRes = await fetch("https://markd-ltw1.onrender.com/generate-questions", {
         method:"POST",
         headers:{
           "Content-Type":"application/json"
