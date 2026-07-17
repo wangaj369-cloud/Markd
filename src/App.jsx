@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import SetupPage from "./components/setuppage";
 import DashboardPage from "./components/dashboardpage";
 import LoadingScreen from "./components/loadingscreen";
-import ExplanationPage from "./components/explanationpage";
+import ExplanationPage from "./components/Explanationpage";
+import { subjectTopics } from "./components/subject.js";
 import QuestionMode from "./components/questionmode";
 import SummaryPage from "./components/summarypage";
 import LearnMode from "./components/learnmode";
-import { subjectTopics } from "./components/subject";
+
 
 
 
