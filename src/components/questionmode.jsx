@@ -13,6 +13,7 @@ export default function QuestionMode({
   generateSummary,
   subject
 }) {
+  const [answer, setAnswer] = useState("");
 const [diagram, setDiagram] = useState(null);
 const question = questions[currentQuestion];
 if (!question || questions.length === 0) {
