@@ -26,14 +26,7 @@ export default function SetupPage({
     <div className="setup-page">
     <div className="home-layout">
 
-  <aside className="left-panel">
-     <button
-       className="progress-button"
-       onClick={() => setRevisionStage("dashboard")}
-     >
-       📊 My Progress
-     </button>
-  </aside>
+ 
 
 
   <main className="home-content">
@@ -144,7 +137,16 @@ onClick={async () => {
 >
 Start Revision →
 </button>
+
         )}
+         <aside className="left-panel">
+     <button
+       className="progress-button"
+       onClick={() => setRevisionStage("dashboard")}
+     >
+       📊 My Progress
+     </button>
+  </aside>
       </div>
     </main>
     </div>
