@@ -1410,3 +1410,66 @@ body {
   }
 
 }
+/* =========================
+   MOBILE HOME FINAL ORDER
+========================= */
+
+@media (max-width:768px){
+
+  .home-layout{
+    display:flex;
+    flex-direction:column;
+  }
+
+
+  .home-content{
+    display:flex;
+    flex-direction:column;
+  }
+
+
+  /* Keep title first */
+  .app-title{
+    order:1;
+  }
+
+  .app-subtitle{
+    order:2;
+  }
+
+
+  /* Subject cards */
+  .subject-selector{
+    order:3;
+  }
+
+
+  /* Dropdowns */
+  .dropdown-container{
+    order:4;
+  }
+
+
+  /* Start button */
+  .start-button{
+    order:5;
+  }
+
+
+  /* Progress button goes underneath */
+  .left-panel{
+    order:6;
+    width:100%;
+    margin-top:30px;
+  }
+
+
+  /* Mini dashboard last */
+  .mini-progress-dashboard{
+    order:7;
+    width:100%;
+    margin-top:20px;
+  }
+
+
+}
