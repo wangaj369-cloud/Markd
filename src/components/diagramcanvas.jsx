@@ -2,18 +2,142 @@ import { useRef, useState, useEffect } from "react";
 
 export default function DiagramCanvas({ onSave }) {
 
+
+
   const canvasRef = useRef(null);
+
   const [tool, setTool] = useState("pen");
-const [brushSize, setBrushSize] = useState(3);
-useEffect(() => {
+  const [brushSize, setBrushSize] = useState(3);
 
-  const canvas = canvasRef.current;
-  const ctx = canvas.getContext("2d");
 
-  ctx.fillStyle = "#a9c3ec";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  useEffect(() => {
 
-}, []);
+    const canvas = canvasRef.current;
+
+    if (!canvas) return;
+
+
+    const resizeCanvas = () => {
+
+      const rect = canvas.getBoundingClientRect();
+
+      const ratio = window.devicePixelRatio || 1;
+
+
+      const ctx = canvas.getContext("2d");
+
+
+      // store current drawing
+      const image = canvas.toDataURL();
+
+
+      canvas.width = rect.width * ratio;
+      canvas.height = rect.height * ratio;
+
+
+      ctx.setTransform(1,0,0,1,0,0);
+
+      ctx.scale(ratio, ratio);
+
+
+      // restore background
+      ctx.fillStyle = "#a9c3ec";
+
+      ctx.fillRect(
+        0,
+        0,
+        rect.width,
+        rect.height
+      );
+
+
+      // restore drawing if exists
+      const img = new Image();
+
+      img.onload = () => {
+        ctx.drawImage(
+          img,
+          0,
+          0,
+          rect.width,
+          rect.height
+        );
+      };
+
+      if(image.length > 100){
+        img.src = image;
+      }
+
+    };
+
+
+    resizeCanvas();
+
+
+    window.addEventListener(
+      "resize",
+      resizeCanvas
+    );
+
+
+    return () => {
+
+      window.removeEventListener(
+        "resize",
+        resizeCanvas
+      );
+
+    };
+
+
+  }, []);
+
+
+
+  useEffect(() => {
+
+    const canvas = canvasRef.current;
+
+    if (!canvas) return;
+
+
+    const ctx = canvas.getContext("2d");
+
+
+    ctx.fillStyle = "#a9c3ec";
+
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+  }, []);
+
+
+
+  function getPosition(e){
+
+    const canvas = canvasRef.current;
+
+    const rect = canvas.getBoundingClientRect();
+
+
+    return {
+
+      x:
+      (e.clientX - rect.left),
+
+      y:
+      (e.clientY - rect.top)
+
+    };
+
+  }
+
 
 function startDrawing(e) {
 
@@ -24,10 +148,10 @@ function startDrawing(e) {
 
   ctx.beginPath();
 
-  ctx.moveTo(
-    e.nativeEvent.offsetX,
-    e.nativeEvent.offsetY
-  );
+  const pos = getPosition(e);
+
+ctx.beginPath();
+ctx.moveTo(pos.x,pos.y);
 
   if (tool === "eraser") {
 
@@ -63,14 +187,17 @@ function draw(e) {
 
   const ctx = canvas.getContext("2d");
 
-  ctx.lineTo(
-    e.nativeEvent.offsetX,
-    e.nativeEvent.offsetY
-  );
+ const pos = getPosition(e);
+
+ctx.lineTo(
+ pos.x,
+ pos.y
+); 
 
   ctx.stroke();
 
 }
+
   function stopDrawing() {
 
   const canvas = canvasRef.current;
@@ -134,16 +261,19 @@ Include clear labels, arrows and accurate structures.
 When finished, press "Submit Answer".
 </p>
 
-      <canvas
-  ref={canvasRef}
-  width={900}
-  height={600}
-  className="diagram-canvas"
-        onMouseDown={startDrawing}
-        onMouseMove={draw}
-        onMouseUp={stopDrawing}
-        onMouseLeave={stopDrawing}
-      />
+    <canvas
+ ref={canvasRef}
+ className="diagram-canvas"
+
+ style={{
+   touchAction:"none"
+ }}
+
+ onPointerDown={startDrawing}
+ onPointerMove={draw}
+ onPointerUp={stopDrawing}
+ onPointerLeave={stopDrawing}
+/>
 
       <div className="drawing-toolbar">
 

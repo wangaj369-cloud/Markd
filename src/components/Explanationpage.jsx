@@ -26,6 +26,7 @@ import { Children } from "react";
 
 
 
+
   <p className={`subject-badge ${subject.toLowerCase()}`}>
     AQA {subject}
   </p>

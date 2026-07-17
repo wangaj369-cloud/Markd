@@ -23,6 +23,7 @@ export default function SetupPage({
 
 };
   return (
+    <div className="setup-page">
     <div className="home-layout">
 
   <aside className="left-panel">
@@ -146,6 +147,7 @@ Start Revision →
         )}
       </div>
     </main>
+    </div>
     </div>
   );
 }
