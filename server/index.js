@@ -29,7 +29,8 @@ app.get("/", (req, res) => {
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://markd-two.vercel.app"
+    "https://markd-two.vercel.app",
+    "https://markdai.app"
   ]
 }));
 app.use(express.json());

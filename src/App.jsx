@@ -25,7 +25,11 @@ export default function App() {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
   const [revisionStage, setRevisionStage] = useState("setup");
-  const [revisionHistory, setRevisionHistory] = useState([]);
+ const [revisionHistory, setRevisionHistory] = useState(() => {
+  return JSON.parse(
+    localStorage.getItem("revisionHistory")
+  ) || [];
+});
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [summary, setSummary] = useState(null);
  
