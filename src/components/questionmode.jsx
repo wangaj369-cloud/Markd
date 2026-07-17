@@ -13,6 +13,7 @@ export default function QuestionMode({
   generateSummary,
   subject
 }) {
+  const [answer, setAnswer] = useState("");
 const [diagram, setDiagram] = useState(null);
 const question = questions[currentQuestion];
 if (!question || questions.length === 0) {
@@ -79,11 +80,13 @@ return (
     This question requires a labelled diagram
 
     <DiagramCanvas
+      key={currentQuestion}
       onSave={setDiagram}
     />
 
   </div>
 )}
+
 
       <button
   className="mark-button"
@@ -178,9 +181,13 @@ return (
 
   } else {
 
-    setCurrentQuestion(currentQuestion + 1);
+  setAnswer("");
 
-  }
+  setDiagram(null);
+
+  setCurrentQuestion(currentQuestion + 1);
+
+}
 
 }} 
 >
