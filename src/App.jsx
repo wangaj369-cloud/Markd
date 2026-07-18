@@ -34,6 +34,7 @@ export default function App() {
 });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [summary, setSummary] = useState(null);
+ const [level,setLevel] = useState("A Level"); 
  
 
   useEffect(() => {
@@ -429,7 +430,8 @@ async function markAnswer(question, index, diagram) {
 <ExamPageSetup
 
 subject={subject}
-
+ level={level}
+  setLevel={setLevel}
 setRevisionStage={setRevisionStage}
 
 />

@@ -1,14 +1,13 @@
 import { useState } from "react";
 
-
 export default function ExamPageSetup({
+  level,
+  setLevel,
   setRevisionStage,
 }) {
 
 
 const [subject,setSubject] = useState("Biology");
-
-const [level,setLevel] = useState("A Level");
 
 const [paperType,setPaperType] = useState("Full Subject");
 
