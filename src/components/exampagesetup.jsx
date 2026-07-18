@@ -2,22 +2,35 @@ import { useState } from "react";
 
 
 export default function ExamPageSetup({
-  subject,
-  setRevisionStage
+  setRevisionStage,
 }) {
 
 
+const [subject,setSubject] = useState("Biology");
+
+const [level,setLevel] = useState("A Level");
+
 const [paperType,setPaperType] = useState("Full Subject");
 
-const [questions,setQuestions] = useState(5);
+const [topic,setTopic] = useState("");
+
+const [questionNumber,setQuestionNumber] = useState(5);
+
+const [customQuestions,setCustomQuestions] = useState("");
+
+const [totalMarks,setTotalMarks] = useState(50);
 
 
-const marksPerQuestion = 4;
 
-const totalMarks = questions * marksPerQuestion;
+const questions =
+questionNumber === "custom"
+? Number(customQuestions)
+: questionNumber;
 
 
-const examTime = questions * 2;
+
+const estimatedTime =
+Math.ceil(totalMarks * 1.8);
 
 
 
@@ -42,13 +55,55 @@ Subject
 </h2>
 
 
-<select>
+<select
+value={subject}
+onChange={(e)=>setSubject(e.target.value)}
+>
 
 <option>
-{subject}
+Biology
+</option>
+
+<option>
+Chemistry
+</option>
+
+<option>
+Psychology
 </option>
 
 </select>
+
+
+
+
+<h2>
+Course Level
+</h2>
+
+
+<div className="exam-options">
+
+
+<button
+className={level==="AS"?"active":""}
+onClick={()=>setLevel("AS")}
+>
+AS
+</button>
+
+
+<button
+className={level==="A Level"?"active":""}
+onClick={()=>setLevel("A Level")}
+>
+A Level
+</button>
+
+
+</div>
+
+
 
 
 
@@ -60,58 +115,76 @@ Paper Type
 <div className="exam-options">
 
 
-<button
-className={
-paperType==="Full Subject"
-?"active"
-:""
-}
-
-onClick={()=>setPaperType("Full Subject")}
->
-
-Full Subject
-
-</button>
-
+{
+[
+"Full Subject",
+"By Topic",
+"Custom"
+].map(type=>(
 
 
 <button
 
+key={type}
+
 className={
-paperType==="By Topic"
+paperType===type
 ?"active"
 :""
 }
 
-onClick={()=>setPaperType("By Topic")}
+onClick={()=>{
+setPaperType(type)
+}}
 
 >
 
-By Topic
+{type}
 
 </button>
 
 
-
-<button
-
-className={
-paperType==="Custom"
-?"active"
-:""
+))
 }
-
-onClick={()=>setPaperType("Custom")}
-
->
-
-Custom
-
-</button>
 
 
 </div>
+
+
+
+{
+paperType==="By Topic" && (
+
+<select
+value={topic}
+onChange={(e)=>setTopic(e.target.value)}
+>
+
+<option>
+Select Topic
+</option>
+
+<option>
+Cell Biology
+</option>
+
+<option>
+Genetics
+</option>
+
+<option>
+Energy Transfers
+</option>
+
+
+</select>
+
+
+)
+
+}
+
+
 
 
 
@@ -123,7 +196,8 @@ Number of Questions
 <div className="question-options">
 
 
-{[5,10,15,20].map(num=>(
+{
+[5,10,15,20].map(num=>(
 
 
 <button
@@ -136,7 +210,7 @@ questions===num
 :""
 }
 
-onClick={()=>setQuestions(num)}
+onClick={()=>setQuestionNumber(num)}
 
 >
 
@@ -145,25 +219,88 @@ onClick={()=>setQuestions(num)}
 </button>
 
 
-))}
+))
+}
+
+
+<button
+
+className={
+questionNumber==="custom"
+?"active"
+:""
+}
+
+onClick={()=>setQuestionNumber("custom")}
+
+>
+Custom
+</button>
 
 
 </div>
 
 
 
+{
+questionNumber==="custom" && (
+
+<input
+
+type="number"
+
+placeholder="Number of questions"
+
+value={customQuestions}
+
+onChange={(e)=>
+setCustomQuestions(e.target.value)
+}
+
+/>
+
+)
+
+}
+
+
+
+
 <h2>
-Exam Details
+Total Marks
 </h2>
+
+
+<input
+
+type="number"
+
+value={totalMarks}
+
+onChange={(e)=>
+setTotalMarks(Number(e.target.value))
+}
+
+/>
+
+
 
 
 <div className="exam-summary">
 
 
 <p>
-Total Marks:
+Questions:
 <b>
- {totalMarks}
+{questions}
+</b>
+</p>
+
+
+<p>
+Marks:
+<b>
+{totalMarks}
 </b>
 </p>
 
@@ -171,12 +308,13 @@ Total Marks:
 <p>
 Time:
 <b>
- {examTime} minutes
+{estimatedTime} minutes
 </b>
 </p>
 
 
 </div>
+
 
 
 
