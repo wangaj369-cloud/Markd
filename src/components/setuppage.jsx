@@ -128,16 +128,22 @@ export default function SetupPage({
         <br />
         <br />
         {topic && subtopic && (
-          <button
-className="start-button"
-onClick={async () => {
-  await generateQuestions();
-  setRevisionStage("explanation");
-}}
->
-Start Revision →
-</button>
-
+          <><button
+                className="start-button"
+                onClick={async () => {
+                  await generateQuestions();
+                  setRevisionStage("explanation");
+                } }
+              >
+                Start Revision →
+              </button>
+              
+              <button
+                className="exam-button"
+                onClick={() => setRevisionStage("examSetup")}
+              >
+                  📝 Exam Mode
+                </button></>
         )}
          <aside className="left-panel">
      <button
