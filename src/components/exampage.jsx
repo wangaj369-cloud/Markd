@@ -58,8 +58,9 @@ totalMarks
 
 const data = await response.json();
 
+console.log("GENERATED EXAM DATA:", data);
 
-setExamQuestions(data.questions);
+setExamQuestions(data.questions || []);
 
 
 
@@ -175,22 +176,26 @@ setRevisionStage("examResults");
 
 
 
-if(examQuestions.length===0){
+if(!examQuestions || examQuestions.length===0){
+
+console.log(
+  "NO QUESTIONS RECEIVED",
+  examQuestions
+);
 
 return (
 
-<div>
+  <div className="exam-page">
 
-<h2>
-Generating Exam Paper...
-</h2>
+    <h1>
+      No questions loaded
+    </h1>
 
-</div>
+  </div>
 
-)
+);
 
 }
-
 
 
 
@@ -349,7 +354,5 @@ examQuestions.length-1
 </div>
 
 
-);
-
-
+  );
 }
