@@ -278,84 +278,99 @@ Generate 5 exam questions.
 
   res.json(parsed);
 });
-app.post("/generate-exam", async(req,res)=>{
+app.post("/generate-exam", async (req,res)=>{
 
-try{
-
+try {
 
 const {
 subject,
 level,
 questions,
 totalMarks
-}=req.body;
-
+} = req.body;
 
 
 const prompt = `
-Create an A-Level ${level} ${subject} exam paper.
+Create a realistic ${level} ${subject} exam paper.
 
-Generate ${questions} questions.
+Number of questions:
+${questions}
 
-The exam is worth ${totalMarks} marks.
+Total marks:
+${totalMarks}
 
-Include:
-- realistic exam style questions
-- mark values per question
-- a mixture of recall and application questions
+Requirements:
+- Use A-Level exam style wording
+- Include application questions
+- Include recall questions
+- Each question must have a mark value
+- Total marks must equal ${totalMarks}
 
-Return ONLY JSON.
+Return ONLY valid JSON.
 
 Format:
 
 {
-"questions":[
-{
-"question":"",
-"marks":0
-}
-]
+ "questions":[
+   {
+    "question":"Example question",
+    "marks":5
+   }
+ ]
 }
 
 `;
 
 
 
-const response = await openai.chat.completions.create({
-
-model:"gpt-4o-mini",
+const completion = await groq.chat.completions.create({
 
 messages:[
+
+{
+role:"system",
+content:"You create A-Level exam papers."
+},
+
 {
 role:"user",
 content:prompt
 }
+
 ],
 
-response_format:{
-type:"json_object"
-}
+
+model:"llama-3.3-70b-versatile",
+
+temperature:0.7
+
 
 });
 
 
 
+const text =
+completion.choices[0].message.content;
+
+
+
 const exam =
-JSON.parse(
-response.choices[0].message.content
-);
+JSON.parse(text);
 
 
 
 res.json(exam);
 
 
-
 }
 
 catch(error){
 
-console.log(error);
+console.log(
+"EXAM GENERATION ERROR:",
+error
+);
+
 
 res.status(500).json({
 
@@ -363,11 +378,10 @@ error:"Exam generation failed"
 
 });
 
+
 }
 
-
 });
-
 app.post("/mark-answer", async (req, res) => {
   try {
     const { question, marks, answer, diagram, markScheme } = req.body;
