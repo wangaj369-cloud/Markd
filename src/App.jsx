@@ -430,6 +430,10 @@ async function markAnswer(question, index, diagram) {
 
 <ExamPageSetup
 
+subject={subject}
+
+subjectTopics={subjectTopics}
+
 level={level}
 
 setLevel={setLevel}

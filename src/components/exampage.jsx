@@ -13,10 +13,12 @@ export default function ExamPage({
 const [currentQuestion,setCurrentQuestion] = useState(0);
 
 
-const [timeLeft,setTimeLeft] = useState(
-  totalMarks * 90
-);
+const [timeLeft,setTimeLeft] = useState(0);
+useEffect(()=>{
 
+setTimeLeft(totalMarks * 90);
+
+},[totalMarks]);
 
 const [answers,setAnswers] = useState({});
 

@@ -1,11 +1,15 @@
 import { useState } from "react";
 
 export default function ExamPageSetup({
-  level,
+    subjectTopics,
+    level,
   setLevel,
-  setRevisionStage,
+  totalMarks,
+  setTotalMarks,
+  examQuestions,
+  setExamQuestions,
+  setRevisionStage
 }) {
-
 
 const [subject,setSubject] = useState("Biology");
 
@@ -20,11 +24,10 @@ const [customQuestions,setCustomQuestions] = useState("");
 const [totalMarks,setTotalMarks] = useState(50);
 
 
-
 const questions =
 questionNumber === "custom"
 ? Number(customQuestions)
-: questionNumber;
+: Number(questionNumber);
 
 
 
@@ -155,33 +158,43 @@ setPaperType(type)
 paperType==="By Topic" && (
 
 <select
+
 value={topic}
+
 onChange={(e)=>setTopic(e.target.value)}
+
 >
 
 <option>
 Select Topic
 </option>
 
-<option>
-Cell Biology
+
+{
+Object.keys(
+subjectTopics[subject] || {}
+)
+.map((t)=>(
+
+<option
+key={t}
+value={t}
+>
+
+{t}
+
 </option>
 
-<option>
-Genetics
-</option>
+))
 
-<option>
-Energy Transfers
-</option>
+}
 
 
 </select>
 
-
 )
-
 }
+
 
 
 
@@ -209,7 +222,10 @@ questions===num
 :""
 }
 
-onClick={()=>setQuestionNumber(num)}
+onClick={()=>{
+  setQuestionNumber(num);
+  setExamQuestions(num);
+}}
 
 >
 
