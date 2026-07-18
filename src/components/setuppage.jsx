@@ -35,12 +35,12 @@ export default function SetupPage({
       <p className="app-subtitle">
         AI-powered A-Level Revision
       </p>
-     <button
-                className="exam-button"
-                onClick={() => setRevisionStage("examSetup")}
-              >
-                  📝 Exam Mode
-                </button>
+   <div style={{
+  color:"red",
+  fontSize:"40px"
+}}>
+TESTING SETUP PAGE
+</div>
 
      <div className="mini-progress-dashboard">
 
