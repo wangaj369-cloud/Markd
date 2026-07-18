@@ -21,7 +21,7 @@ const [questionNumber,setQuestionNumber] = useState(5);
 
 const [customQuestions,setCustomQuestions] = useState("");
 
-const [totalMarks,setTotalMarks] = useState(50);
+
 
 
 const questions =
