@@ -9,6 +9,7 @@ import QuestionMode from "./components/questionmode";
 import SummaryPage from "./components/summarypage";
 import LearnMode from "./components/learnmode";
 import ExamPageSetup from "./components/exampagesetup";
+import ExamPage from "./components/exampage";
 
 
 
@@ -434,6 +435,25 @@ setRevisionStage={setRevisionStage}
 />
 
 )}
+{
+revisionStage==="exam" && (
+
+<ExamPage
+
+subject={subject}
+
+level={level}
+
+totalMarks={totalMarks}
+
+questions={questions}
+
+setRevisionStage={setRevisionStage}
+
+/>
+
+)
+}
     </div>
   );
 }
