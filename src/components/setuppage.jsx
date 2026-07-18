@@ -24,7 +24,6 @@ export default function SetupPage({
 };
   return (
     <div className="setup-page">
-  <h1 style={{color:"red"}}>I AM EDITING THE RIGHT FILE</h1>
     <div className="home-layout">
 
  
@@ -35,12 +34,6 @@ export default function SetupPage({
       <p className="app-subtitle">
         AI-powered A-Level Revision
       </p>
-   <div style={{
-  color:"red",
-  fontSize:"40px"
-}}>
-TESTING SETUP PAGE
-</div>
 
      <div className="mini-progress-dashboard">
 
