@@ -8,6 +8,7 @@ import { subjectTopics } from "./components/subject.js";
 import QuestionMode from "./components/questionmode";
 import SummaryPage from "./components/summarypage";
 import LearnMode from "./components/learnmode";
+import ExamPageSetup from "./components/exampagesetup";
 
 
 
@@ -422,6 +423,17 @@ async function markAnswer(question, index, diagram) {
         setRevisionHistory={setRevisionHistory}
       />
     )}
+    {revisionStage==="examSetup" && (
+
+<ExamPageSetup
+
+subject={subject}
+
+setRevisionStage={setRevisionStage}
+
+/>
+
+)}
     </div>
   );
 }

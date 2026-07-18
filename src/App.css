@@ -1536,4 +1536,72 @@ box-shadow:
   }
 
 
+}.exam-setup-page{
+
+max-width:800px;
+
+margin:auto;
+
+padding:30px;
+
+text-align:center;
+
+}
+
+
+.exam-options,
+.question-options{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+
+
+.exam-options button,
+.question-options button{
+
+padding:15px 25px;
+
+border-radius:15px;
+
+border:none;
+
+cursor:pointer;
+
+font-size:18px;
+
+}
+
+
+
+.exam-options button.active,
+.question-options button.active{
+
+background:#2563eb;
+
+color:white;
+
+}
+
+
+
+.exam-summary{
+
+background:#f1f5f9;
+
+padding:20px;
+
+border-radius:20px;
+
+margin:30px auto;
+
+max-width:400px;
+
 }
