@@ -35,30 +35,6 @@ export default function SetupPage({
         AI-powered A-Level Revision
       </p>
 
-     <div className="mini-progress-dashboard">
-
-    <ProgressCard
-      subject="Biology"
-      totalTopics={countSubtopics("Biology")}
-      revisionHistory={revisionHistory}
-    />
-
-    <ProgressCard
-      subject="Chemistry"
-      totalTopics={countSubtopics("Chemistry")}
-      revisionHistory={revisionHistory}
-    />
-
-    <ProgressCard
-      subject="Psychology"
-      totalTopics={countSubtopics("Psychology")}
-      revisionHistory={revisionHistory}
-    />
-    </div>
-
-    
-
-
       <div className="subject-selector">
         <button
           className={`subject-card ${subject === "Biology" ? "active" : ""}`}
@@ -163,7 +139,26 @@ export default function SetupPage({
   </button>
 
 </div>
+<div className="mini-progress-dashboard">
 
+    <ProgressCard
+      subject="Biology"
+      totalTopics={countSubtopics("Biology")}
+      revisionHistory={revisionHistory}
+    />
+
+    <ProgressCard
+      subject="Chemistry"
+      totalTopics={countSubtopics("Chemistry")}
+      revisionHistory={revisionHistory}
+    />
+
+    <ProgressCard
+      subject="Psychology"
+      totalTopics={countSubtopics("Psychology")}
+      revisionHistory={revisionHistory}
+    />
+    </div>
 
 </div>   {/* closes dropdown-container */}
 
