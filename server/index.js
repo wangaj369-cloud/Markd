@@ -348,16 +348,25 @@ temperature:0.7
 });
 
 
-
-const text =
-completion.choices[0].message.content;
+let text = completion.choices[0].message.content;
 
 
+// Remove markdown code blocks if Groq adds them
+text = text
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
 
-const exam =
-JSON.parse(text);
 
+const exam = JSON.parse(text);
 
+if(!exam.questions){
+
+ throw new Error(
+ "Exam response missing questions"
+ );
+
+}
 
 res.json(exam);
 
