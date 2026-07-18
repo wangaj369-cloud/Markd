@@ -127,36 +127,52 @@ export default function SetupPage({
         )}
         <br />
         <br />
-        {topic && subtopic && (
-          <><button
-                className="start-button"
-                onClick={async () => {
-                  await generateQuestions();
-                  setRevisionStage("explanation");
-                } }
-              >
-                Start Revision →
-              </button>
-              
-              <button
-                className="exam-button"
-                onClick={() => setRevisionStage("examSetup")}
-              >
-                  📝 Exam Mode
-                </button></>
-        )}
-         <aside className="left-panel">
-     <button
-       className="progress-button"
-       onClick={() => setRevisionStage("dashboard")}
-     >
-       📊 My Progress
-     </button>
-  </aside>
-      </div>
-    </main>
-    </div>
-    </div>
-  );
-}
+     {topic && subtopic && (
+  <>
+    <button
+      className="start-button"
+      onClick={async () => {
+        await generateQuestions();
+        setRevisionStage("explanation");
+      }}
+    >
+      Start Revision →
+    </button>
+  </>
+)}
 
+
+<button
+  className="exam-button"
+  onClick={() => setRevisionStage("examSetup")}
+>
+  📝 Exam Mode
+</button>
+
+
+<div className="mobile-divider"></div>
+
+
+<div className="progress-section">
+
+  <button
+    className="progress-button"
+    onClick={() => setRevisionStage("dashboard")}
+  >
+    📊 My Progress
+  </button>
+
+</div>
+
+
+</div>   {/* closes dropdown-container */}
+
+
+</main>
+
+</div>
+
+</div>
+
+);
+}
