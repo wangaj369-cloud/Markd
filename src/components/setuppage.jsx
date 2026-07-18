@@ -24,6 +24,7 @@ export default function SetupPage({
 };
   return (
     <div className="setup-page">
+  <h1 style={{color:"red"}}>I AM EDITING THE RIGHT FILE</h1>
     <div className="home-layout">
 
  
