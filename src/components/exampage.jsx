@@ -33,9 +33,8 @@ async function generateExam(){
 
 try{
 
-
 const response = await fetch(
-`${import.meta.env.VITE_API_URL}/generate-exam`,
+"https://markd-ltw1.onrender.com/generate-exam",
 {
 method:"POST",
 

@@ -67,6 +67,7 @@ app.post("/generate-resources", (req, res) => {
 });
 
 app.post("/generate-explanation", async (req, res) => {
+
   console.log("ROUTE HIT");
   console.log(req.body);
   const { subject, topic, subtopic } = req.body;
@@ -136,6 +137,7 @@ Subtopic: ${subtopic}
   });
 });
 app.post("/generate-questions", async (req, res) => {
+  
   console.log("ROUTE HIT");
   console.log(req.body);
   const { subject, topic, subtopic } = req.body;
@@ -276,6 +278,96 @@ Generate 5 exam questions.
 
   res.json(parsed);
 });
+app.post("/generate-exam", async(req,res)=>{
+
+try{
+
+
+const {
+subject,
+level,
+questions,
+totalMarks
+}=req.body;
+
+
+
+const prompt = `
+Create an A-Level ${level} ${subject} exam paper.
+
+Generate ${questions} questions.
+
+The exam is worth ${totalMarks} marks.
+
+Include:
+- realistic exam style questions
+- mark values per question
+- a mixture of recall and application questions
+
+Return ONLY JSON.
+
+Format:
+
+{
+"questions":[
+{
+"question":"",
+"marks":0
+}
+]
+}
+
+`;
+
+
+
+const response = await openai.chat.completions.create({
+
+model:"gpt-4o-mini",
+
+messages:[
+{
+role:"user",
+content:prompt
+}
+],
+
+response_format:{
+type:"json_object"
+}
+
+});
+
+
+
+const exam =
+JSON.parse(
+response.choices[0].message.content
+);
+
+
+
+res.json(exam);
+
+
+
+}
+
+catch(error){
+
+console.log(error);
+
+res.status(500).json({
+
+error:"Exam generation failed"
+
+});
+
+}
+
+
+});
+
 app.post("/mark-answer", async (req, res) => {
   try {
     const { question, marks, answer, diagram, markScheme } = req.body;
