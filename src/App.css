@@ -228,6 +228,52 @@ body {
   transition: 0.25s;
   box-shadow: 0 10px 30px rgba(124,58,237,0.35);
 }
+.exam-button{
+
+width:100%;
+
+max-width:700px;
+
+padding:22px;
+
+margin:18px auto;
+
+display:block;
+
+border:none;
+
+border-radius:20px;
+
+background:linear-gradient(
+145deg,
+#0f172a,
+#1e293b
+);
+
+border:2px solid #8b5cf6;
+
+color:white;
+
+font-size:22px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.exam-button:hover{
+
+transform:translateY(-5px);
+
+background:#1e293b;
+
+box-shadow:
+0 20px 45px rgba(139,92,246,.25);
+
+}
 
 .start-button:hover,
 .practice-button:hover,
