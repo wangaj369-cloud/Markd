@@ -1675,4 +1675,147 @@ justify-content:space-between;
 
 margin-top:30px;
 
+}/* =========================
+   EXAM MODE STYLING
+========================= */
+
+
+.exam-setup-page,
+.exam-page {
+
+  background:#f8fafc;
+  color:#111827;
+  min-height:100vh;
+  padding:30px;
+
+}
+
+
+/* Headings */
+
+.exam-setup-page h1,
+.exam-page h1,
+.exam-setup-page h2,
+.exam-page h2 {
+
+  color:#111827;
+
+}
+
+
+/* Paragraphs */
+
+.exam-setup-page p,
+.exam-page p {
+
+  color:#374151;
+
+}
+
+
+/* Select boxes */
+
+.exam-setup-page select,
+.exam-setup-page input {
+
+  background:white;
+  color:#111827;
+  border:2px solid #cbd5e1;
+  padding:12px;
+  border-radius:12px;
+  font-size:16px;
+
+}
+
+
+
+/* Option buttons */
+
+.exam-options button,
+.question-options button {
+
+  background:white;
+  color:#111827;
+  border:2px solid #cbd5e1;
+
+}
+
+
+.exam-options button:hover,
+.question-options button:hover {
+
+  background:#e0f2fe;
+
+}
+
+
+
+/* Active buttons */
+
+.exam-options button.active,
+.question-options button.active {
+
+  background:#2563eb;
+  color:white;
+  border-color:#2563eb;
+
+}
+
+
+
+/* Summary box */
+
+.exam-summary {
+
+  background:white;
+  color:#111827;
+  border:1px solid #e5e7eb;
+
+}
+
+
+
+/* Start button */
+
+.exam-setup-page .start-button {
+
+  background:#2563eb;
+  color:white;
+
+}
+
+
+
+/* Exam question card */
+
+.exam-question {
+
+  background:white;
+  color:#111827;
+  border-radius:20px;
+  border:1px solid #e5e7eb;
+
+}
+
+
+/* Answer box */
+
+.exam-question textarea {
+
+  background:white;
+  color:#111827;
+  border:2px solid #cbd5e1;
+
+}
+
+
+/* Timer */
+
+.exam-timer {
+
+  background:#fee2e2;
+  color:#991b1b;
+  padding:12px 20px;
+  border-radius:15px;
+
 }
