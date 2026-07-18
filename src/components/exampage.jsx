@@ -1,29 +1,34 @@
 import { useEffect, useState } from "react";
 
-
-export default function ExamPage({
+export default function Exampage({
   subject,
   level,
   totalMarks,
-  questions,
+  examQuestions,
+  setExamQuestions,
+  answers,
+  setAnswers,
   setRevisionStage
 }) {
 
-
 const [currentQuestion,setCurrentQuestion] = useState(0);
 
-
 const [timeLeft,setTimeLeft] = useState(0);
+
+
+useEffect(()=>{
+
+  setTimeLeft(totalMarks * 90);
+
+},[totalMarks]);
+
 useEffect(()=>{
 
 setTimeLeft(totalMarks * 90);
 
 },[totalMarks]);
 
-const [answers,setAnswers] = useState({});
 
-
-const [examQuestions,setExamQuestions] = useState([]);
 
 
 
@@ -48,7 +53,7 @@ body:JSON.stringify({
 
 subject,
 level,
-questions,
+questions: examQuestions,
 totalMarks
 
 })
@@ -59,8 +64,16 @@ totalMarks
 const data = await response.json();
 
 console.log("GENERATED EXAM DATA:", data);
+console.log(
+"NUMBER OF QUESTIONS RECEIVED:",
+data.questions?.length
+);
 
 setExamQuestions(data.questions || []);
+
+setCurrentQuestion(0);
+
+setAnswers({});
 
 
 
