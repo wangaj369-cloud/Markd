@@ -291,24 +291,16 @@ totalMarks
 
 
 const prompt = `
-Create a realistic ${level} ${subject} exam paper.
+Generate a ${level} ${subject} exam.
 
-Number of questions: ${questions}
-Total marks: ${totalMarks}
+Return ONLY JSON.
 
-Return ONLY valid JSON.
-
-DO NOT use markdown.
-DO NOT wrap the response in \`\`\`.
-DO NOT include explanations.
-DO NOT write any text outside the JSON.
-
-The response MUST match this schema exactly:
+Format:
 
 {
   "questions":[
     {
-      "question":"Question text",
+      "question":"...",
       "marks":5
     }
   ]
@@ -317,11 +309,10 @@ The response MUST match this schema exactly:
 Rules:
 
 - Exactly ${questions} questions.
-- Marks must add up to exactly ${totalMarks}.
-- Mix short-answer and extended-response questions.
-- Use authentic AQA A-Level wording.
-- Make every "question" a single JSON string.
-- Escape quotation marks correctly.
+- Total marks exactly ${totalMarks}.
+- No markdown.
+- No explanations.
+- Only JSON.
 `;
 const completion = await groq.chat.completions.create({
 
@@ -336,9 +327,6 @@ model:"llama-3.3-70b-versatile",
 
 temperature:0.2,
 
-response_format:{
-type:"json_object"
-}
 
 });
 
@@ -363,6 +351,13 @@ try {
 
 
   exam = JSON.parse(text);
+  if (exam.questions.length !== questions) {
+
+  throw new Error(
+    `Expected ${questions} questions but received ${exam.questions.length}`
+  );
+
+}
 
 
 } catch(error){
