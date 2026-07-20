@@ -176,7 +176,7 @@ By Subtopic
 
 </div>
 
-{examPaperType === "By Topic" && (
+{(examPaperType === "By Topic" || examPaperType === "By Subtopic") && (
 
 <div className="exam-topic-select">
 
