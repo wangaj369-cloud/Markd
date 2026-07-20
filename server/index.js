@@ -285,6 +285,9 @@ try {
 const {
 subject,
 level,
+paperType,
+topic,
+subtopics,
 questions,
 totalMarks
 } = req.body;
