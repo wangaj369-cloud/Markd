@@ -37,9 +37,12 @@ setCustomMarks,
 
 
 
-
 const estimatedTime =
-Math.ceil(examTotalMarks * 1.8);
+examTotalMarks
+?
+Math.ceil(Number(examTotalMarks) * 1.8)
+:
+0;
 
 
 
@@ -62,8 +65,19 @@ AI generated A-Level exam paper
 <label>Subject</label>
 
 <select
-  value={examSubject}
-  onChange={(e)=>setExamSubject(e.target.value)}
+
+value={examSubject}
+
+onChange={(e)=>{
+
+setExamSubject(e.target.value);
+
+setExamTopic("");
+
+setExamSubtopics([]);
+
+}}
+
 >
 
   <option>Biology</option>
@@ -212,7 +226,7 @@ setExamSubtopics(selected);
 
 
 {
-subjectTopics[examSubject][examTopic]
+(subjectTopics[examSubject]?.[examTopic] || [])
 .map((subtopic)=>(
 
 <option
@@ -463,17 +477,17 @@ examSubtopics.map((subtopic)=>(
 
 
 <p>
-<strong>Questions:</strong> {examQuestionCount}
+<strong>Questions:</strong> {examQuestionCount === "custom" ? customQuestionCount : examQuestionCount}
 </p>
 
 
 <p>
-<strong>Total Marks:</strong> {examTotalMarks}
+<strong>Total Marks:</strong> {examTotalMarks === "custom" ? customMarks : examTotalMarks}
 </p>
 
 
 <p>
-<strong>Time:</strong> {Math.ceil(examTotalMarks * 1.8)} minutes
+<strong>Time:</strong> {Math.ceil((examTotalMarks === "custom" ? customMarks : examTotalMarks) * 1.8)} minutes
 </p>
 
 
