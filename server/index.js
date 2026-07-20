@@ -289,27 +289,39 @@ questions,
 totalMarks
 } = req.body;
 
-
 const prompt = `
-Generate a ${level} ${subject} exam.
+Generate a realistic ${level} ${subject} exam paper.
 
-Return ONLY JSON.
+Paper type:
+${paperType}
+
+Topic:
+${topic || "Full Subject"}
+
+Subtopics:
+${subtopics?.join(", ") || "All topics"}
+
+Return ONLY valid JSON.
 
 Format:
 
 {
   "questions":[
     {
-      "question":"...",
+      "question":"Question text",
       "marks":5
     }
-  ]
+  ],
+  "totalMarks":${totalMarks}
 }
 
 Rules:
 
-- Exactly ${questions} questions.
-- Total marks exactly ${totalMarks}.
+- Create exactly ${questions} questions.
+- The sum of all question marks MUST equal ${totalMarks}.
+- Every question must have a marks value.
+- Use A-Level exam style wording.
+- Include recall and application questions.
 - No markdown.
 - No explanations.
 - Only JSON.
@@ -350,6 +362,28 @@ try {
 
 
   exam = JSON.parse(text);
+  const calculatedMarks =
+exam.questions.reduce(
+(total,q)=>total + Number(q.marks),
+0
+);
+
+
+console.log(
+"MARK CHECK:",
+calculatedMarks,
+"/",
+totalMarks
+);
+
+
+if(calculatedMarks !== Number(totalMarks)){
+
+throw new Error(
+`Incorrect marks. Expected ${totalMarks} got ${calculatedMarks}`
+);
+
+}
   if (exam.questions.length !== questions) {
 
   throw new Error(
