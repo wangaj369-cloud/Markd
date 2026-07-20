@@ -8,7 +8,8 @@ export default function Exampage({
   setExamQuestions,
   answers,
   setAnswers,
-  setRevisionStage
+  setRevisionStage,
+  examSettings
 }) {
 
 const [currentQuestion,setCurrentQuestion] = useState(0);
@@ -67,6 +68,10 @@ console.log("GENERATED EXAM DATA:", data);
 console.log(
 "NUMBER OF QUESTIONS RECEIVED:",
 data.questions?.length
+);
+console.log(
+"EXAM SETTINGS SENT:",
+examSettings
 );
 
 setExamQuestions(data.questions || []);

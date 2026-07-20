@@ -49,6 +49,23 @@ const [examQuestions, setExamQuestions] = useState([]);
 const [examAnswers, setExamAnswers] = useState({});
 const [customQuestionCount,setCustomQuestionCount] = useState("");
 const [customMarks,setCustomMarks] = useState("");
+const examSettings = {
+
+  subject: examSubject,
+
+  level: examLevel,
+
+  paperType: examPaperType,
+
+  topic: examTopic,
+
+  subtopics: examSubtopics,
+
+  questions: examQuestionCount,
+
+  totalMarks: examTotalMarks
+
+};
 
 const [examResults, setExamResults] = useState(null);
  const [revisionHistory, setRevisionHistory] = useState(() => {
@@ -485,6 +502,8 @@ setCustomMarks={setCustomMarks}
 revisionStage==="exam" && (
 
 <ExamPage
+
+examSettings={examSettings}
 
 subject={subject}
 
