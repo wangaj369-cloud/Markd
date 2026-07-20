@@ -12,6 +12,8 @@ export default function Exampage({
   examSettings
 }) {
 
+    const [loadingExam,setLoadingExam] = useState(true);
+
 const [currentQuestion,setCurrentQuestion] = useState(0);
 
 const [timeLeft,setTimeLeft] = useState(0);
@@ -69,6 +71,7 @@ examSettings
 );
 
 setExamQuestions(data.questions || []);
+setLoadingExam(false);
 
 setCurrentQuestion(0);
 
@@ -186,6 +189,27 @@ setRevisionStage("examResults");
 
 
 
+
+
+if(loadingExam){
+
+return (
+
+<div className="exam-page">
+
+<h1>
+Generating your exam...
+</h1>
+
+<p>
+AI is creating your questions. This may take a moment.
+</p>
+
+</div>
+
+);
+
+}
 
 
 if(!examQuestions || examQuestions.length===0){
