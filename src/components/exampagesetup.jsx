@@ -66,7 +66,7 @@ AI generated A-Level exam paper
 
 </select>
 
-<label>Level</label>
+<label>examLevel</label>
 
 <div className="exam-level-buttons">
 
@@ -287,7 +287,7 @@ Questions:
 <p>
 Marks:
 <b>
-{totalMarks}
+{examTotalMarks}
 </b>
 </p>
 

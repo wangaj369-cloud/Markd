@@ -479,7 +479,7 @@ subject={subject}
 
 level={level}
 
-totalMarks={totalMarks}
+examTotalMarks={examTotalMarks}
 
 questions={examQuestions}
 
