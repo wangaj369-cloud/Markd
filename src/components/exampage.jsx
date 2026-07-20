@@ -19,15 +19,9 @@ const [timeLeft,setTimeLeft] = useState(0);
 
 useEffect(()=>{
 
-  setTimeLeft(totalMarks * 90);
+  setTimeLeft(examSettings.totalMarks * 90);
 
-},[totalMarks]);
-
-useEffect(()=>{
-
-setTimeLeft(totalMarks * 90);
-
-},[totalMarks]);
+},[examSettings.totalMarks]);
 
 
 
@@ -52,10 +46,10 @@ headers:{
 
 body:JSON.stringify({
 
-subject,
-level,
-questions: examQuestions,
-totalMarks
+subject: examSettings.subject,
+level: examSettings.level,
+questions: examSettings.questions,
+totalMarks: examSettings.totalMarks
 
 })
 
@@ -235,7 +229,7 @@ return (
 
 
 <h1>
-{subject} {level} Exam
+{examSettings.subject} {examSettings.level} Exam
 </h1>
 
 
