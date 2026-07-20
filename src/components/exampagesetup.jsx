@@ -33,6 +33,11 @@ customMarks,
 setCustomMarks,
 
 }){
+const [showCustomMarksInput, setShowCustomMarksInput] = useState(false);
+const [showCustomQuestionsInput, setShowCustomQuestionsInput] = useState(false);
+const [showTopicDropdown, setShowTopicDropdown] = useState(false);
+const [showSubtopicDropdown, setShowSubtopicDropdown] = useState(false);
+
 
 
 
@@ -126,7 +131,7 @@ examPaperType === "By Topic"
 : ""
 }
 
-onClick={()=>setExamPaperType("By Topic")}
+onClick={()=>{setExamPaperType("By Topic"); setShowTopicDropdown(true);}}
 
 >
 
@@ -142,7 +147,7 @@ examPaperType==="By Subtopic"
 : ""
 }
 
-onClick={()=>setExamPaperType("By Subtopic")}
+onClick={()=>{setExamPaperType("By Subtopic"); setShowTopicDropdown(true);}}
 
 >
 
@@ -154,7 +159,7 @@ By Subtopic
 
 </div>
 
-{(examPaperType === "By Topic" || examPaperType === "By Subtopic") && (
+{showTopicDropdown && (
 
 <div className="exam-topic-select">
 
@@ -167,9 +172,11 @@ Topic
 
 value={examTopic}
 
-onChange={(e)=>
-setExamTopic(e.target.value)
-}
+onChange={(e)=>{
+setExamTopic(e.target.value);
+if(e.target.value && examPaperType === "By Subtopic") setShowSubtopicDropdown(true);
+if(e.target.value && examPaperType === "By Topic") setShowTopicDropdown(false);
+}}
 
 >
 
@@ -194,7 +201,7 @@ value={topic}
 </div>
 
 )}
-{examPaperType === "By Subtopic" && examTopic && (
+{showSubtopicDropdown && (
 
 <div className="exam-subtopic-select">
 
@@ -220,6 +227,10 @@ e.target.selectedOptions,
 
 setExamSubtopics(selected);
 
+}}
+
+onKeyDown={(e)=>{
+if(e.key === "Enter") setShowSubtopicDropdown(false);
 }}
 
 >
@@ -274,6 +285,7 @@ const value = e.target.value;
 if(value === "custom"){
 
 setExamQuestionCount("custom");
+setShowCustomQuestionsInput(true);
 
 }
 
@@ -282,6 +294,7 @@ else{
 setExamQuestionCount(
 Number(value)
 );
+setShowCustomQuestionsInput(false);
 
 }
 
@@ -314,7 +327,7 @@ Custom
 
 
 
-{examQuestionCount === "custom" && (
+{showCustomQuestionsInput && (
 
 <input
 
@@ -332,6 +345,10 @@ setCustomQuestionCount(
 Number(e.target.value)
 );
 
+}}
+
+onKeyDown={(e)=>{
+if(e.key === "Enter") setShowCustomQuestionsInput(false);
 }}
 
  />
@@ -354,6 +371,7 @@ const value = e.target.value;
 if(value === "custom"){
 
 setExamTotalMarks("custom");
+setShowCustomMarksInput(true);
 
 }
 
@@ -362,6 +380,7 @@ else{
 setExamTotalMarks(
 Number(value)
 );
+setShowCustomMarksInput(false);
 
 }
 
@@ -394,7 +413,7 @@ Custom
 
 
 
-{examTotalMarks === "custom" && (
+{showCustomMarksInput && (
 
 <input
 
@@ -416,6 +435,10 @@ setExamTotalMarks(
 Number(e.target.value)
 );
 
+}}
+
+onKeyDown={(e)=>{
+if(e.key === "Enter") setShowCustomMarksInput(false);
 }}
 
  />

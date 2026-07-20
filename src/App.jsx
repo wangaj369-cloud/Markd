@@ -61,9 +61,9 @@ const examSettings = {
 
   subtopics: examSubtopics,
 
-  questions: examQuestionCount,
+  questions: examQuestionCount === "custom" ? customQuestionCount : examQuestionCount,
 
-  totalMarks: examTotalMarks
+  totalMarks: examTotalMarks === "custom" ? customMarks : examTotalMarks
 
 };
 
