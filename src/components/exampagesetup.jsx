@@ -66,7 +66,7 @@ AI generated A-Level exam paper
 
 </select>
 
-<label>examLevel</label>
+
 
 <div className="exam-level-buttons">
 
@@ -211,82 +211,9 @@ value={topic}
 
 
 
-<h2>
-Number of examquestions
-</h2>
-
-
-<div className="examquestion-options">
-
-
-{
-[5,10,15,20].map(num=>(
-
-
-<button
-
-key={num}
-
-className={
-examQuestionCount===num
-?"active"
-:""
-}
-
-onClick={()=>{
-  setExamQuestionCount(num);
-}}
-
->
-
-{num}
-
-</button>
-
-
-))
-}
-
-
-<button
-
-className={
-examQuestionCount==="custom"
-?"active"
-:""
-}
-
-onClick={()=>setExamQuestionCount("custom")}
-
->
-Custom
-</button>
-
-
-</div>
 
 
 
-{
-examQuestionCount==="custom" && (
-
-<input
-
-type="number"
-
-placeholder="Number of questions"
-
-value={examQuestionCount}
-
-onChange={(e)=>
-setExamQuestionCount(Number(e.target.value))
-}
-
-/>
-
-)
-
-}
 <label>
 Number of Questions
 </label>
@@ -322,23 +249,6 @@ setExamQuestionCount(Number(e.target.value))
 </select>
 
 
-
-<h2>
-Total Marks
-</h2>
-
-
-<input
-
-type="number"
-
-value={examTotalMarks}
-
-onChange={(e)=>
-setExamTotalMarks(Number(e.target.value))
-}
-
-/>
 
 <label>
 Total Marks
