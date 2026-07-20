@@ -404,43 +404,78 @@ Number(e.target.value)
  />
 
 )}
+<div className="exam-preview">
 
-<div className="exam-summary">
+<h3>
+Exam Preview
+</h3>
 
 
 <p>
-Questions:
-<b>
-{
-examQuestionCount === "custom"
-?
-customQuestionCount
-:
-examQuestionCount
-}
-</b>
+<strong>Subject:</strong> {examSubject}
 </p>
 
 
-Marks:{
-examTotalMarks === "custom"
-?
-customMarks
-:
-examTotalMarks
-}
+<p>
+<strong>Paper Type:</strong> {examPaperType}
+</p>
 
 
-Time:{
-(
-examTotalMarks === "custom"
-?
-customMarks
-:
-examTotalMarks
-) * 1.5
+
+{examTopic && (
+
+<p>
+<strong>Topic:</strong> {examTopic}
+</p>
+
+)}
+
+
+
+{examSubtopics?.length > 0 && (
+
+<div>
+
+<strong>
+Subtopics:
+</strong>
+
+
+<ul>
+
+{
+examSubtopics.map((subtopic)=>(
+
+<li key={subtopic}>
+{subtopic}
+</li>
+
+))
+
 }
- minutes
+
+</ul>
+
+</div>
+
+)}
+
+
+
+<p>
+<strong>Questions:</strong> {examQuestionCount}
+</p>
+
+
+<p>
+<strong>Total Marks:</strong> {examTotalMarks}
+</p>
+
+
+<p>
+<strong>Time:</strong> {Math.ceil(examTotalMarks * 1.8)} minutes
+</p>
+
 
 </div>
 
