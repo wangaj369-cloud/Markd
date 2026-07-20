@@ -38,6 +38,7 @@ const [examLevel, setExamLevel] = useState("A Level");
 const [examPaperType, setExamPaperType] = useState("Full Subject");
 
 const [examTopic, setExamTopic] = useState("");
+const [examSubtopics,setExamSubtopics] = useState([]);
 
 const [examQuestionCount, setExamQuestionCount] = useState(5);
 
@@ -461,6 +462,9 @@ async function markAnswer(question, index, diagram) {
 
   examTopic={examTopic}
   setExamTopic={setExamTopic}
+ examSubtopics={examSubtopics}
+
+setExamSubtopics={setExamSubtopics} 
 
   examQuestionCount={examQuestionCount}
   setExamQuestionCount={setExamQuestionCount}

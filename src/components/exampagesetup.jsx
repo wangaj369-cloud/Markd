@@ -15,6 +15,8 @@ setExamPaperType,
 
 examTopic,
 setExamTopic,
+examSubtopics,
+setExamSubtopics,
 
 examQuestionCount,
 setExamQuestionCount,
@@ -141,7 +143,7 @@ Full Subject
 <button
 
 className={
-examPaperType==="By Topic"
+examPaperType === "By Topic"
 ? "active"
 : ""
 }
@@ -154,22 +156,23 @@ By Topic
 
 </button>
 
-
 <button
 
 className={
-examPaperType==="Custom"
+examPaperType==="By Subtopic"
 ? "active"
 : ""
 }
 
-onClick={()=>setExamPaperType("Custom")}
+onClick={()=>setExamPaperType("By Subtopic")}
 
 >
 
-Custom
+By Subtopic
 
 </button>
+
+
 
 </div>
 
@@ -213,7 +216,64 @@ value={topic}
 </div>
 
 )}
+{examPaperType === "By Subtopic" && examTopic && (
 
+<div className="exam-subtopic-select">
+
+<label>
+Subtopics
+</label>
+
+
+<select
+
+multiple
+
+value={examSubtopics}
+
+onChange={(e)=>{
+
+const selected =
+Array.from(
+e.target.selectedOptions,
+(option)=>option.value
+);
+
+
+setExamSubtopics(selected);
+
+}}
+
+>
+
+
+{
+subjectTopics[examSubject][examTopic]
+.map((subtopic)=>(
+
+<option
+
+key={subtopic}
+
+value={subtopic}
+
+>
+
+{subtopic}
+
+</option>
+
+))
+
+}
+
+
+</select>
+
+
+</div>
+
+)}
 
 
 
