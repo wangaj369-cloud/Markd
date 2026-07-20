@@ -299,6 +299,87 @@ Number(e.target.value)
  />
 
 )}
+<label>
+Total Marks
+</label>
+
+
+<select
+
+value={examTotalMarks}
+
+onChange={(e)=>{
+
+const value = e.target.value;
+
+
+if(value === "custom"){
+
+setExamTotalMarks("custom");
+
+}
+
+else{
+
+setExamTotalMarks(
+Number(value)
+);
+
+}
+
+}}
+
+>
+
+
+<option value={50}>
+50 marks
+</option>
+
+
+<option value={80}>
+80 marks
+</option>
+
+
+<option value={100}>
+100 marks
+</option>
+
+
+<option value="custom">
+Custom
+</option>
+
+
+</select>
+
+
+
+{examTotalMarks === "custom" && (
+
+<input
+
+type="number"
+
+min="1"
+
+placeholder="Enter total marks"
+
+value={customMarks}
+
+onChange={(e)=>{
+
+setCustomMarks(
+Number(e.target.value)
+);
+
+
+}}
+
+ />
+
+)}
 
 <div className="exam-summary">
 
@@ -317,21 +398,25 @@ examQuestionCount
 </p>
 
 
-<p>
-Marks:
-<b>
-{examTotalMarks}
-</b>
-</p>
+Marks:{
+examTotalMarks === "custom"
+?
+customMarks
+:
+examTotalMarks
+}
 
 
-<p>
-Time:
-<b>
-{estimatedTime} minutes
-</b>
-</p>
-
+Time:{
+(
+examTotalMarks === "custom"
+?
+customMarks
+:
+examTotalMarks
+) * 1.5
+}
+ minutes
 
 </div>
 
