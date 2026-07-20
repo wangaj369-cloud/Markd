@@ -293,57 +293,52 @@ totalMarks
 const prompt = `
 Create a realistic ${level} ${subject} exam paper.
 
-Number of questions:
-${questions}
-
-Total marks:
-${totalMarks}
-
-Requirements:
-- Use A-Level exam style wording
-- Include application questions
-- Include recall questions
-- Each question must have a mark value
-- Total marks must equal ${totalMarks}
+Number of questions: ${questions}
+Total marks: ${totalMarks}
 
 Return ONLY valid JSON.
 
-Format:
+DO NOT use markdown.
+DO NOT wrap the response in \`\`\`.
+DO NOT include explanations.
+DO NOT write any text outside the JSON.
+
+The response MUST match this schema exactly:
 
 {
- "questions":[
-   {
-    "question":"Example question",
-    "marks":5
-   }
- ]
+  "questions":[
+    {
+      "question":"Question text",
+      "marks":5
+    }
+  ]
 }
 
+Rules:
+
+- Exactly ${questions} questions.
+- Marks must add up to exactly ${totalMarks}.
+- Mix short-answer and extended-response questions.
+- Use authentic AQA A-Level wording.
+- Make every "question" a single JSON string.
+- Escape quotation marks correctly.
 `;
-
-
-
 const completion = await groq.chat.completions.create({
 
 messages:[
-
 {
-role:"system",
-content:"You create A-Level exam papers."
-},
-
-{
-role:"user",
-content:prompt
+role: "user",
+content: prompt
 }
-
 ],
-
 
 model:"llama-3.3-70b-versatile",
 
-temperature:0.7
+temperature:0.2,
 
+response_format:{
+type:"json_object"
+}
 
 });
 
@@ -357,9 +352,29 @@ text = text
   .replace(/```/g, "")
   .trim();
 
+let exam;
 
-const exam = JSON.parse(text);
+try {
 
+  text = text
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+
+
+  exam = JSON.parse(text);
+
+
+} catch(error){
+
+  console.log(
+    "BROKEN AI JSON:",
+    text
+  );
+
+  throw error;
+
+}
 if(!exam.questions){
 
  throw new Error(
