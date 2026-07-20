@@ -385,23 +385,9 @@ Number(value)
 </option>
 
 
-<input
-
-type="number"
-
-value={customMarks}
-
-onChange={(e)=>{
-
-setCustomMarks(e.target.value);
-
-setExamTotalMarks(
-Number(e.target.value)
-);
-
-}}
-
- />
+<option value="custom">
+Custom
+</option>
 
 
 </select>
@@ -426,12 +412,18 @@ setCustomMarks(
 Number(e.target.value)
 );
 
+setExamTotalMarks(
+Number(e.target.value)
+);
 
 }}
 
  />
 
 )}
+
+
+
 <div className="exam-preview">
 
 <h3>
