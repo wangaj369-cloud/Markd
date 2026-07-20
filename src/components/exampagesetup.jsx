@@ -31,7 +31,7 @@ setRevisionStage
 
 
 const estimatedTime =
-Math.ceil(totalMarks * 1.8);
+Math.ceil(examTotalMarks * 1.8);
 
 
 
