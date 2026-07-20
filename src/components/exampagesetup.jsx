@@ -233,8 +233,8 @@ onKeyDown={(e)=>{
 if(e.key === "Enter") setShowSubtopicDropdown(false);
 }}
 
->
 
+>
 
 {
 (subjectTopics[examSubject]?.[examTopic] || [])
@@ -254,16 +254,23 @@ value={subtopic}
 
 ))
 
+
 }
 
 
 </select>
 
 
+<button
+onClick={()=>setShowSubtopicDropdown(false)}
+>
+Done
+</button>
+
+
 </div>
 
 )}
-
 
 
 
@@ -549,3 +556,5 @@ Start Exam →
 
 
 }
+
+{
