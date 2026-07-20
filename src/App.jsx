@@ -27,6 +27,27 @@ export default function App() {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
   const [revisionStage, setRevisionStage] = useState("setup");
+// ======================
+// EXAM MODE STATES
+// ======================
+
+const [examSubject, setExamSubject] = useState("Biology");
+
+const [examLevel, setExamLevel] = useState("A Level");
+
+const [examPaperType, setExamPaperType] = useState("Full Subject");
+
+const [examTopic, setExamTopic] = useState("");
+
+const [examQuestionCount, setExamQuestionCount] = useState(5);
+
+const [examTotalMarks, setExamTotalMarks] = useState(50);
+
+const [examQuestions, setExamQuestions] = useState([]);
+
+const [examAnswers, setExamAnswers] = useState({});
+
+const [examResults, setExamResults] = useState(null);
  const [revisionHistory, setRevisionHistory] = useState(() => {
   return JSON.parse(
     localStorage.getItem("revisionHistory")
@@ -34,9 +55,6 @@ export default function App() {
 });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [summary, setSummary] = useState(null);
- const [level,setLevel] = useState("A Level"); 
- const [totalMarks,setTotalMarks] = useState(50);
- const [examQuestions,setExamQuestions] = useState(5);
 
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("revisionHistory")) || [];
@@ -427,27 +445,28 @@ async function markAnswer(question, index, diagram) {
       />
     )}
     {revisionStage==="examSetup" && (
-
 <ExamPageSetup
+  subjectTopics={subjectTopics}
 
-subject={subject}
+  examSubject={examSubject}
+  setExamSubject={setExamSubject}
 
-subjectTopics={subjectTopics}
+  examLevel={examLevel}
+  setExamLevel={setExamLevel}
 
-level={level}
+  examPaperType={examPaperType}
+  setExamPaperType={setExamPaperType}
 
-setLevel={setLevel}
+  examTopic={examTopic}
+  setExamTopic={setExamTopic}
 
-totalMarks={totalMarks}
+  examQuestionCount={examQuestionCount}
+  setExamQuestionCount={setExamQuestionCount}
 
-setTotalMarks={setTotalMarks}
+  examTotalMarks={examTotalMarks}
+  setExamTotalMarks={setExamTotalMarks}
 
-examQuestions={examQuestions}
-
-setExamQuestions={setExamQuestions}
-
-setRevisionStage={setRevisionStage}
-
+  setRevisionStage={setRevisionStage}
 />
 
 )}

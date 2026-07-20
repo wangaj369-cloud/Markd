@@ -1,33 +1,32 @@
 import { useState } from "react";
 
-export default function ExamPageSetup({
-    subjectTopics,
-    level,
-  setLevel,
-  totalMarks,
-  setTotalMarks,
-  examQuestions,
-  setExamQuestions,
-  setRevisionStage
-}) {
+ export default function ExamPageSetup({
 
-const [subject,setSubject] = useState("Biology");
+subjectTopics,
 
-const [paperType,setPaperType] = useState("Full Subject");
+examSubject,
+setExamSubject,
 
-const [topic,setTopic] = useState("");
+examLevel,
+setExamLevel,
 
-const [questionNumber,setQuestionNumber] = useState(5);
+examPaperType,
+setExamPaperType,
 
-const [customQuestions,setCustomQuestions] = useState("");
+examTopic,
+setExamTopic,
+
+examQuestionCount,
+setExamQuestionCount,
+
+examTotalMarks,
+setExamTotalMarks,
+
+setRevisionStage
+
+}){
 
 
-
-
-const questions =
-questionNumber === "custom"
-? Number(customQuestions)
-: Number(questionNumber);
 
 
 
@@ -52,148 +51,121 @@ AI generated A-Level exam paper
 
 
 
-<h2>
-Subject
-</h2>
-
+<label>Subject</label>
 
 <select
-value={subject}
-onChange={(e)=>setSubject(e.target.value)}
+  value={examSubject}
+  onChange={(e)=>setExamSubject(e.target.value)}
 >
 
-<option>
-Biology
-</option>
+  <option>Biology</option>
 
-<option>
-Chemistry
-</option>
+  <option>Chemistry</option>
 
-<option>
-Psychology
-</option>
+  <option>Psychology</option>
 
 </select>
 
+<label>Level</label>
 
-
-
-<h2>
-Course Level
-</h2>
-
-
-<div className="exam-options">
-
+<div className="exam-level-buttons">
 
 <button
-className={level==="AS"?"active":""}
-onClick={()=>setLevel("AS")}
+
+className={
+examLevel==="AS"
+? "active"
+: ""
+}
+
+onClick={()=>setExamLevel("AS")}
+
 >
+
 AS
+
 </button>
 
 
 <button
-className={level==="A Level"?"active":""}
-onClick={()=>setLevel("A Level")}
->
-A Level
-</button>
 
+className={
+examLevel==="A Level"
+? "active"
+: ""
+}
+
+onClick={()=>setExamLevel("A Level")}
+
+>
+
+A Level
+
+</button>
 
 </div>
 
+<label>Paper Type</label>
 
-
-
-
-<h2>
-Paper Type
-</h2>
-
-
-<div className="exam-options">
-
-
-{
-[
-"Full Subject",
-"By Topic",
-"Custom"
-].map(type=>(
-
+<div className="paper-type-buttons">
 
 <button
 
-key={type}
-
 className={
-paperType===type
-?"active"
-:""
+examPaperType==="Full Subject"
+? "active"
+: ""
 }
 
 onClick={()=>{
-setPaperType(type)
+
+setExamPaperType("Full Subject");
+
+setExamTopic("");
+
 }}
 
 >
 
-{type}
+Full Subject
 
 </button>
 
 
-))
+<button
+
+className={
+examPaperType==="By Topic"
+? "active"
+: ""
 }
 
+onClick={()=>setExamPaperType("By Topic")}
+
+>
+
+By Topic
+
+</button>
+
+
+<button
+
+className={
+examPaperType==="Custom"
+? "active"
+: ""
+}
+
+onClick={()=>setExamPaperType("Custom")}
+
+>
+
+Custom
+
+</button>
 
 </div>
-
-
-
-{
-paperType==="By Topic" && (
-
-<select
-
-value={topic}
-
-onChange={(e)=>setTopic(e.target.value)}
-
->
-
-<option>
-Select Topic
-</option>
-
-
-{
-Object.keys(
-subjectTopics[subject] || {}
-)
-.map((t)=>(
-
-<option
-key={t}
-value={t}
->
-
-{t}
-
-</option>
-
-))
-
-}
-
-
-</select>
-
-)
-}
 
 
 
