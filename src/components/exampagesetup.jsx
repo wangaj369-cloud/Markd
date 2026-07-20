@@ -173,11 +173,11 @@ Custom
 
 
 <h2>
-Number of Questions
+Number of examquestions
 </h2>
 
 
-<div className="question-options">
+<div className="examquestion-options">
 
 
 {
@@ -189,14 +189,13 @@ Number of Questions
 key={num}
 
 className={
-questions===num
+examQuestionCount===num
 ?"active"
 :""
 }
 
 onClick={()=>{
-  setQuestionNumber(num);
-  setExamQuestions(num);
+  setExamQuestionCount(num);
 }}
 
 >
@@ -213,12 +212,12 @@ onClick={()=>{
 <button
 
 className={
-questionNumber==="custom"
+examQuestionCount==="custom"
 ?"active"
 :""
 }
 
-onClick={()=>setQuestionNumber("custom")}
+onClick={()=>setExamQuestionCount("custom")}
 
 >
 Custom
@@ -230,7 +229,7 @@ Custom
 
 
 {
-questionNumber==="custom" && (
+examQuestionCount==="custom" && (
 
 <input
 
@@ -238,10 +237,10 @@ type="number"
 
 placeholder="Number of questions"
 
-value={customQuestions}
+value={examQuestionCount}
 
 onChange={(e)=>
-setCustomQuestions(e.target.value)
+setExamQuestionCount(Number(e.target.value))
 }
 
 />
@@ -262,10 +261,10 @@ Total Marks
 
 type="number"
 
-value={totalMarks}
+value={examTotalMarks}
 
 onChange={(e)=>
-setTotalMarks(Number(e.target.value))
+setExamTotalMarks(Number(e.target.value))
 }
 
 />
@@ -279,7 +278,7 @@ setTotalMarks(Number(e.target.value))
 <p>
 Questions:
 <b>
-{questions}
+{examQuestionCount}
 </b>
 </p>
 
