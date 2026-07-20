@@ -385,9 +385,23 @@ Number(value)
 </option>
 
 
-<option value="custom">
-Custom
-</option>
+<input
+
+type="number"
+
+value={customMarks}
+
+onChange={(e)=>{
+
+setCustomMarks(e.target.value);
+
+setExamTotalMarks(
+Number(e.target.value)
+);
+
+}}
+
+ />
 
 
 </select>

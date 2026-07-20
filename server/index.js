@@ -382,8 +382,12 @@ totalMarks
 
 if(calculatedMarks !== Number(totalMarks)){
 
+console.log(
+"RETRYING EXAM - WRONG MARK TOTAL"
+);
+
 throw new Error(
-`Incorrect marks. Expected ${totalMarks} got ${calculatedMarks}`
+"Wrong mark total"
 );
 
 }
