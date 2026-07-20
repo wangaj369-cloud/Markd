@@ -505,13 +505,19 @@ revisionStage==="exam" && (
 
 examSettings={examSettings}
 
-subject={subject}
+subject={examSubject}
 
-level={level}
+level={examLevel}
 
-examTotalMarks={examTotalMarks}
+totalMarks={examTotalMarks}
 
-questions={examQuestions}
+examQuestions={examQuestions}
+
+setExamQuestions={setExamQuestions}
+
+answers={examAnswers}
+
+setAnswers={setExamAnswers}
 
 setRevisionStage={setRevisionStage}
 
