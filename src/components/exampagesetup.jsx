@@ -76,42 +76,6 @@ AI generated A-Level exam paper
 
 
 
-<div className="exam-level-buttons">
-
-<button
-
-className={
-examLevel==="AS"
-? "active"
-: ""
-}
-
-onClick={()=>setExamLevel("AS")}
-
->
-
-AS
-
-</button>
-
-
-<button
-
-className={
-examLevel==="A Level"
-? "active"
-: ""
-}
-
-onClick={()=>setExamLevel("A Level")}
-
->
-
-A Level
-
-</button>
-
-</div>
 
 <label>Paper Type</label>
 

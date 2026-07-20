@@ -33,7 +33,7 @@ export default function App() {
 
 const [examSubject, setExamSubject] = useState("Biology");
 
-const [examLevel, setExamLevel] = useState("A Level");
+const [examLevel,setExamLevel] = useState("A Level");
 
 const [examPaperType, setExamPaperType] = useState("Full Subject");
 
