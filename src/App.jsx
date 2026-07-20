@@ -46,6 +46,8 @@ const [examTotalMarks, setExamTotalMarks] = useState(50);
 const [examQuestions, setExamQuestions] = useState([]);
 
 const [examAnswers, setExamAnswers] = useState({});
+const [customQuestionCount,setCustomQuestionCount] = useState("");
+const [customMarks,setCustomMarks] = useState("");
 
 const [examResults, setExamResults] = useState(null);
  const [revisionHistory, setRevisionHistory] = useState(() => {
@@ -467,6 +469,11 @@ async function markAnswer(question, index, diagram) {
   setExamTotalMarks={setExamTotalMarks}
 
   setRevisionStage={setRevisionStage}
+  customQuestionCount={customQuestionCount}
+setCustomQuestionCount={setCustomQuestionCount}
+
+customMarks={customMarks}
+setCustomMarks={setCustomMarks}
 />
 
 )}

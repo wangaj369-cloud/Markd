@@ -22,7 +22,13 @@ setExamQuestionCount,
 examTotalMarks,
 setExamTotalMarks,
 
-setRevisionStage
+setRevisionStage,
+
+customQuestionCount,
+setCustomQuestionCount,
+
+customMarks,
+setCustomMarks,
 
 }){
 
@@ -213,7 +219,6 @@ value={topic}
 
 
 
-
 <label>
 Number of Questions
 </label>
@@ -223,26 +228,47 @@ Number of Questions
 
 value={examQuestionCount}
 
-onChange={(e)=>
-setExamQuestionCount(Number(e.target.value))
+onChange={(e)=>{
+
+const value = e.target.value;
+
+
+if(value === "custom"){
+
+setExamQuestionCount("custom");
+
 }
+
+else{
+
+setExamQuestionCount(
+Number(value)
+);
+
+}
+
+}}
 
 >
 
 <option value={5}>
-5
+5 Questions
 </option>
 
 <option value={10}>
-10
+10 Questions
 </option>
 
 <option value={15}>
-15
+15 Questions
 </option>
 
 <option value={20}>
-20
+20 Questions
+</option>
+
+<option value="custom">
+Custom
 </option>
 
 
@@ -250,36 +276,29 @@ setExamQuestionCount(Number(e.target.value))
 
 
 
-<label>
-Total Marks
-</label>
+{examQuestionCount === "custom" && (
 
+<input
 
-<select
+type="number"
 
-value={examTotalMarks}
+min="1"
 
-onChange={(e)=>
-setExamTotalMarks(Number(e.target.value))
-}
+placeholder="Enter number of questions"
 
->
+value={customQuestionCount}
 
-<option value={50}>
-50 marks
-</option>
+onChange={(e)=>{
 
-<option value={80}>
-80 marks
-</option>
+setCustomQuestionCount(
+Number(e.target.value)
+);
 
-<option value={100}>
-100 marks
-</option>
+}}
 
+ />
 
-</select>
-
+)}
 
 <div className="exam-summary">
 
@@ -287,7 +306,13 @@ setExamTotalMarks(Number(e.target.value))
 <p>
 Questions:
 <b>
-{examQuestionCount}
+{
+examQuestionCount === "custom"
+?
+customQuestionCount
+:
+examQuestionCount
+}
 </b>
 </p>
 
