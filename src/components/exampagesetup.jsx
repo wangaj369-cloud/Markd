@@ -167,7 +167,46 @@ Custom
 
 </div>
 
+{examPaperType === "By Topic" && (
 
+<div className="exam-topic-select">
+
+<label>
+Topic
+</label>
+
+
+<select
+
+value={examTopic}
+
+onChange={(e)=>
+setExamTopic(e.target.value)
+}
+
+>
+
+<option value="">
+Select Topic
+</option>
+
+
+{Object.keys(subjectTopics[examSubject] || {}).map((topic)=>(
+<option
+key={topic}
+value={topic}
+>
+{topic}
+</option>
+))}
+
+
+</select>
+
+
+</div>
+
+)}
 
 
 
@@ -248,7 +287,39 @@ setExamQuestionCount(Number(e.target.value))
 )
 
 }
+<label>
+Number of Questions
+</label>
 
+
+<select
+
+value={examQuestionCount}
+
+onChange={(e)=>
+setExamQuestionCount(Number(e.target.value))
+}
+
+>
+
+<option value={5}>
+5
+</option>
+
+<option value={10}>
+10
+</option>
+
+<option value={15}>
+15
+</option>
+
+<option value={20}>
+20
+</option>
+
+
+</select>
 
 
 
@@ -269,7 +340,35 @@ setExamTotalMarks(Number(e.target.value))
 
 />
 
+<label>
+Total Marks
+</label>
 
+
+<select
+
+value={examTotalMarks}
+
+onChange={(e)=>
+setExamTotalMarks(Number(e.target.value))
+}
+
+>
+
+<option value={50}>
+50 marks
+</option>
+
+<option value={80}>
+80 marks
+</option>
+
+<option value={100}>
+100 marks
+</option>
+
+
+</select>
 
 
 <div className="exam-summary">
