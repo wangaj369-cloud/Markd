@@ -345,18 +345,15 @@ use a realistic mix of marks dependent on the subject and difficulty level.
 - Only JSON.
 `;
 const completion = await groq.chat.completions.create({
-
-messages:[
-{
-role: "user",
-content: prompt
-}
-],
-model:"llama-3.1-8b-instant",
-
-temperature:0.2,
-
-
+  model: "llama-3.3-70b-versatile",
+  messages: [
+    {
+      role: "user",
+      content: prompt
+    }
+  ],
+  temperature: 0.2,
+  max_tokens: 6000
 });
 
 
@@ -369,42 +366,22 @@ text = text
   .replace(/```/g, "")
   .trim();
 
-let exam;
+let exam = null;
 
 try {
-
-  text = text
-    .replace(/```json/g, "")
-    .replace(/```/g, "")
-    .trim();
-
-
- 
-  if (exam.questions.length !== questions) {
-
-  throw new Error(
-    `Expected ${questions} questions but received ${exam.questions.length}`
-  );
-
+  exam = JSON.parse(text);
+}
+catch(error){
+  console.log("BROKEN AI JSON:", text);
+  return res.status(500).json({
+    error: "AI returned invalid JSON"
+  });
 }
 
-
-} catch(error){
-
-  console.log(
-    "BROKEN AI JSON:",
-    text
-  );
-
-  throw error;
-
-}
-if(!exam.questions){
-
- throw new Error(
- "Exam response missing questions"
- );
-
+if (!exam || !exam.questions) {
+  return res.status(500).json({
+    error: "Exam response missing questions"
+  });
 }
 
 res.json(exam);
