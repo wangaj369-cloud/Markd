@@ -289,7 +289,7 @@ paperType,
 topic,
 subtopics,
 questions,
-totalMarks
+difficulty
 } = req.body;
 
 const prompt = `
@@ -314,16 +314,31 @@ Format:
       "question":"Question text",
       "marks":5
     }
-  ],
-  "totalMarks":${totalMarks}
+  ]
 }
 
 Rules:
 
 - Create exactly ${questions} questions.
-- The sum of all question marks MUST equal ${totalMarks}.
-- Every question must have a marks value.
-- Use A-Level exam style wording.
+- Difficulty: ${difficulty}
+
+Easy:
+mostly 1–3 mark questions.
+
+Medium:
+mostly 3–5 mark questions.
+
+Hard:
+include many 6–25 mark questions.
+
+Mixed:
+use a realistic mix of marks dependent on the subject and difficulty level.
+
+- Every question must include a marks value.
+- Use  AQA A-Level exam wording.
+- Max marks for psychology questions=16
+- Max marks for chemistry questions=8
+-Max marks for biology subjects are 9 marks, but can go up to 15 marks  for AQA style critical analysis questions, it can also go up to 25 marks for AQA style synoptic essays.
 - Include recall and application questions.
 - No markdown.
 - No explanations.
@@ -364,33 +379,7 @@ try {
     .trim();
 
 
-  exam = JSON.parse(text);
-  const calculatedMarks =
-exam.questions.reduce(
-(total,q)=>total + Number(q.marks),
-0
-);
-
-
-console.log(
-"MARK CHECK:",
-calculatedMarks,
-"/",
-totalMarks
-);
-
-
-if(calculatedMarks !== Number(totalMarks)){
-
-console.log(
-"RETRYING EXAM - WRONG MARK TOTAL"
-);
-
-throw new Error(
-"Wrong mark total"
-);
-
-}
+ 
   if (exam.questions.length !== questions) {
 
   throw new Error(
