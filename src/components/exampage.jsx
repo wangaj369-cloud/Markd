@@ -61,6 +61,7 @@ difficulty: examSettings.difficulty
 
 
 const data = await response.json();
+console.log("API RESPONSE:", data);
 
 console.log("GENERATED EXAM DATA:", data);
 console.log(
@@ -73,6 +74,7 @@ examSettings
 );
 
 setExamQuestions(data.questions || []);
+console.log("SETTING QUESTIONS:", data.questions);
 setLoadingExam(false);
 
 setCurrentQuestion(0);

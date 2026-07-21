@@ -379,6 +379,7 @@ catch(error){
 }
 
 if (!exam || !exam.questions) {
+ console.log("CURRENT exam:", exam); 
   return res.status(500).json({
     error: "Exam response missing questions"
   });
