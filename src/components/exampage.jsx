@@ -277,6 +277,7 @@ return (
 Question {currentQuestion+1}
 /
 {examQuestions.length}
+({question.marks} marks)
 
 </h2>
 
