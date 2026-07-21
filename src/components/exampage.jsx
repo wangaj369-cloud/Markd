@@ -74,7 +74,11 @@ examSettings
 );
 
 setExamQuestions(data.questions || []);
+
 console.log("SETTING QUESTIONS:", data.questions);
+
+setTimeLeft(examSettings.totalMarks * 90);
+
 setLoadingExam(false);
 
 setCurrentQuestion(0);
@@ -111,10 +115,10 @@ generateExam();
 
 useEffect(()=>{
 
+if(loadingExam) return;
 
-if(timeLeft<=0){
 
-submitExam();
+if(timeLeft <= 0){
 
 return;
 
@@ -128,11 +132,10 @@ setTimeLeft(prev=>prev-1);
 },1000);
 
 
-
 return ()=>clearInterval(timer);
 
 
-},[timeLeft]);
+},[timeLeft, loadingExam]);
 
 
 

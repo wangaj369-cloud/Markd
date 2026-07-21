@@ -1,45 +1,36 @@
 import { useState } from "react";
-
- export default function ExamPageSetup({
+export default function ExamPageSetup({
 
 subjectTopics,
 
 examSubject,
 setExamSubject,
 
-examLevel,
-setExamLevel,
-
 examPaperType,
 setExamPaperType,
 
 examTopic,
 setExamTopic,
+
 examSubtopics,
 setExamSubtopics,
 
 examQuestionCount,
 setExamQuestionCount,
 
-
-setRevisionStage,
+examDifficulty,
+setExamDifficulty,
 
 customQuestionCount,
 setCustomQuestionCount,
 
-
+setRevisionStage
 
 }){
 
 const [showCustomQuestionsInput, setShowCustomQuestionsInput] = useState(false);
 const [showTopicDropdown, setShowTopicDropdown] = useState(false);
 const [showSubtopicDropdown, setShowSubtopicDropdown] = useState(false);
-const [examDifficulty, setExamDifficulty] = useState("Mixed");
-
-
-
-
-
 
 
 return (
