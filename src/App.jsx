@@ -488,8 +488,7 @@ setExamSubtopics={setExamSubtopics}
   examQuestionCount={examQuestionCount}
   setExamQuestionCount={setExamQuestionCount}
 
-  examTotalMarks={examTotalMarks}
-  setExamTotalMarks={setExamTotalMarks}
+  
 
   setRevisionStage={setRevisionStage}
   customQuestionCount={customQuestionCount}
@@ -510,7 +509,7 @@ subject={examSubject}
 
 level={examLevel}
 
-totalMarks={examTotalMarks}
+
 
 examQuestions={examQuestions}
 

@@ -21,8 +21,6 @@ setExamSubtopics,
 examQuestionCount,
 setExamQuestionCount,
 
-examTotalMarks,
-setExamTotalMarks,
 
 setRevisionStage,
 
@@ -41,13 +39,6 @@ const [examDifficulty, setExamDifficulty] = useState("Mixed");
 
 
 
-
-const estimatedTime =
-examTotalMarks
-?
-Math.ceil(Number(examTotalMarks) * 1.8)
-:
-0;
 
 
 
@@ -440,9 +431,7 @@ examSubtopics.map((subtopic)=>(
 
 
 
-<p>
-<strong>Time:</strong> {Math.ceil((examTotalMarks === "custom" ? customMarks : examTotalMarks) * 1.8)} minutes
-</p>
+
 
 
 </div>
