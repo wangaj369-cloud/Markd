@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 
-export default function Exampage({
-  subject,
-  level,
-  totalMarks,
+ export default function Exampage({
   examQuestions,
   setExamQuestions,
   answers,
   setAnswers,
   setRevisionStage,
-  examSettings,
-   examTotalMarks
-}) {
+  examSettings
+}){
 
     const [loadingExam,setLoadingExam] = useState(true);
 
@@ -19,7 +15,7 @@ const [currentQuestion,setCurrentQuestion] = useState(0);
 
 const [timeLeft,setTimeLeft] = useState(0);
 
-console.log("TIMER MARKS:", examSettings.totalMarks);
+console.log("EXAM SETTINGS:", examSettings);
 
 
 useEffect(()=>{
