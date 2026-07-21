@@ -352,8 +352,8 @@ const completion = await groq.chat.completions.create({
       content: prompt
     }
   ],
-  temperature: 0.2,
-  max_tokens: 6000
+  temperature: 0.1,
+  max_tokens: 4000
 });
 
 
