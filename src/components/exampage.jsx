@@ -50,11 +50,13 @@ body:JSON.stringify({
 
 subject: examSettings.subject,
 level: examSettings.level,
+paperType: examSettings.paperType,
+topic: examSettings.topic,
+subtopics: examSettings.subtopics,
 questions: examSettings.questions,
-totalMarks: examSettings.totalMarks
+difficulty: examSettings.difficulty
 
 })
-
 });
 
 

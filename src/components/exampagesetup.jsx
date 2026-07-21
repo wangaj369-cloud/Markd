@@ -29,14 +29,14 @@ setRevisionStage,
 customQuestionCount,
 setCustomQuestionCount,
 
-customMarks,
-setCustomMarks,
+
 
 }){
-const [showCustomMarksInput, setShowCustomMarksInput] = useState(false);
+
 const [showCustomQuestionsInput, setShowCustomQuestionsInput] = useState(false);
 const [showTopicDropdown, setShowTopicDropdown] = useState(false);
 const [showSubtopicDropdown, setShowSubtopicDropdown] = useState(false);
+const [examDifficulty, setExamDifficulty] = useState("Mixed");
 
 
 
@@ -361,98 +361,20 @@ if(e.key === "Enter") setShowCustomQuestionsInput(false);
  />
 
 )}
-<label>
-Total Marks
-</label>
 
+ <label>Difficulty</label>
 
 <select
-
-value={examTotalMarks}
-
-onChange={(e)=>{
-
-const value = e.target.value;
-
-
-if(value === "custom"){
-
-setExamTotalMarks("custom");
-setShowCustomMarksInput(true);
-
-}
-
-else{
-
-setExamTotalMarks(
-Number(value)
-);
-setShowCustomMarksInput(false);
-
-}
-
-}}
-
+value={examDifficulty}
+onChange={(e)=>setExamDifficulty(e.target.value)}
 >
 
-
-<option value={50}>
-50 marks
-</option>
-
-
-<option value={80}>
-80 marks
-</option>
-
-
-<option value={100}>
-100 marks
-</option>
-
-
-<option value="custom">
-Custom
-</option>
-
+<option>Mixed</option>
+<option>Easy</option>
+<option>Medium</option>
+<option>Hard</option>
 
 </select>
-
-
-
-{showCustomMarksInput && (
-
-<input
-
-type="number"
-
-min="1"
-
-placeholder="Enter total marks"
-
-value={customMarks}
-
-onChange={(e)=>{
-
-setCustomMarks(
-Number(e.target.value)
-);
-
-setExamTotalMarks(
-Number(e.target.value)
-);
-
-}}
-
-onKeyDown={(e)=>{
-if(e.key === "Enter") setShowCustomMarksInput(false);
-}}
-
- />
-
-)}
-
-
 
 <div className="exam-preview">
 
@@ -516,10 +438,6 @@ examSubtopics.map((subtopic)=>(
 <strong>Questions:</strong> {examQuestionCount === "custom" ? customQuestionCount : examQuestionCount}
 </p>
 
-
-<p>
-<strong>Total Marks:</strong> {examTotalMarks === "custom" ? customMarks : examTotalMarks}
-</p>
 
 
 <p>

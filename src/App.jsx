@@ -42,13 +42,12 @@ const [examSubtopics,setExamSubtopics] = useState([]);
 
 const [examQuestionCount, setExamQuestionCount] = useState(5);
 
-const [examTotalMarks, setExamTotalMarks] = useState(50);
 
 const [examQuestions, setExamQuestions] = useState([]);
 
 const [examAnswers, setExamAnswers] = useState({});
 const [customQuestionCount,setCustomQuestionCount] = useState("");
-const [customMarks,setCustomMarks] = useState("");
+const [examDifficulty, setExamDifficulty] = useState("Mixed");
 const examSettings = {
 
   subject: examSubject,
@@ -61,9 +60,12 @@ const examSettings = {
 
   subtopics: examSubtopics,
 
-  questions: examQuestionCount === "custom" ? customQuestionCount : examQuestionCount,
+  questions:
+    examQuestionCount === "custom"
+      ? Number(customQuestionCount)
+      : Number(examQuestionCount),
 
-  totalMarks: examTotalMarks === "custom" ? customMarks : examTotalMarks
+  difficulty: examDifficulty
 
 };
 
@@ -493,8 +495,7 @@ setExamSubtopics={setExamSubtopics}
   customQuestionCount={customQuestionCount}
 setCustomQuestionCount={setCustomQuestionCount}
 
-customMarks={customMarks}
-setCustomMarks={setCustomMarks}
+
 />
 
 )}
@@ -520,6 +521,7 @@ answers={examAnswers}
 setAnswers={setExamAnswers}
 
 setRevisionStage={setRevisionStage}
+examDifficulty={examDifficulty}
 
 />
 
