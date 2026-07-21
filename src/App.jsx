@@ -495,7 +495,7 @@ setExamSubtopics={setExamSubtopics}
 setCustomQuestionCount={setCustomQuestionCount}
 
 examDifficulty={examDifficulty}
-setExamDifficulty={setExamDifficulty
+setExamDifficulty={setExamDifficulty}
 
 
 />
