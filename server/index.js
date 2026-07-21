@@ -352,7 +352,7 @@ MIXED DIFFICULTY RULES:
 - Never give an exam question over 8 marks for chemistry
 - Never give an exam question over 9 marks for biology, except for AQA style critical analysis questions which have a max of 15 marks and for AQA style synoptic essays which must be 25 give marks.
 
-RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DFIIFICULTY:
+RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DIFFICULTY:
 - Every question must include a marks value.
 - Use  AQA A-Level exam wording.
 - Include recall and application questions.
