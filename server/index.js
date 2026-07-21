@@ -326,7 +326,7 @@ Easy:
 Only give 1–3 mark questions.
 
 Medium:
-Only give3–5 mark questions.
+Only give 3–5 mark questions.
 
 Hard:
 Only give 6–25 mark questions.
@@ -336,9 +336,22 @@ use a realistic mix of marks dependent on the subject and difficulty level.
 
 - Every question must include a marks value.
 - Use  AQA A-Level exam wording.
-- Max marks for psychology questions=16
-- Max marks for chemistry questions=8
--Max marks for biology subjects are 9 marks, but can go up to 15 marks  for AQA style critical analysis questions, it can also go up to 25 marks for AQA style synoptic essays.
+EASY DIFFICULTY RULES:
+- Never give an exam question over 3 marks.
+MEDIUM DIFFICULTY RULES:
+- Never give an exam question over 5 marks.
+-Never give an exam question under 2 marks
+HARD DIFFICULTY RULES:
+- Never give an exam question over 16 marks for psychology
+- Never give an exam question over 8 marks for chemistry
+- Never give an exam question over 9 marks for biology, except for AQA style critical analysis questions which have a max of 15 marks and for AQA style synoptic essays which must be 25 give marks.
+- Never give an exam question under 5 marks
+
+MIXED DIFFICULTY RULES:
+- Never give an exam question over 16 marks for psychology
+- Never give an exam question over 8 marks for chemistry
+- Never give an exam question over 9 marks for biology, except for AQA style critical analysis questions which have a max of 15 marks and for AQA style synoptic essays which must be 25 give marks.
+
 - Include recall and application questions.
 - No markdowns.
 - No explanations.
