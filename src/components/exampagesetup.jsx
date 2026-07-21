@@ -6,6 +6,9 @@ subjectTopics,
 examSubject,
 setExamSubject,
 
+examLevel,
+setExamLevel,
+
 examPaperType,
 setExamPaperType,
 
@@ -26,7 +29,7 @@ setCustomQuestionCount,
 
 setRevisionStage
 
-}){
+}) {
 
 const [showCustomQuestionsInput, setShowCustomQuestionsInput] = useState(false);
 const [showTopicDropdown, setShowTopicDropdown] = useState(false);
