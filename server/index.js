@@ -323,13 +323,13 @@ Rules:
 - Difficulty: ${difficulty}
 
 Easy:
-mostly 1–3 mark questions.
+Only 1–3 mark questions.
 
 Medium:
-mostly 3–5 mark questions.
+Only 3–5 mark questions.
 
 Hard:
-include many 6–25 mark questions.
+Only 6–25 mark questions.
 
 Mixed:
 use a realistic mix of marks dependent on the subject and difficulty level.
