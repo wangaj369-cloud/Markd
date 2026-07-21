@@ -323,13 +323,13 @@ Rules:
 - Difficulty: ${difficulty}
 
 Easy:
-Only 1–3 mark questions.
+Only give 1–3 mark questions.
 
 Medium:
-Only 3–5 mark questions.
+Only give3–5 mark questions.
 
 Hard:
-Only 6–25 mark questions.
+Only give 6–25 mark questions.
 
 Mixed:
 use a realistic mix of marks dependent on the subject and difficulty level.
@@ -340,7 +340,7 @@ use a realistic mix of marks dependent on the subject and difficulty level.
 - Max marks for chemistry questions=8
 -Max marks for biology subjects are 9 marks, but can go up to 15 marks  for AQA style critical analysis questions, it can also go up to 25 marks for AQA style synoptic essays.
 - Include recall and application questions.
-- No markdown.
+- No markdowns.
 - No explanations.
 - Only JSON.
 `;
