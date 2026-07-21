@@ -18,6 +18,8 @@ const [currentQuestion,setCurrentQuestion] = useState(0);
 
 const [timeLeft,setTimeLeft] = useState(0);
 
+console.log("TIMER MARKS:", examSettings.totalMarks);
+
 
 useEffect(()=>{
 
