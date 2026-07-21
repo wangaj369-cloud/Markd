@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
  export default function Exampage({
+  examTotalMarks,
   examQuestions,
   setExamQuestions,
   answers,
@@ -20,9 +21,9 @@ console.log("EXAM SETTINGS:", examSettings);
 
 useEffect(()=>{
 
-  setTimeLeft(examSettings.totalMarks * 90);
+  setTimeLeft(examTotalMarks * 90);
 
-},[examSettings.totalMarks]);
+},[examTotalMarks]);
 
 
 
