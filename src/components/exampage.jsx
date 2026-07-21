@@ -19,13 +19,6 @@ const [timeLeft,setTimeLeft] = useState(0);
 console.log("EXAM SETTINGS:", examSettings);
 
 
-useEffect(()=>{
-
-  setTimeLeft(examTotalMarks * 77);
-
-},[examTotalMarks]);
-
-
 
 
 
