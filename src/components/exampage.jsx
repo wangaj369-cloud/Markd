@@ -9,7 +9,8 @@ export default function Exampage({
   answers,
   setAnswers,
   setRevisionStage,
-  examSettings
+  examSettings,
+   examTotalMarks
 }) {
 
     const [loadingExam,setLoadingExam] = useState(true);
@@ -79,7 +80,7 @@ setExamQuestions(data.questions || []);
 
 console.log("SETTING QUESTIONS:", data.questions);
 
-setTimeLeft(examSettings.totalMarks * 90);
+setTimeLeft(examTotalMarks * 90);
 
 setLoadingExam(false);
 

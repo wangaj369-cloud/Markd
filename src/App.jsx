@@ -41,6 +41,7 @@ const [examTopic, setExamTopic] = useState("");
 const [examSubtopics,setExamSubtopics] = useState([]);
 
 const [examQuestionCount, setExamQuestionCount] = useState(5);
+const [examTotalMarks, setExamTotalMarks] = useState(50);
 
 
 const [examQuestions, setExamQuestions] = useState([]);
@@ -488,6 +489,10 @@ setExamSubtopics={setExamSubtopics}
   examQuestionCount={examQuestionCount}
   setExamQuestionCount={setExamQuestionCount}
 
+  examTotalMarks={examTotalMarks}
+setExamTotalMarks={setExamTotalMarks}
+  
+
   
 
   setRevisionStage={setRevisionStage}
@@ -523,7 +528,8 @@ answers={examAnswers}
 setAnswers={setExamAnswers}
 
 setRevisionStage={setRevisionStage}
-examDifficulty={examDifficulty}
+
+examTotalMarks={examTotalMarks}
 
 />
 

@@ -21,6 +21,9 @@ setExamSubtopics,
 examQuestionCount,
 setExamQuestionCount,
 
+examTotalMarks,
+setExamTotalMarks,
+
 examDifficulty,
 setExamDifficulty,
 
