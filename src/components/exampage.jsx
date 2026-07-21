@@ -16,8 +16,6 @@ const [currentQuestion,setCurrentQuestion] = useState(0);
 
 const [timeLeft,setTimeLeft] = useState(0);
 
-console.log("EXAM SETTINGS:", examSettings);
-
 
 
 
