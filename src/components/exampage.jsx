@@ -21,7 +21,7 @@ console.log("EXAM SETTINGS:", examSettings);
 
 useEffect(()=>{
 
-  setTimeLeft(examTotalMarks * 90);
+  setTimeLeft(examTotalMarks * 77);
 
 },[examTotalMarks]);
 
@@ -77,7 +77,7 @@ setExamQuestions(data.questions || []);
 
 console.log("SETTING QUESTIONS:", data.questions);
 
-setTimeLeft(examTotalMarks * 90);
+setTimeLeft(examTotalMarks * 77);
 
 setLoadingExam(false);
 
