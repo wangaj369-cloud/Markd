@@ -10,6 +10,8 @@ import SummaryPage from "./components/summarypage";
 import LearnMode from "./components/learnmode";
 import ExamPageSetup from "./components/exampagesetup";
 import ExamPage from "./components/exampage";
+import ExamResults from "./components/examresults";
+
 
 
 
@@ -43,8 +45,8 @@ const [examSubtopics,setExamSubtopics] = useState([]);
 const [examQuestionCount, setExamQuestionCount] = useState(5);
 
 const [examQuestions, setExamQuestions] = useState([]);
-
 const [examAnswers, setExamAnswers] = useState({});
+const [completedExam,setCompletedExam] = useState(null);
 const [customQuestionCount,setCustomQuestionCount] = useState("");
 const [examDifficulty, setExamDifficulty] = useState("Mixed");
 const examSettings = {
@@ -525,8 +527,22 @@ answers={examAnswers}
 setAnswers={setExamAnswers}
 
 setRevisionStage={setRevisionStage}
+setCompletedExam={setCompletedExam}
 
 
+
+/>
+
+)
+}
+{
+revisionStage==="examResults" && (
+
+<ExamResults
+
+completedExam={completedExam}
+
+setRevisionStage={setRevisionStage}
 
 />
 

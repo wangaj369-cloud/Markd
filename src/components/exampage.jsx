@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
   answers,
   setAnswers,
   setRevisionStage,
-  examSettings
+  examSettings,
+  setCompletedExam
+
 }){
 
     const [loadingExam,setLoadingExam] = useState(true);
@@ -184,11 +186,23 @@ answers
 );
 
 
+setCompletedExam({
+
+questions: examQuestions,
+
+answers: answers,
+
+subject: examSettings.subject,
+
+level: examSettings.level
+
+});
+
+
 setRevisionStage("examResults");
 
 
 }
-
 
 
 
