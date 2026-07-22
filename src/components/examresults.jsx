@@ -64,12 +64,29 @@ completedExam.questions.map((q,index)=>(
 Question {index+1}
 </h3>
 
+
+<p>
+<strong>Question:</strong>
+</p>
+
 <p>
 {q.question}
 </p>
 
+
 <p>
-Marks: {q.marks}
+<strong>Your Answer:</strong>
+</p>
+
+<p>
+{
+completedExam.answers[index] || "No answer"
+}
+</p>
+
+
+<p>
+<strong>Available Marks:</strong> {q.marks}
 </p>
 
 
@@ -78,20 +95,11 @@ Marks: {q.marks}
 </div>
 
 ))
-
 }
-
-
-<button
-onClick={()=>setRevisionStage("setup")}
->
-Back to Revision
-</button>
 
 
 </div>
 
 );
-
 
 }
