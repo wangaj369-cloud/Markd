@@ -71,7 +71,12 @@ console.log("SETTING QUESTIONS:", data.questions);
 
 const marks = Number(examSettings.totalMarks);
 
-setTimeLeft(marks * 90);
+const totalMarks = data.questions.reduce(
+  (sum, q) => sum + q.marks,
+  0
+);
+
+setTimeLeft(totalMarks * 77);
 
 setLoadingExam(false);
 
@@ -242,8 +247,6 @@ examQuestions[currentQuestion];
 
 
 
-
-console.log("EXAM SETTINGS:", examSettings);
 return (
 
 <div className="exam-page">
