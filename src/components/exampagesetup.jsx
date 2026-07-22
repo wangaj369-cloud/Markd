@@ -37,6 +37,7 @@ setRevisionStage
 const [showCustomQuestionsInput, setShowCustomQuestionsInput] = useState(false);
 const [showTopicDropdown, setShowTopicDropdown] = useState(false);
 const [showSubtopicDropdown, setShowSubtopicDropdown] = useState(false);
+const [startingExam, setStartingExam] = useState(false);
 
 
 return (
@@ -435,20 +436,23 @@ examSubtopics.map((subtopic)=>(
 
 
 
-
 <button
 
 className="start-button"
 
-onClick={()=>{
+disabled={startingExam}
 
-setRevisionStage("exam");
+onClick={() => {
+
+    setStartingExam(true);
+
+    setRevisionStage("exam");
 
 }}
 
 >
 
-Start Exam →
+{startingExam ? "Generating Exam..." : "Start Exam →"}
 
 </button>
 
