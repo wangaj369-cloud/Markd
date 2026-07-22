@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
  export default function Exampage({
-  examTotalMarks,
   examQuestions,
   setExamQuestions,
   answers,
@@ -45,7 +44,6 @@ paperType: examSettings.paperType,
 topic: examSettings.topic,
 subtopics: examSettings.subtopics,
 questions: examSettings.questions,
-totalMarks: examSettings.totalMarks,
 difficulty: examSettings.difficulty
 
 })
@@ -64,19 +62,18 @@ console.log(
 "EXAM SETTINGS SENT:",
 examSettings
 );
-
 setExamQuestions(data.questions || []);
 
-console.log("SETTING QUESTIONS:", data.questions);
-
-const marks = Number(examSettings.totalMarks);
-
 const totalMarks = data.questions.reduce(
-  (sum, q) => sum + q.marks,
+  (total, q) => total + Number(q.marks),
   0
 );
 
+console.log("TOTAL EXAM MARKS:", totalMarks);
+
 setTimeLeft(totalMarks * 77);
+
+console.log("SETTING QUESTIONS:", data.questions);
 
 setLoadingExam(false);
 
