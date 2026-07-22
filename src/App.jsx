@@ -547,6 +547,11 @@ setRevisionStage={setRevisionStage}
 
 examMark={examMark}
 
+examResults={examResults}
+
+setExamResults={setExamResults}
+
+
 />
 
 )

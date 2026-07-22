@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+
 
 export default function ExamResults({
   completedExam,
   setRevisionStage
 }) {
 
+const [marking,setMarking] = useState(false);
+const [examResults,setExamResults] = useState(null);
 
 if(!completedExam){
 
@@ -22,7 +25,47 @@ const totalMarks = completedExam.questions.reduce(
 0
 );
 
+async function markExam(){
 
+setMarking(true);
+
+
+const response = await fetch(
+"https://markd-ltw1.onrender.com/mark-exam",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+questions: completedExam.questions,
+
+answers: completedExam.answers
+
+})
+
+});
+
+
+const data = await response.json();
+
+
+console.log(
+"MARK RESULT:",
+data
+);
+
+
+setExamResults(data);
+
+setMarking(false);
+
+
+}
 return (
 
 <div className="exam-results">
@@ -31,6 +74,20 @@ return (
 📝 Exam Results
 </h1>
 
+<button
+onClick={markExam}
+disabled={marking}
+>
+
+{
+marking
+?
+"Marking..."
+:
+"Mark Exam"
+}
+
+</button>
 
 <h2>
 {completedExam.subject} {completedExam.level}
@@ -96,7 +153,44 @@ completedExam.answers[index] || "No answer"
 
 ))
 }
+{
+examResults && (
 
+<div>
+
+<h2>
+Score: {examResults.score} / {examResults.total}
+</h2>
+
+
+{
+examResults.feedback.map(item=>(
+
+<div key={item.question}>
+
+<h3>
+Question {item.question}
+</h3>
+
+<p>
+{item.mark}/{item.maxMark}
+</p>
+
+<p>
+{item.comment}
+</p>
+
+</div>
+
+))
+
+}
+
+
+</div>
+
+)
+}
 
 </div>
 
