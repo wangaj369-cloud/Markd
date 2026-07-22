@@ -45,6 +45,7 @@ paperType: examSettings.paperType,
 topic: examSettings.topic,
 subtopics: examSettings.subtopics,
 questions: examSettings.questions,
+totalMarks: examSettings.totalMarks,
 difficulty: examSettings.difficulty
 
 })
@@ -68,7 +69,9 @@ setExamQuestions(data.questions || []);
 
 console.log("SETTING QUESTIONS:", data.questions);
 
-setTimeLeft(examTotalMarks * 77);
+const marks = Number(examSettings.totalMarks);
+
+setTimeLeft(marks * 90);
 
 setLoadingExam(false);
 
@@ -240,7 +243,7 @@ examQuestions[currentQuestion];
 
 
 
-
+console.log("EXAM SETTINGS:", examSettings);
 return (
 
 <div className="exam-page">
