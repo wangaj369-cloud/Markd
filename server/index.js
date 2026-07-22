@@ -436,7 +436,7 @@ answers
 
 const prompt = `
 
-You are an A-Level exam marker.
+You are an A-Level exam examiner.
 
 Mark the student's answers.
 
@@ -457,11 +457,12 @@ ${answers[index] || "No answer"}
 
 
 Rules:
-
-- Award marks fairly using A-Level marking standards.
-- Give partial credit where appropriate.
-- Do not be overly harsh.
-- Return ONLY valid JSON.
+- Award partial marks where appropriate.
+- Accept alternative wording.
+- Do not require exact textbook phrases.
+- Mark based on understanding, not keyword matching.
+- Use the question and mark value to decide.
+- Be fair but follow A-Level standards.
 
 Format:
 
