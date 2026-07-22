@@ -424,6 +424,121 @@ error:"Exam generation failed"
 }
 
 });
+app.post("/mark-exam", async (req,res)=>{
+
+try{
+
+const {
+questions,
+answers
+} = req.body;
+
+
+const prompt = `
+
+You are an A-Level exam marker.
+
+Mark the student's answers.
+
+Questions:
+
+${questions.map((q,index)=>`
+
+Question ${index+1}:
+${q.question}
+
+Available marks:
+${q.marks}
+
+Student answer:
+${answers[index] || "No answer"}
+
+`).join("\n")}
+
+
+Rules:
+
+- Award marks fairly using A-Level marking standards.
+- Give partial credit where appropriate.
+- Do not be overly harsh.
+- Return ONLY valid JSON.
+
+Format:
+
+{
+ "score":0,
+ "total":0,
+ "feedback":[
+   {
+    "question":1,
+    "mark":0,
+    "maxMark":0,
+    "comment":""
+   }
+ ]
+}
+
+`;
+
+
+
+const completion = await groq.chat.completions.create({
+
+model:"llama-3.1-8b-instant",
+
+temperature:0.2,
+
+messages:[
+{
+role:"user",
+content:prompt
+}
+]
+
+});
+
+
+let text =
+completion.choices[0].message.content;
+
+
+text=text
+.replace(/```json/g,"")
+.replace(/```/g,"")
+.trim();
+
+
+
+const result = JSON.parse(text);
+
+
+
+res.json(result);
+
+
+
+}
+
+
+catch(error){
+
+console.log(
+"MARKING ERROR:",
+error
+);
+
+
+res.status(500).json({
+
+error:"Exam marking failed"
+
+});
+
+
+}
+
+
+});
 app.post("/mark-answer", async (req, res) => {
   try {
     const { question, marks, answer, diagram, markScheme } = req.body;
