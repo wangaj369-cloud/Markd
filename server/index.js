@@ -532,6 +532,11 @@ text=text
 
 
 const result = JSON.parse(text);
+console.log(
+"AI MARK RESPONSE:",
+JSON.stringify(result,null,2)
+);
+
 if(!result.feedback || !Array.isArray(result.feedback)){
 
 throw new Error(
