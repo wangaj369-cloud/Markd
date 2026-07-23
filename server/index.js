@@ -531,7 +531,7 @@ text=text
 
 
 
-const result = JSON.parse(text);
+let result = JSON.parse(text);
 console.log(
 "AI MARK RESPONSE:",
 JSON.stringify(result,null,2)
