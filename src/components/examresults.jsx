@@ -83,6 +83,12 @@ console.log(
 JSON.stringify(data,null,2)
 );
 
+// Calculate score and total from feedback if not provided
+if (!data.score && data.feedback) {
+  data.score = data.feedback.reduce((sum, item) => sum + (item.mark || 0), 0);
+  data.total = data.feedback.reduce((sum, item) => sum + (item.maxMark || 0), 0);
+}
+
 setExamResults(data);
 
 setMarking(false);
