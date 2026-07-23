@@ -21,10 +21,22 @@ return(
 
 console.log("EXAM RESULTS IN FEEDBACK:", examResults);
 console.log("FEEDBACK ARRAY:", examResults.feedback);
-console.log("CURRENT FEEDBACK ITEM:", examResults.feedback[currentQuestion]);
+
+if(!examResults.feedback || examResults.feedback.length === 0){
+
+return(
+<div>
+<h1>No feedback array found</h1>
+</div>
+);
+
+}
 
 const feedback =
 examResults.feedback[currentQuestion];
+
+console.log("CURRENT FEEDBACK ITEM:", feedback);
+console.log("FEEDBACK KEYS:", feedback ? Object.keys(feedback) : "undefined");
 
 if(!feedback){
 
