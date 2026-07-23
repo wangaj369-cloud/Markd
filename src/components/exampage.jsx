@@ -54,7 +54,10 @@ difficulty: examSettings.difficulty
 
 const data = await response.json();
 console.log("API RESPONSE:", data);
-
+console.log(
+"QUESTION DATA:",
+data.questions
+);
 console.log("GENERATED EXAM DATA:", data);
 console.log(
 "NUMBER OF QUESTIONS RECEIVED:",
