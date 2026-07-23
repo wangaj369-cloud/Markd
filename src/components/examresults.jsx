@@ -224,7 +224,13 @@ showFeedback && (
 <div>
 
 <button
-onClick={() => setRevisionStage("examFeedback")}
+onClick={()=>{
+
+console.log("SENDING TO FEEDBACK:", examResults);
+
+setRevisionStage("examFeedback");
+
+}}
 >
 View Feedback
 </button>

@@ -7,6 +7,11 @@ setRevisionStage
 
 }){
 
+
+console.log(
+"RECEIVED IN FEEDBACK PAGE:",
+examResults
+);
 const [currentQuestion,setCurrentQuestion] = useState(0);
 
 if(!examResults){
