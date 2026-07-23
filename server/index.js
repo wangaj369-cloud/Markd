@@ -371,13 +371,6 @@ RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DIFFICULTY:
 Available subtopics (COPY THESE EXACTLY - CHARACTER BY CHARACTER):
 ${subtopics.join(", ")}
 
-Example:
-
-{
- "question":"Explain the role of mitochondria in respiration",
- "marks":6,
- "subtopic":"Cell Structure"
-}
 `;
 const completion = await groq.chat.completions.create({
   model: "llama-3.3-70b-versatile",
