@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
+ export default function ExamResults({
 
-export default function ExamResults({
-  completedExam,
-  setRevisionStage
-}) {
+completedExam,
+examResults,
+setExamResults,
+setRevisionStage
+
+}){
 
 const [marking,setMarking] = useState(false);
-const [examResults,setExamResults] = useState(null);
 const [showFeedback, setShowFeedback] = useState(false);
 
 function getGrade(percent){
@@ -40,6 +42,7 @@ const percentage =
 examResults
 ? Math.round((examResults.score / examResults.total) * 100)
 : 0;
+
 
 async function markExam(){
 

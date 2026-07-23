@@ -51,6 +51,7 @@ const [completedExam,setCompletedExam] = useState(null);
 const [examMark,setExamMark] = useState(null);
 const [customQuestionCount,setCustomQuestionCount] = useState("");
 const [examDifficulty, setExamDifficulty] = useState("Mixed");
+const [examResults, setExamResults] = useState(null);
 const examSettings = {
 
   subject: examSubject,
@@ -72,7 +73,7 @@ const examSettings = {
   
 };
 
-const [examResults, setExamResults] = useState(null);
+
  const [revisionHistory, setRevisionHistory] = useState(() => {
   return JSON.parse(
     localStorage.getItem("revisionHistory")
@@ -541,18 +542,10 @@ setCompletedExam={setCompletedExam}
 revisionStage==="examResults" && (
 
 <ExamResults
-
-completedExam={completedExam}
-
-setRevisionStage={setRevisionStage}
-
-examMark={examMark}
-
-examResults={examResults}
-
-setExamResults={setExamResults}
-
-
+    completedExam={completedExam}
+    examResults={examResults}
+    setExamResults={setExamResults}
+    setRevisionStage={setRevisionStage}
 />
 
 )
