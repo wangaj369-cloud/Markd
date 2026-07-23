@@ -311,9 +311,9 @@ Format:
 {
   "questions":[
     {
-      "question":"Question text",
+      "question":"",
       "marks":5,
-      "subtopic":" "
+      "subtopic":"Must be one of the provided subtopics"
     }
   ]
 }
@@ -369,6 +369,13 @@ Example:
  "marks":6,
  "subtopic":"Cell Structure"
 }
+ IMPORTANT:
+Only use subtopics from the provided list.
+
+Do not create new subtopic names.
+
+Available subtopics:
+${subtopics.join(", ")}
 `;
 const completion = await groq.chat.completions.create({
   model: "llama-3.3-70b-versatile",
@@ -411,6 +418,19 @@ if (!exam || !exam.questions) {
   });
 }
 
+exam.questions.forEach(q=>{
+
+if(!subtopics.includes(q.subtopic)){
+
+console.log(
+"INVALID SUBTOPIC:",
+q.subtopic
+);
+
+}
+
+});
+
 res.json(exam);
 
 
@@ -422,7 +442,6 @@ console.log(
 "EXAM GENERATION ERROR:",
 error
 );
-
 
 res.status(500).json({
 
