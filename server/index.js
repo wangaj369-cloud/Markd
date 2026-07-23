@@ -361,13 +361,14 @@ RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DIFFICULTY:
 - No explanations.
 - Only JSON.
 - CRITICAL: Every question MUST include a subtopic field.
-- CRITICAL: The subtopic field MUST match EXACTLY one of the provided subtopics below.
+- CRITICAL: The subtopic field MUST match EXACTLY one of the provided subtopics below - character by character.
 - CRITICAL: Do NOT create, invent, or modify subtopic names. Use ONLY the exact names from the list.
 - CRITICAL: Do NOT use topic names (like "Inorganic chemistry" or "Organic chemistry") as subtopics. These are topics, not subtopics.
-- CRITICAL: If a question doesn't fit any provided subtopic, choose the closest matching one from the list.
-- CRITICAL: The subtopic must be a specific subtopic from the list below, not a general category.
+- CRITICAL: Do NOT create similar-sounding names (e.g., if the list has "Structure of eukaryotic cells", do NOT use "Cell structure").
+- CRITICAL: The subtopic must be copied EXACTLY from the list below, including capitalization and wording.
+- CRITICAL: If a question doesn't fit any provided subtopic, choose the closest matching one from the EXACT list below.
 
-Available subtopics (USE ONLY THESE EXACT NAMES - NO TOPIC NAMES):
+Available subtopics (COPY THESE EXACTLY - CHARACTER BY CHARACTER):
 ${subtopics.join(", ")}
 
 Example:
