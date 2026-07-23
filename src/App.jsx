@@ -51,7 +51,7 @@ const [completedExam,setCompletedExam] = useState(null);
 const [examMark,setExamMark] = useState(null);
 const [customQuestionCount,setCustomQuestionCount] = useState("");
 const [examDifficulty, setExamDifficulty] = useState("Mixed");
-const [examResults, setExamResults] = useState(null);
+const [examResults,setExamResults] = useState(null);
 const examSettings = {
 
   subject: examSubject,
