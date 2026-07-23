@@ -19,8 +19,22 @@ return(
 
 }
 
+console.log("EXAM RESULTS IN FEEDBACK:", examResults);
+console.log("FEEDBACK ARRAY:", examResults.feedback);
+console.log("CURRENT FEEDBACK ITEM:", examResults.feedback[currentQuestion]);
+
 const feedback =
 examResults.feedback[currentQuestion];
+
+if(!feedback){
+
+return(
+<div>
+<h1>No feedback for this question</h1>
+</div>
+);
+
+}
 return(
 
 <div>
