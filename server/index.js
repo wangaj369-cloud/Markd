@@ -537,6 +537,15 @@ console.log(
 JSON.stringify(result,null,2)
 );
 
+if(Array.isArray(result)){
+
+result = {
+feedback: result
+};
+
+}
+
+
 if(!result.feedback || !Array.isArray(result.feedback)){
 
 throw new Error(
@@ -544,18 +553,6 @@ throw new Error(
 );
 
 }
-
-
-result.feedback = result.feedback.map(item => ({
-
-...item,
-
-modelAnswer:
-item.modelAnswer ||
-"No model answer generated."
-
-}));
-
 
 res.json(result);
 
