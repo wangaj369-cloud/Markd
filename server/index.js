@@ -486,6 +486,20 @@ Rules:
 - ModelAnswer must be a full-mark A-Level answer.
 - Speak to the student directly using words like "you" and "your".
 - Return only JSON.
+IMPORTANT:
+- You MUST include "modelAnswer" for EVERY question except if the student got full marks
+- Never leave modelAnswer empty except if studdent got full marks
+- The modelAnswer must be a full-mark A-Level answer.
+- Even if the student gives no answer, still provide the correct model answer.
+- Every feedback object MUST contain exactly these keys:
+question
+questionText
+studentAnswer
+mark
+maxMark
+strengths
+improvements
+modelAnswer
 `;
 
 
@@ -494,7 +508,7 @@ const completion = await groq.chat.completions.create({
 
 model:"llama-3.1-8b-instant",
 
-temperature:0.2,
+temperature:0,
 
 messages:[
 {
@@ -518,7 +532,15 @@ text=text
 
 
 const result = JSON.parse(text);
+result.feedback = result.feedback.map(item => ({
 
+...item,
+
+modelAnswer:
+item.modelAnswer ||
+"No model answer generated."
+
+}));
 
 
 res.json(result);
