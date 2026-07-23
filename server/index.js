@@ -19,9 +19,6 @@ console.log(Object.keys(videoLibraries.Chemistry));
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
-const genAI = new GoogleGenerativeAI(
-process.env.GEMINI_API_KEY
-);
 
 const app = express();
 
