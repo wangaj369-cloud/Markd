@@ -363,9 +363,11 @@ RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DIFFICULTY:
 - CRITICAL: Every question MUST include a subtopic field.
 - CRITICAL: The subtopic field MUST match EXACTLY one of the provided subtopics below.
 - CRITICAL: Do NOT create, invent, or modify subtopic names. Use ONLY the exact names from the list.
+- CRITICAL: Do NOT use topic names (like "Inorganic chemistry" or "Organic chemistry") as subtopics. These are topics, not subtopics.
 - CRITICAL: If a question doesn't fit any provided subtopic, choose the closest matching one from the list.
+- CRITICAL: The subtopic must be a specific subtopic from the list below, not a general category.
 
-Available subtopics (USE ONLY THESE EXACT NAMES):
+Available subtopics (USE ONLY THESE EXACT NAMES - NO TOPIC NAMES):
 ${subtopics.join(", ")}
 
 Example:
