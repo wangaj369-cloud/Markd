@@ -5,6 +5,7 @@ dotenv.config();
 console.log("🔥 THIS IS THE CORRECT INDEX.JS RUNNING 🔥");
 import cors from "cors";
 import Groq from "groq-sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import biologyVideos from "./biologyvideos.js";
 import chemistryVideos from "./chemistryvideos.js";
 import psychologyVideos from "./psychologyvideos.js";
@@ -19,6 +20,9 @@ console.log(Object.keys(videoLibraries.Chemistry));
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
+const genAI = new GoogleGenerativeAI(
+process.env.GEMINI_API_KEY
+);
 
 const app = express();
 
@@ -372,23 +376,18 @@ Available subtopics (COPY THESE EXACTLY - CHARACTER BY CHARACTER):
 ${subtopics.join(", ")}
 
 `;
-const completion = await groq.chat.completions.create({
-  model: "llama-3.3-70b-versatile",
-  messages: [
-    {
-      role: "user",
-      content: prompt
-    }
-  ],
-  temperature: 0.1,
-  max_tokens: 4000
+const model = genAI.getGenerativeModel({
+model:"gemini-2.0-flash"
 });
 
 
-let text = completion.choices[0].message.content;
+const result = await model.generateContent(prompt);
 
 
-// Remove markdown code blocks if Groq adds them
+let text = result.response.text();
+
+
+// Remove markdown code blocks if Gemini adds them
 text = text
   .replace(/```json/g, "")
   .replace(/```/g, "")
@@ -528,24 +527,15 @@ modelAnswer
 
 
 
-const completion = await groq.chat.completions.create({
-
-model:"llama-3.1-8b-instant",
-
-temperature:0,
-
-messages:[
-{
-role:"user",
-content:prompt
-}
-]
-
+const model = genAI.getGenerativeModel({
+model:"gemini-2.0-flash"
 });
 
 
-let text =
-completion.choices[0].message.content;
+const result = await model.generateContent(prompt);
+
+
+let text = result.response.text();
 
 
 text=text
@@ -555,22 +545,22 @@ text=text
 
 
 
-let result = JSON.parse(text);
+let markResult = JSON.parse(text);
 console.log(
 "AI MARK RESPONSE:",
-JSON.stringify(result,null,2)
+JSON.stringify(markResult,null,2)
 );
 
-if(Array.isArray(result)){
+if(Array.isArray(markResult)){
 
-result = {
-feedback: result
+markResult = {
+feedback: markResult
 };
 
 }
 
 
-if(!result.feedback || !Array.isArray(result.feedback)){
+if(!markResult.feedback || !Array.isArray(markResult.feedback)){
 
 throw new Error(
 "AI response missing feedback array"
@@ -578,7 +568,7 @@ throw new Error(
 
 }
 
-res.json(result);
+res.json(markResult);
 
 
 
