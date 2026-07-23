@@ -69,7 +69,8 @@ examSettings
 );
 setExamQuestions(data.questions || []);
 
-const totalMarks = data.questions.reduce(
+const questions = data.questions || [];
+const totalMarks = questions.reduce(
   (total, q) => total + Number(q.marks),
   0
 );
