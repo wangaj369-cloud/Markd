@@ -410,11 +410,24 @@ completion.choices[0].message.content;
 
 
 // Remove markdown if AI adds it
-text=text
+text = text
 .replace(/```json/g,"")
 .replace(/```/g,"")
 .trim();
 
+
+// Extract JSON only
+const jsonStart = text.indexOf("{");
+const jsonEnd = text.lastIndexOf("}");
+
+if(jsonStart !== -1 && jsonEnd !== -1){
+
+text = text.substring(
+jsonStart,
+jsonEnd + 1
+);
+
+}
 
 
 let exam;
