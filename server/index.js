@@ -292,6 +292,10 @@ questions,
 difficulty
 } = req.body;
 
+// Number the subtopics so AI only chooses an index
+const numberedSubtopics = subtopics
+.map((s,index)=>`${index}: ${s}`)
+.join("\n");
 const prompt = `
 Generate a realistic ${level} ${subject} exam paper.
 
@@ -301,24 +305,26 @@ ${paperType}
 Topic:
 ${topic || "Full Subject"}
 
-Subtopics:
-${subtopics?.join(", ") || "All topics"}
+Available subtopics:
+
+${numberedSubtopics}
+
 
 Return ONLY valid JSON.
 
 Format:
 
 {
-  "questions":[
-    {
-      "question":"",
-      "marks":5,
-      "subtopic":"Must be one of the provided subtopics"
-    }
-  ]
+ "questions":[
+   {
+    "question":"",
+    "marks":5,
+    "subtopicIndex":0
+   }
+ ]
 }
 
-Rules:
+Rules( ALWAYS FOLLOW)
 
 - Create exactly ${questions} questions.
 - Difficulty: ${difficulty}
@@ -360,83 +366,152 @@ RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DIFFICULTY:
 - No markdowns.
 - No explanations.
 - Only JSON.
-- CRITICAL: Every question MUST include a subtopic field.
-- CRITICAL: The subtopic field MUST match EXACTLY one of the provided subtopics below - character by character.
-- CRITICAL: Do NOT create, invent, or modify subtopic names. Use ONLY the exact names from the list.
-- CRITICAL: Do NOT use topic names (like "Inorganic chemistry" or "Organic chemistry") as subtopics. These are topics, not subtopics.
-- CRITICAL: Do NOT create similar-sounding names (e.g., if the list has "Structure of eukaryotic cells", do NOT use "Cell structure").
-- CRITICAL: The subtopic must be copied EXACTLY from the list below, including capitalization and wording.
-- CRITICAL: If a question doesn't fit any provided subtopic, choose the closest matching one from the EXACT list below.
+IMPORTANT:
 
-Available subtopics (COPY THESE EXACTLY - CHARACTER BY CHARACTER):
-${subtopics.join(", ")}
+The subtopicIndex must correspond exactly to the numbered list.
+
+Example:
+
+If the list is:
+
+0: Cell structure
+1: Photosynthesis
+2: Respiration
+
+Then:
+
+{
+"question":"Explain photosynthesis",
+"marks":6,
+"subtopicIndex":1
+}
 
 `;
 const completion = await groq.chat.completions.create({
-  model:"llama-3.1-8b-instant",
-  messages: [
-    {
-      role: "user",
-      content: prompt
-    }
-  ],
-  temperature: 0.1,
-  max_tokens: 4000
+
+model:"llama-3.1-8b-instant",
+
+messages:[
+{
+role:"user",
+content:prompt
+}
+],
+
+temperature:0.1,
+
+max_tokens:4000
+
 });
 
 
-let text = completion.choices[0].message.content;
+let text =
+completion.choices[0].message.content;
 
 
-// Remove markdown code blocks if Groq adds them
-text = text
-  .replace(/```json/g, "")
-  .replace(/```/g, "")
-  .trim();
+// Remove markdown if AI adds it
+text=text
+.replace(/```json/g,"")
+.replace(/```/g,"")
+.trim();
 
-let exam = null;
 
-try {
-  exam = JSON.parse(text);
+
+let exam;
+
+
+try{
+
+exam = JSON.parse(text);
+
 }
+
 catch(error){
-  console.log("BROKEN AI JSON:", text);
-  return res.status(500).json({
-    error: "AI returned invalid JSON"
-  });
-}
-
-if (!exam || !exam.questions) {
- console.log("CURRENT exam:", exam); 
-  return res.status(500).json({
-    error: "Exam response missing questions"
-  });
-}
-
-exam.questions.forEach(q=>{
-
-if(!subtopics.includes(q.subtopic)){
 
 console.log(
-"INVALID SUBTOPIC:",
-q.subtopic
+"BROKEN AI JSON:",
+text
 );
+
+return res.status(500).json({
+error:"AI returned invalid JSON"
+});
 
 }
 
+
+
+if(!exam.questions){
+
+return res.status(500).json({
+error:"Exam response missing questions"
 });
+
+}
+
+
+
+// Convert AI index into your real saved subtopic
+exam.questions.forEach(q=>{
+
+
+const index = Number(q.subtopicIndex);
+
+
+// Safety check
+if(
+Number.isInteger(index) &&
+subtopics[index]
+){
+
+q.subtopic = subtopics[index];
+
+}
+
+else{
+
+console.log(
+"INVALID SUBTOPIC INDEX:",
+q.subtopicIndex
+);
+
+
+// fallback
+q.subtopic = subtopics[0];
+
+}
+
+
+// remove temporary field
+delete q.subtopicIndex;
+
+
+});
+
+
+
+console.log(
+"FINAL QUESTIONS WITH SUBTOPICS:",
+exam.questions
+);
+
+
 
 res.json(exam);
 
 
+
 }
 
+
 catch(error){
+
 
 console.log(
 "EXAM GENERATION ERROR:",
 error
 );
+
 
 res.status(500).json({
 
@@ -447,7 +522,11 @@ error:"Exam generation failed"
 
 }
 
+
 });
+
+
+
 app.post("/mark-exam", async (req,res)=>{
 
 try{
