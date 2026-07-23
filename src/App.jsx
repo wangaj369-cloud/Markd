@@ -552,14 +552,10 @@ revisionStage==="examResults" && (
 }
 {
 revisionStage === "examFeedback" && (
-    <>
-    {console.log("RENDER STAGE CHECK:", revisionStage, "examFeedback?", revisionStage === "examFeedback")}
-    {console.log("EXAM RESULTS FOR FEEDBACK:", examResults)}
     <ExamFeedback
         examResults={examResults}
         setRevisionStage={setRevisionStage}
     />
-    </>
 )
 }
     </div>

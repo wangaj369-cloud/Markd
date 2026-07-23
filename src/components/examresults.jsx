@@ -226,8 +226,6 @@ showFeedback && (
 <button
 onClick={()=>{
 
-console.log("SENDING TO FEEDBACK:", examResults);
-
 setRevisionStage("examFeedback");
 
 }}

@@ -7,11 +7,6 @@ setRevisionStage
 
 }){
 
-
-console.log(
-"RECEIVED IN FEEDBACK PAGE:",
-examResults
-);
 const [currentQuestion,setCurrentQuestion] = useState(0);
 
 if(!examResults){
@@ -23,9 +18,6 @@ return(
 );
 
 }
-
-console.log("EXAM RESULTS IN FEEDBACK:", examResults);
-console.log("FEEDBACK ARRAY:", examResults.feedback);
 
 if(!examResults.feedback || examResults.feedback.length === 0){
 
@@ -39,9 +31,6 @@ return(
 
 const feedback =
 examResults.feedback[currentQuestion];
-
-console.log("CURRENT FEEDBACK ITEM:", feedback);
-console.log("FEEDBACK KEYS:", feedback ? Object.keys(feedback) : "undefined");
 
 if(!feedback){
 
