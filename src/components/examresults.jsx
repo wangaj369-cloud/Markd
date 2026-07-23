@@ -123,65 +123,7 @@ marking
 </h2>
 
 
-<h3>
-Total Marks: {totalMarks}
-</h3>
 
-
-<h3>
-Questions Completed: {completedExam.questions.length}
-</h3>
-
-
-<hr/>
-
-
-<h2>
-Question Breakdown
-</h2>
-
-
-{
-completedExam.questions.map((q,index)=>(
-
-<div key={index}>
-
-<h3>
-Question {index+1}
-</h3>
-
-
-<p>
-<strong>Question:</strong>
-</p>
-
-<p>
-{q.question}
-</p>
-
-
-<p>
-<strong>Your Answer:</strong>
-</p>
-
-<p>
-{
-completedExam.answers[index] || "No answer"
-}
-</p>
-
-
-<p>
-<strong>Available Marks:</strong> {q.marks}
-</p>
-
-
-<hr/>
-
-</div>
-
-))
-}
 {
 examResults && (
 

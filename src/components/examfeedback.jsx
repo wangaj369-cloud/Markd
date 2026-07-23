@@ -108,10 +108,32 @@ Previous
 
 onClick={()=>{
 
-if(currentQuestion===examResults.feedback.length-1){
+if(currentQuestion === examResults.feedback.length-1){
 
-setRevisionStage("examResults");
+return (
+<div>
 
+<h2>
+Exam complete
+</h2>
+
+
+<button
+onClick={()=>setRevisionStage("examSetup")}
+>
+Generate Another Exam
+</button>
+
+
+<button
+onClick={()=>setRevisionStage("dashboard")}
+>
+Home
+</button>
+
+
+</div>
+);
 }
 
 else{
@@ -124,13 +146,7 @@ setCurrentQuestion(currentQuestion+1);
 
 >
 
-{
-currentQuestion===examResults.feedback.length-1
-?
-"Finish"
-:
-"Next"
-}
+Next
 
 </button>
 
