@@ -474,11 +474,19 @@ Format:
     "question":1,
     "mark":0,
     "maxMark":0,
-    "comment":""
+    "strength":"",
+    "improvement":"",
+    "modelAnswer":""
    }
  ]
 }
-
+Rules:
+- Award marks like a real A-Level examiner.
+- Strengths should explain what the student did well. You dont have to give a strength if the student has genuinely done nothing good
+- Improvements should explain exactly what was missing.
+- ModelAnswer should be a full-mark answer.
+- Speak to the student directly using words like "you" and "your".
+- Return only JSON.
 `;
 
 

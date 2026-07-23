@@ -8,6 +8,7 @@ export default function ExamResults({
 
 const [marking,setMarking] = useState(false);
 const [examResults,setExamResults] = useState(null);
+const [showFeedback, setShowFeedback] = useState(false);
 
 function getGrade(percent){
 
@@ -186,30 +187,70 @@ Score: {examResults.score} / {examResults.total}
 Grade: {getGrade(percentage)}
 </h2>
 
-{
-examResults.feedback.map(item=>(
+<button
+onClick={() => setShowFeedback(!showFeedback)}
+>
 
-<div key={item.question}>
+{
+showFeedback
+? "Hide Feedback"
+: "View Feedback"
+}
+
+</button>
+{
+showFeedback && (
+
+<div>
+
+{
+examResults.feedback.map(item => (
+
+<div key={item.question} className="feedback-card">
 
 <h3>
 Question {item.question}
 </h3>
 
 <p>
-{item.mark}/{item.maxMark}
+<strong>Mark:</strong> {item.mark}/{item.maxMark}
 </p>
 
 <p>
-{item.comment}
+<strong>Strengths:</strong>
 </p>
+
+<p>
+{item.strengths}
+</p>
+
+<p>
+<strong>Improvements:</strong>
+</p>
+
+<p>
+{item.improvements}
+</p>
+
+<p>
+<strong>Model Answer:</strong>
+</p>
+
+<p>
+{item.modelAnswer}
+</p>
+
+<hr/>
 
 </div>
 
 ))
-
 }
 
+</div>
 
+)
+}
 </div>
 
 )
