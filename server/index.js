@@ -464,27 +464,26 @@ Rules:
 - Use the question and mark value to decide.
 - Be fair but follow A-Level standards.
 
-Format:
-
-{
- "score":0,
- "total":0,
- "feedback":[
+"feedback":[
    {
     "question":1,
+    "questionText":"",
+    "studentAnswer":"",
     "mark":0,
     "maxMark":0,
-    "strength":"",
-    "improvement":"",
+    "strengths":"",
+    "improvements":"",
     "modelAnswer":""
    }
  ]
 }
 Rules:
 - Award marks like a real A-Level examiner.
-- Strengths should explain what the student did well. You dont have to give a strength if the student has genuinely done nothing good
+- Strengths should explain what the student did well. You dont have to give a strength if the student has genuinely done nothing good.
 - Improvements should explain exactly what was missing.
-- ModelAnswer should be a full-mark answer.
+- QuestionText must contain the original exam question.
+- StudentAnswer must contain the student's submitted answer.
+- ModelAnswer must be a full-mark A-Level answer.
 - Speak to the student directly using words like "you" and "your".
 - Return only JSON.
 `;

@@ -203,50 +203,11 @@ showFeedback && (
 
 <div>
 
-{
-examResults.feedback.map(item => (
-
-<div key={item.question} className="feedback-card">
-
-<h3>
-Question {item.question}
-</h3>
-
-<p>
-<strong>Mark:</strong> {item.mark}/{item.maxMark}
-</p>
-
-<p>
-<strong>Strengths:</strong>
-</p>
-
-<p>
-{item.strengths}
-</p>
-
-<p>
-<strong>Improvements:</strong>
-</p>
-
-<p>
-{item.improvements}
-</p>
-
-<p>
-<strong>Model Answer:</strong>
-</p>
-
-<p>
-{item.modelAnswer}
-</p>
-
-<hr/>
-
-</div>
-
-))
-}
-
+<button
+onClick={() => setRevisionStage("examFeedback")}
+>
+View Feedback
+</button>
 </div>
 
 )
