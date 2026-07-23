@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 
  export default function ExamResults({
 
@@ -95,7 +95,36 @@ setMarking(false);
 
 
 }
+useEffect(() => {
+
+  if (!completedExam || examResults) return;
+
+  markExam();
+
+}, [completedExam, examResults]);
+
+if(marking){
+
+return(
+
+<div>
+
+<h1>
+🤖 Marking your exam...
+</h1>
+
+<p>
+Your answers are being checked by an A-Level examiner AI.
+</p>
+
+</div>
+
+);
+
+}
+
 return (
+
 
 <div className="exam-results">
 
@@ -103,20 +132,7 @@ return (
 📝 Exam Results
 </h1>
 
-<button
-onClick={markExam}
-disabled={marking}
->
 
-{
-marking
-?
-"Marking..."
-:
-"Mark Exam"
-}
-
-</button>
 
 <h2>
 {completedExam.subject} {completedExam.level}
