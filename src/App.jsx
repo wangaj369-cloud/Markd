@@ -52,7 +52,6 @@ const [examMark,setExamMark] = useState(null);
 const [customQuestionCount,setCustomQuestionCount] = useState("");
 const [examDifficulty, setExamDifficulty] = useState("Mixed");
 const [examResults,setExamResults] = useState(null);
-console.log("EXAM RESULTS STATE:", examResults);
 const examSettings = {
 
   subject: examSubject,
