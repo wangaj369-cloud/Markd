@@ -5,7 +5,6 @@ dotenv.config();
 console.log("🔥 THIS IS THE CORRECT INDEX.JS RUNNING 🔥");
 import cors from "cors";
 import Groq from "groq-sdk";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import biologyVideos from "./biologyvideos.js";
 import chemistryVideos from "./chemistryvideos.js";
 import psychologyVideos from "./psychologyvideos.js";
@@ -376,18 +375,23 @@ Available subtopics (COPY THESE EXACTLY - CHARACTER BY CHARACTER):
 ${subtopics.join(", ")}
 
 `;
-const model = genAI.getGenerativeModel({
-  model:"gemini-2.0-flash-lite"
+const completion = await groq.chat.completions.create({
+  model:"llama-3.1-8b-instant",
+  messages: [
+    {
+      role: "user",
+      content: prompt
+    }
+  ],
+  temperature: 0.1,
+  max_tokens: 4000
 });
 
 
-const result = await model.generateContent(prompt);
+let text = completion.choices[0].message.content;
 
 
-let text = result.response.text();
-
-
-// Remove markdown code blocks if Gemini adds them
+// Remove markdown code blocks if Groq adds them
 text = text
   .replace(/```json/g, "")
   .replace(/```/g, "")
@@ -527,14 +531,24 @@ modelAnswer
 
 
 
-const model = genAI.getGenerativeModel({
-  model:"gemini-2.0-flash-lite"
+const completion = await groq.chat.completions.create({
+
+model:"llama-3.1-8b-instant",
+
+temperature:0,
+
+messages:[
+{
+role:"user",
+content:prompt
+}
+]
+
 });
 
-const result = await model.generateContent(prompt);
 
-
-let text = result.response.text();
+let text =
+completion.choices[0].message.content;
 
 
 text=text
@@ -544,22 +558,22 @@ text=text
 
 
 
-let markResult = JSON.parse(text);
+let result = JSON.parse(text);
 console.log(
 "AI MARK RESPONSE:",
-JSON.stringify(markResult,null,2)
+JSON.stringify(result,null,2)
 );
 
-if(Array.isArray(markResult)){
+if(Array.isArray(result)){
 
-markResult = {
-feedback: markResult
+result = {
+feedback: result
 };
 
 }
 
 
-if(!markResult.feedback || !Array.isArray(markResult.feedback)){
+if(!result.feedback || !Array.isArray(result.feedback)){
 
 throw new Error(
 "AI response missing feedback array"
@@ -567,7 +581,7 @@ throw new Error(
 
 }
 
-res.json(markResult);
+res.json(result);
 
 
 
