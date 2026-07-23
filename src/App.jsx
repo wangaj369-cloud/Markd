@@ -550,12 +550,14 @@ revisionStage==="examResults" && (
 
 )
 }
+{
 revisionStage === "examFeedback" && (
     <ExamFeedback
         examResults={examResults}
         setRevisionStage={setRevisionStage}
     />
 )
+}
     </div>
   );
 }
