@@ -96,59 +96,42 @@ feedback.improvements || "No improvements needed."
 <p>
 {feedback.modelAnswer}
 </p>
+<div>
 
 <button
 disabled={currentQuestion===0}
-onClick={()=>setCurrentQuestion(currentQuestion-1)}
+onClick={() => setCurrentQuestion(currentQuestion-1)}
 >
 Previous
 </button>
 
-<button
-
-onClick={()=>{
-
-if(currentQuestion === examResults.feedback.length-1){
-
-return (
-<div>
-
-<h2>
-Exam complete
-</h2>
-
+{currentQuestion < examResults.feedback.length - 1 ? (
 
 <button
-onClick={()=>setRevisionStage("examSetup")}
+onClick={() => setCurrentQuestion(currentQuestion+1)}
+>
+Next
+</button>
+
+) : (
+
+<>
+<button
+onClick={() => setRevisionStage("examSetup")}
 >
 Generate Another Exam
 </button>
 
-
 <button
-onClick={()=>setRevisionStage("dashboard")}
+onClick={() => setRevisionStage("setup")}
 >
 Home
 </button>
+</>
 
+)}
 
 </div>
-);
-}
-
-else{
-
-setCurrentQuestion(currentQuestion+1);
-
-}
-
-}}
-
->
-
-Next
-
-</button>
 
 </div>
 
