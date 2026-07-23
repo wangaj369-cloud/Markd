@@ -360,7 +360,13 @@ RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DIFFICULTY:
 - No markdowns.
 - No explanations.
 - Only JSON.
-For every question, include the exact A-Level subtopic it tests.
+- CRITICAL: Every question MUST include a subtopic field.
+- CRITICAL: The subtopic field MUST match EXACTLY one of the provided subtopics below.
+- CRITICAL: Do NOT create, invent, or modify subtopic names. Use ONLY the exact names from the list.
+- CRITICAL: If a question doesn't fit any provided subtopic, choose the closest matching one from the list.
+
+Available subtopics (USE ONLY THESE EXACT NAMES):
+${subtopics.join(", ")}
 
 Example:
 
@@ -369,13 +375,6 @@ Example:
  "marks":6,
  "subtopic":"Cell Structure"
 }
- IMPORTANT:
-Only use subtopics from the provided list.
-
-Do not create new subtopic names.
-
-Available subtopics:
-${subtopics.join(", ")}
 `;
 const completion = await groq.chat.completions.create({
   model: "llama-3.3-70b-versatile",
