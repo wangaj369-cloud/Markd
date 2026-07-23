@@ -40,9 +40,14 @@ const totalMarks = completedExam.questions.reduce(
 
 const percentage =
 examResults
-? Math.round((examResults.score / examResults.total) * 100)
+? Math.round(
+(
+examResults.score /
+(examResults.total || examResults.totalMarks)
+)
+*100
+)
 : 0;
-
 
 async function markExam(){
 
@@ -75,9 +80,8 @@ const data = await response.json();
 
 console.log(
 "MARK RESULT:",
-data
+JSON.stringify(data,null,2)
 );
-
 
 setExamResults(data);
 
@@ -178,7 +182,14 @@ examResults && (
 <div>
 
 <h2>
-Score: {examResults.score} / {examResults.total}
+Score:
+{
+examResults.score
+}
+/
+{
+examResults.total || examResults.totalMarks
+}
 (
 {Math.round(
 (examResults.score / examResults.total) * 100
