@@ -1,8 +1,5 @@
 import { useState } from "react";
-console.log(
-"FEEDBACK PAGE DATA:",
-examResults
-);
+
 export default function ExamFeedback({
 
 examResults,
