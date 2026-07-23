@@ -465,6 +465,15 @@ error:"Exam response missing questions"
 
 
 // Convert AI index into your real saved subtopic
+console.log(
+"SUBTOPICS RECEIVED:",
+subtopics
+);
+
+console.log(
+"SUBTOPIC COUNT:",
+subtopics.length
+);
 exam.questions.forEach(q=>{
 
 
