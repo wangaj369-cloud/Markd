@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-
+console.log(
+"FEEDBACK PAGE DATA:",
+examResults
+);
  export default function ExamResults({
 
 completedExam,
