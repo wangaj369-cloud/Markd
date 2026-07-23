@@ -532,6 +532,15 @@ text=text
 
 
 const result = JSON.parse(text);
+if(!result.feedback || !Array.isArray(result.feedback)){
+
+throw new Error(
+"AI response missing feedback array"
+);
+
+}
+
+
 result.feedback = result.feedback.map(item => ({
 
 ...item,
