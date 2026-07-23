@@ -11,6 +11,7 @@ import LearnMode from "./components/learnmode";
 import ExamPageSetup from "./components/exampagesetup";
 import ExamPage from "./components/exampage";
 import ExamResults from "./components/examresults";
+import ExamFeedback from "./components/examfeedback";
 
 
 
