@@ -9,8 +9,18 @@ export default function ExamResults({
 const [marking,setMarking] = useState(false);
 const [examResults,setExamResults] = useState(null);
 
-if(!completedExam){
+function getGrade(percent){
 
+if(percent >= 80) return "A";
+if(percent >= 70) return "B";
+if(percent >= 60) return "C";
+if(percent >= 50) return "D";
+if(percent >= 40) return "E";
+
+return "U";
+
+}
+if(!completedExam){
 return (
 <div>
 <h1>No exam data found</h1>
@@ -24,6 +34,11 @@ const totalMarks = completedExam.questions.reduce(
 (sum,q)=>sum + Number(q.marks),
 0
 );
+
+const percentage =
+examResults
+? Math.round((examResults.score / examResults.total) * 100)
+: 0;
 
 async function markExam(){
 
@@ -160,8 +175,16 @@ examResults && (
 
 <h2>
 Score: {examResults.score} / {examResults.total}
+(
+{Math.round(
+(examResults.score / examResults.total) * 100
+)}%
+)
 </h2>
 
+<h2>
+Grade: {getGrade(percentage)}
+</h2>
 
 {
 examResults.feedback.map(item=>(
