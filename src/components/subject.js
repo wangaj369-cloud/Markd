@@ -251,7 +251,7 @@ const biologyTopics = {
 
   "Energy transfers in and between organisms": [
     "Photosynthesis",
-    " Aerobic respiration",
+    "Aerobic respiration",
     "Anaerobic respiration",
     "Energy and ecosystems",
     "Nutrient cycles"
