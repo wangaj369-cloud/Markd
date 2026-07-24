@@ -659,8 +659,23 @@ text=text
 .trim();
 
 
+let result;
 
-let result = JSON.parse(text);
+try {
+
+result = JSON.parse(text);
+
+}
+
+catch(error){
+
+console.log("========== RAW AI RESPONSE ==========");
+console.log(text);
+console.log("=====================================");
+
+throw error;
+
+}
 console.log(
 "AI MARK RESPONSE:",
 JSON.stringify(result,null,2)
