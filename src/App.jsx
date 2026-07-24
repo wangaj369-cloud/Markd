@@ -12,6 +12,7 @@ import ExamPageSetup from "./components/exampagesetup";
 import ExamPage from "./components/exampage";
 import ExamResults from "./components/examresults";
 import ExamFeedback from "./components/examfeedback";
+import PracticeMistakes from "./components/practicemistakes";
 
 
 
@@ -558,6 +559,14 @@ revisionStage==="examResults" && (
 {
 revisionStage === "examFeedback" && (
     <ExamFeedback
+        examResults={examResults}
+        setRevisionStage={setRevisionStage}
+    />
+)
+}
+{
+revisionStage === "practiceMistakes" && (
+    <PracticeMistakes
         examResults={examResults}
         setRevisionStage={setRevisionStage}
     />

@@ -114,12 +114,17 @@ Next
 </button>
 
 ) : (
-
 <>
+<button
+onClick={() => setRevisionStage("practiceMistakes")}
+>
+Practice My Mistakes
+</button>
+
 <button
 onClick={() => setRevisionStage("examSetup")}
 >
-Generate Another Exam
+New Exam
 </button>
 
 <button
