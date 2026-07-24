@@ -160,9 +160,34 @@ Topic
 value={examTopic}
 
 onChange={(e)=>{
-setExamTopic(e.target.value);
-if(e.target.value && examPaperType === "By Subtopic") setShowSubtopicDropdown(true);
-if(e.target.value && examPaperType === "By Topic") setShowTopicDropdown(false);
+
+const selectedTopic = e.target.value;
+
+setExamTopic(selectedTopic);
+
+
+// Load subtopics for this topic
+const foundSubtopics =
+subjectTopics[examSubject][selectedTopic];
+
+
+setExamSubtopics(
+foundSubtopics || []
+);
+console.log(
+"CURRENT SUBTOPICS:",
+examSubtopics
+);
+
+if(selectedTopic && examPaperType === "By Subtopic"){
+  setShowSubtopicDropdown(true);
+}
+
+
+if(selectedTopic && examPaperType === "By Topic"){
+  setShowTopicDropdown(false);
+}
+
 }}
 
 >
