@@ -26,7 +26,10 @@ useEffect(()=>{
 
 async function generateExam(){
 
-
+console.log(
+"SUBTOPICS BEING SENT:",
+examSettings.subtopics
+);
 try{
 
 const response = await fetch(
@@ -37,7 +40,6 @@ method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
-
 body:JSON.stringify({
 
 subject: examSettings.subject,
