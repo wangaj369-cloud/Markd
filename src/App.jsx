@@ -62,8 +62,13 @@ const examSettings = {
 
   topic: examTopic,
 
-  subtopics: examSubtopics,
-
+  subtopics:
+examPaperType === "Full Subject"
+?
+Object.values(subjectTopics[examSubject])
+.flat()
+:
+examSubtopics,
   questions:
     examQuestionCount === "custom"
       ? Number(customQuestionCount)
