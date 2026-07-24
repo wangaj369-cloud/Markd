@@ -27,13 +27,12 @@ useEffect(()=>{
 async function generateExam(){
 
 console.log(
-"EXAM SETTINGS BEFORE SEND:",
+"EXAM SETTINGS SENT TO SERVER:",
 examSettings
-
 );
 
 console.log(
-"SUBTOPICS BEFORE SEND:",
+"SUBTOPICS SENT TO SERVER:",
 examSettings.subtopics
 );
 try{
