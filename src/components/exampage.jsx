@@ -26,10 +26,6 @@ useEffect(()=>{
 
 async function generateExam(){
 
-console.log(
-"WEAK TOPICS:",
-data.weakTopics
-);
 try{
 
 const response = await fetch(
