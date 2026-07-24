@@ -89,6 +89,22 @@ if (!data.score && data.feedback) {
   data.total = data.feedback.reduce((sum, item) => sum + (item.maxMark || 0), 0);
 }
 
+data.feedback = data.feedback.map((item, index) => ({
+  ...item,
+  subtopic: completedExam.questions[index].subtopic
+}));
+const weakTopics = data.feedback.filter(item => {
+  const percent = (item.mark / item.maxMark) * 100;
+  return percent < 60;
+});
+
+data.weakTopics = weakTopics;
+
+
+console.log(
+"WEAK TOPICS:",
+data.weakTopics
+);
 setExamResults(data);
 
 setMarking(false);

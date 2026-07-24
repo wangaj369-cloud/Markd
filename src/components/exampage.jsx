@@ -27,13 +27,8 @@ useEffect(()=>{
 async function generateExam(){
 
 console.log(
-"EXAM SETTINGS SENT TO SERVER:",
-examSettings
-);
-
-console.log(
-"SUBTOPICS SENT TO SERVER:",
-examSettings.subtopics
+"WEAK TOPICS:",
+data.weakTopics
 );
 try{
 
@@ -45,6 +40,7 @@ method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
+
 body:JSON.stringify({
 
 subject: examSettings.subject,
