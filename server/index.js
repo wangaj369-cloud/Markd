@@ -589,7 +589,10 @@ Rules:
 - Use the question and mark value to decide.
 - Be fair but follow A-Level standards.
 
-"feedback":[
+Return ONLY valid JSON in this format:
+
+{
+  "feedback":[
    {
     "question":1,
     "questionText":"",
@@ -600,8 +603,9 @@ Rules:
     "improvements":"",
     "modelAnswer":""
    }
- ]
+  ]
 }
+
 Rules:
 - Award marks like a real A-Level examiner.
 - Strengths should explain what the student did well. You dont have to give a strength if the student has genuinely done nothing good.
