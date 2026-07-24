@@ -98,7 +98,19 @@ const weakTopics = data.feedback.filter(item => {
   return percent < 60;
 });
 
-data.weakTopics = weakTopics;
+data.weakTopics = weakTopics.map(item => ({
+
+  subtopic: item.subtopic,
+
+  mark: item.mark,
+
+  maxMark: item.maxMark,
+
+  percentage: Math.round(
+    (item.mark / item.maxMark) * 100
+  )
+
+}));
 
 
 console.log(
