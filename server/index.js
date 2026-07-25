@@ -709,6 +709,7 @@ error:"Exam marking failed"
 
 });
 app.post("/mark-answer", async (req, res) => {
+  console.log("MARK ANSWER RECEIVED:", req.body);
   try {
     const { question, marks, answer, diagram, markScheme } = req.body;
     console.log("DIAGRAM RECEIVED:", diagram ? "YES" : "NO");
