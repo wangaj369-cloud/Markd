@@ -476,6 +476,10 @@ async function markAnswer(question, index, diagram) {
         setTopic={setTopic}
         setSubtopic={setSubtopic}
         setRevisionHistory={setRevisionHistory}
+        revisionQueue={revisionQueue}
+currentRevisionIndex={currentRevisionIndex}
+setCurrentRevisionIndex={setCurrentRevisionIndex}
+generateQuestions={generateQuestions}
       />
     )}
     {revisionStage==="examSetup" && (

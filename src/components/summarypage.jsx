@@ -45,43 +45,49 @@ else if (percentage >= 60) grade = "C";
 else if (percentage >= 50) grade = "D";
 const retryTopic = async () => {
 
-if(revisionQueue && revisionQueue.length > 0){
+  // Normal revision mode
+  if (!revisionQueue || revisionQueue.length === 0) {
 
-const nextIndex = currentRevisionIndex + 1;
+    setAnswers({});
+    setResults({});
+    setCurrentQuestion(0);
+    setQuestions([]);
 
-if(nextIndex < revisionQueue.length){
+    setRevisionStage("explanation");
+    return;
+  }
 
-setCurrentRevisionIndex(nextIndex);
+  // Practice mistakes queue
+  const nextIndex = currentRevisionIndex + 1;
 
-await generateQuestions({
+  // Finished every weak topic
+  if (nextIndex >= revisionQueue.length) {
 
-subject: examSubject,
+    alert("🎉 You've revised all your weak topics. You're ready to retake your exam!");
 
-topic: revisionQueue[nextIndex],
+    setRevisionStage("examSetup");
+    return;
+  }
 
-subtopic: revisionQueue[nextIndex]
+  // Move to next weak topic
+  const nextTopic = revisionQueue[nextIndex];
 
-});
+  setCurrentRevisionIndex(nextIndex);
 
-return;
+  setAnswers({});
+  setResults({});
+  setCurrentQuestion(0);
+  setQuestions([]);
 
-}
+  await generateQuestions({
 
-alert("🎉 You've revised all of your weak topics!");
+    subject: nextTopic.subject,
+    topic: nextTopic.topic,
+    subtopic: nextTopic.subtopic
 
-setRevisionStage("examSetup");
+  });
 
-return;
-
-}
-
-
-setAnswers({});
-setResults({});
-setCurrentQuestion(0);
-setQuestions([]);
-
-setRevisionStage("explanation");
+  setRevisionStage("explanation");
 
 };
 
