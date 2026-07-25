@@ -206,7 +206,11 @@ answers: answers,
 
 subject: examSettings.subject,
 
-level: examSettings.level
+level: examSettings.level,
+
+topic: examSettings.topic,
+
+subtopics: examSettings.subtopics
 
 });
 

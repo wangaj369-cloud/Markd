@@ -59,7 +59,6 @@ const selectedTopicData = weakTopics.map(item => ({
   percentage: item.percentage
 
 }));
-
 console.log(
 "SELECTED REVISION QUEUE:",
 selectedTopicData

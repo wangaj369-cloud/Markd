@@ -595,7 +595,7 @@ setRevisionQueue={setRevisionQueue}
 currentRevisionIndex={currentRevisionIndex}
 setCurrentRevisionIndex={setCurrentRevisionIndex}
     generateQuestions={generateQuestions} 
-     examSubject={examSubject}
+     examSubject={completedExam?.subject}
     examTopic={examTopic}
     findTopicFromSubtopic={findTopicFromSubtopic}
     />
@@ -622,7 +622,9 @@ setCurrentQuestion={setCurrentQuestion}
 
 subject={examSubject}
 
-topic={revisionQueue[currentRevisionIndex]}
+topic={revisionQueue[currentRevisionIndex]?.topic}
+
+subtopic={revisionQueue[currentRevisionIndex]?.subtopic}
 
 practiceMode={true}
 

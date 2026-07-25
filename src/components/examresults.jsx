@@ -136,7 +136,11 @@ console.log(
 "WEAK TOPICS:",
 data.weakTopics
 );
-setExamResults(data);
+setExamResults({
+  ...data,
+  subject: completedExam.subject,
+  level: completedExam.level
+});
 
 setMarking(false);
 
