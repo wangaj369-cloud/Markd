@@ -14,7 +14,12 @@ export default function SummaryPage({
     setCurrentQuestion,
     setTopic,
     setSubtopic,
-  setRevisionHistory   
+  setRevisionHistory,
+  revisionQueue,
+currentRevisionIndex,
+setCurrentRevisionIndex,
+generateQuestions,
+examSubject,   
 }) {
     
 
@@ -38,17 +43,47 @@ if (percentage >= 80) grade = "A";
 else if (percentage >= 70) grade = "B";
 else if (percentage >= 60) grade = "C";
 else if (percentage >= 50) grade = "D";
-const retryTopic = () => {
+const retryTopic = async () => {
 
-  setAnswers({});
-  setResults({});
-  setCurrentQuestion(0);
-  setQuestions([]);
+if(revisionQueue && revisionQueue.length > 0){
 
-  setRevisionStage("explanation");
+const nextIndex = currentRevisionIndex + 1;
+
+if(nextIndex < revisionQueue.length){
+
+setCurrentRevisionIndex(nextIndex);
+
+await generateQuestions({
+
+subject: examSubject,
+
+topic: revisionQueue[nextIndex],
+
+subtopic: revisionQueue[nextIndex]
+
+});
+
+return;
+
+}
+
+alert("🎉 You've revised all of your weak topics!");
+
+setRevisionStage("examSetup");
+
+return;
+
+}
+
+
+setAnswers({});
+setResults({});
+setCurrentQuestion(0);
+setQuestions([]);
+
+setRevisionStage("explanation");
 
 };
-
 
 const chooseNewTopic = () => {
 
