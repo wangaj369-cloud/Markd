@@ -147,10 +147,24 @@ disabled={selectedTopics.length===0}
 
 onClick={() => {
 
-setRevisionQueue(selectedTopics);
+setRevisionQueue(
+selectedTopics.map(t => ({
+  subject: examSubject, // or "Biology" if you're testing
+  topic: t.topic,
+  subtopic: t.subtopic
+}))
+);
 
 setCurrentRevisionIndex(0);
+const first = selectedTopics[0];
 
+generateQuestions({
+  subject: examSubject,
+  topic: first.topic,
+  subtopic: first.subtopic
+});
+
+setRevisionStage("explanation");
 generateQuestions({
 
 subject: examSubject,
