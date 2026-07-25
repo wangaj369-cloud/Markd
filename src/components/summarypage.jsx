@@ -45,7 +45,7 @@ else if (percentage >= 60) grade = "C";
 else if (percentage >= 50) grade = "D";
 const retryTopic = async () => {
 
-  // Normal revision mode
+  // If there is no practice queue, normal revision behaviour
   if (!revisionQueue || revisionQueue.length === 0) {
 
     setAnswers({});
@@ -54,40 +54,59 @@ const retryTopic = async () => {
     setQuestions([]);
 
     setRevisionStage("explanation");
+
     return;
   }
 
-  // Practice mistakes queue
+
   const nextIndex = currentRevisionIndex + 1;
 
-  // Finished every weak topic
-  if (nextIndex >= revisionQueue.length) {
 
-    alert("🎉 You've revised all your weak topics. You're ready to retake your exam!");
+  // Finished all weak topics
+  if(nextIndex >= revisionQueue.length){
+
+    alert(
+      "🎉 You have revised all your weak topics. You can now retake your exam!"
+    );
 
     setRevisionStage("examSetup");
+
     return;
+
   }
 
-  // Move to next weak topic
+
   const nextTopic = revisionQueue[nextIndex];
 
+
+  console.log(
+    "MOVING TO NEXT REVISION TOPIC:",
+    nextTopic
+  );
+
+
   setCurrentRevisionIndex(nextIndex);
+
 
   setAnswers({});
   setResults({});
   setCurrentQuestion(0);
   setQuestions([]);
 
+
   await generateQuestions({
 
     subject: nextTopic.subject,
+
     topic: nextTopic.topic,
+
     subtopic: nextTopic.subtopic
 
   });
 
+
   setRevisionStage("explanation");
+
 
 };
 
