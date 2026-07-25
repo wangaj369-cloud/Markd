@@ -109,6 +109,53 @@ const retryTopic = async () => {
 
 
 };
+const reviseNextWeakTopic = async () => {
+
+  const nextIndex = currentRevisionIndex + 1;
+
+
+  // Finished all weak topics
+  if(nextIndex >= revisionQueue.length){
+
+    setRevisionStage("weakTopicsComplete");
+
+    return;
+
+  }
+
+
+  const nextTopic = revisionQueue[nextIndex];
+
+
+  console.log(
+    "NEXT WEAK TOPIC:",
+    nextTopic
+  );
+
+
+  setCurrentRevisionIndex(nextIndex);
+
+
+  setAnswers({});
+  setResults({});
+  setQuestions([]);
+  setCurrentQuestion(0);
+
+
+  await generateQuestions({
+
+    subject: nextTopic.subject,
+
+    topic: nextTopic.topic,
+
+    subtopic: nextTopic.subtopic
+
+  });
+
+
+  setRevisionStage("explanation");
+
+};
 
 const chooseNewTopic = () => {
 
@@ -296,7 +343,8 @@ return (
 
     </div>
 
-    <div className="summary-buttons">
+   <div className="summary-buttons">
+
 
 <button
 className="retry-button"
@@ -306,6 +354,49 @@ onClick={retryTopic}
 </button>
 
 
+
+{
+revisionQueue &&
+revisionQueue.length > 0 &&
+currentRevisionIndex < revisionQueue.length - 1 &&
+
+<button
+className="weak-topic-button"
+onClick={reviseNextWeakTopic}
+>
+
+📚 Revise Next Weak Topic:
+
+{" "}
+
+{revisionQueue[currentRevisionIndex + 1].subtopic}
+
+→
+
+</button>
+
+}
+
+
+
+{
+revisionQueue &&
+revisionQueue.length > 0 &&
+currentRevisionIndex >= revisionQueue.length - 1 &&
+
+<button
+className="weak-topic-button"
+onClick={reviseNextWeakTopic}
+>
+
+🎉 Complete Weak Topics
+
+</button>
+
+}
+
+
+
 <button
 className="new-topic-button"
 onClick={chooseNewTopic}
@@ -313,7 +404,8 @@ onClick={chooseNewTopic}
 ＋ Choose New Topic
 </button>
 
-    </div>
+
+</div>
 
   </div>
 );

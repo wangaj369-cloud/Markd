@@ -497,6 +497,42 @@ setCurrentRevisionIndex={setCurrentRevisionIndex}
 generateQuestions={generateQuestions}
       />
     )}
+    {
+revisionStage === "weakTopicsComplete" && (
+
+<div className="summary-page">
+
+<div className="summary-container">
+
+
+<h1>
+🎉 Weak Topics Completed
+</h1>
+
+
+<p>
+You have revised all your exam weak areas.
+</p>
+
+
+<button
+className="retry-button"
+onClick={()=>{
+setRevisionStage("examSetup");
+}}
+>
+
+📝 Retake Exam
+
+</button>
+
+
+</div>
+
+</div>
+
+)
+}
     {revisionStage==="examSetup" && (
 <ExamPageSetup
   subjectTopics={subjectTopics}
