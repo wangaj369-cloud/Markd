@@ -518,7 +518,9 @@ You have revised all your exam weak areas.
 <button
 className="retry-button"
 onClick={()=>{
+
 setRevisionStage("examSetup");
+
 }}
 >
 
@@ -533,6 +535,7 @@ setRevisionStage("examSetup");
 
 )
 }
+
     {revisionStage==="examSetup" && (
 <ExamPageSetup
   subjectTopics={subjectTopics}

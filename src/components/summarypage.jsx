@@ -65,15 +65,11 @@ const retryTopic = async () => {
   // Finished all weak topics
   if(nextIndex >= revisionQueue.length){
 
-    alert(
-      "🎉 You have revised all your weak topics. You can now retake your exam!"
-    );
-
-    setRevisionStage("examSetup");
+    setRevisionStage("weakTopicsComplete");
 
     return;
 
-  }
+}
 
 
   const nextTopic = revisionQueue[nextIndex];
@@ -115,14 +111,13 @@ const reviseNextWeakTopic = async () => {
 
 
   // Finished all weak topics
-  if(nextIndex >= revisionQueue.length){
+ if(nextIndex >= revisionQueue.length){
 
     setRevisionStage("weakTopicsComplete");
 
     return;
 
-  }
-
+}
 
   const nextTopic = revisionQueue[nextIndex];
 
