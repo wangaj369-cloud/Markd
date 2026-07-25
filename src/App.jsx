@@ -53,6 +53,8 @@ const [examMark,setExamMark] = useState(null);
 const [customQuestionCount,setCustomQuestionCount] = useState("");
 const [examDifficulty, setExamDifficulty] = useState("Mixed");
 const [examResults,setExamResults] = useState(null);
+const [revisionQueue, setRevisionQueue] = useState([]);
+const [currentRevisionIndex, setCurrentRevisionIndex] = useState(0);
 const examSettings = {
 
   subject: examSubject,
@@ -569,7 +571,53 @@ revisionStage === "practiceMistakes" && (
     <PracticeMistakes
         examResults={examResults}
         setRevisionStage={setRevisionStage}
+        revisionQueue={revisionQueue}
+setRevisionQueue={setRevisionQueue}
+currentRevisionIndex={currentRevisionIndex}
+setCurrentRevisionIndex={setCurrentRevisionIndex}
+    generateQuestions={generateQuestions} 
+     examSubject={examSubject}
+    examTopic={examTopic}
     />
+)
+}
+{
+revisionStage === "practiceQueue" && (
+
+<QuestionMode
+
+questions={questions}
+
+answers={answers}
+
+setAnswers={setAnswers}
+
+results={results}
+
+markAnswer={markAnswer}
+
+currentQuestion={currentQuestion}
+
+setCurrentQuestion={setCurrentQuestion}
+
+subject={examSubject}
+
+topic={revisionQueue[currentRevisionIndex]}
+
+practiceMode={true}
+
+revisionQueue={revisionQueue}
+
+currentRevisionIndex={currentRevisionIndex}
+
+setCurrentRevisionIndex={setCurrentRevisionIndex}
+
+setRevisionStage={setRevisionStage}
+
+generateSummary={generateSummary}
+
+/>
+
 )
 }
     </div>

@@ -3,7 +3,17 @@ import { useState } from "react";
 export default function PracticeMistakes({
 
 examResults,
-setRevisionStage
+setRevisionStage,
+
+revisionQueue,
+setRevisionQueue,
+
+currentRevisionIndex,
+setCurrentRevisionIndex,
+
+generateQuestions,
+examSubject,
+examTopic
 
 }){
 
@@ -135,18 +145,23 @@ Score:
 
 disabled={selectedTopics.length===0}
 
-onClick={()=>{
+onClick={() => {
 
-console.log(
-"REVISION QUEUE:",
-selectedTopics
-);
+setRevisionQueue(selectedTopics);
 
+setCurrentRevisionIndex(0);
 
-// later this sends to revision mode
+generateQuestions({
+
+subject: examSubject,
+
+topic: examTopic,
+
+subtopic: selectedTopics[0]
+
+});
 
 }}
-
 >
 
 Revise Selected Topics
