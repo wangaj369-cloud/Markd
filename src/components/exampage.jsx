@@ -66,7 +66,13 @@ console.log(
 "EXAM SETTINGS SENT:",
 examSettings
 );
-setExamQuestions(data.questions || []);
+const questionsWithTopic = data.questions.map(q => ({
+  ...q,
+  topic: examSettings.topic
+}));
+
+setExamQuestions(questionsWithTopic);
+setExamQuestions(questionsWithTopic);
 
 const questions = data.questions || [];
 const totalMarks = questions.reduce(
