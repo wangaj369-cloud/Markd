@@ -113,7 +113,10 @@ const weakTopics = data.feedback
   };
 
 });
-
+console.log(
+  "QUESTION WITH TOPIC:",
+  completedExam.questions[0]
+);
 data.weakTopics = weakTopics.map(item => ({
 
   subtopic: item.subtopic,
