@@ -432,95 +432,79 @@ jsonEnd + 1
 
 let exam;
 
+try {
 
-try{
-
-exam = JSON.parse(text);
+  exam = JSON.parse(text);
 
 }
-
 catch(error){
 
-console.log(
-"BROKEN AI JSON:",
-text
-);
+  console.log(
+    "BROKEN AI JSON:",
+    text
+  );
 
-return res.status(500).json({
-error:"AI returned invalid JSON"
-});
+  return res.status(500).json({
+    error:"AI returned invalid JSON"
+  });
 
 }
-
 
 
 if(!exam.questions){
 
-return res.status(500).json({
-error:"Exam response missing questions"
-});
+  return res.status(500).json({
+    error:"Exam response missing questions"
+  });
 
 }
 
 
-
-// Convert AI index into your real saved subtopic
+// Convert subtopicIndex into real saved subtopic
 console.log(
-"SUBTOPICS RECEIVED:",
-subtopics
+  "SUBTOPICS RECEIVED:",
+  subtopics
 );
 
 console.log(
-"SUBTOPIC COUNT:",
-subtopics.length
-);
-exam.questions.forEach(q=>{
-
-
-const index = Number(q.subtopicIndex);
-
-
-// Safety check
-if(
-Number.isInteger(index) &&
-subtopics[index]
-){
-
-q.subtopic = subtopics[index];
-
-}
-
-else{
-
-console.log(
-"INVALID SUBTOPIC INDEX:",
-q.subtopicIndex
+  "SUBTOPIC COUNT:",
+  subtopics.length
 );
 
 
-// fallback
-q.subtopic = subtopics[0];
+exam.questions = exam.questions.map(q => {
 
-}
+  const index = Number(q.subtopicIndex);
 
+  return {
 
-// remove temporary field
-delete q.subtopicIndex;
+    ...q,
 
+    topic: topic || "Full Subject",
+
+    subtopic:
+      subtopics[index] || subtopics[0]
+
+  };
 
 });
 
 
+// remove temporary AI field
+exam.questions.forEach(q => {
+
+  delete q.subtopicIndex;
+
+});
+
 
 console.log(
-"FINAL QUESTIONS WITH SUBTOPICS:",
-exam.questions
+  "FINAL QUESTIONS WITH SUBTOPICS:",
+  exam.questions
 );
-
 
 
 res.json(exam);
-
 
 
 }
