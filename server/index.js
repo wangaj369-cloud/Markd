@@ -733,7 +733,10 @@ Do not tell students to add written explanations unless the question asks for an
 `
   : "";
     const completion = await groq.chat.completions.create({
-     model: "meta-llama/llama-4-scout-17b-16e-instruct",
+    model:"llama-3.3-70b-versatile",
+    response_format:{
+  type:"json_object"
+},
       messages: [
         {
           role: "system",
@@ -908,20 +911,28 @@ console.log(content);
     } catch (e) {
       console.log("BAD JSON FROM AI:", content);
 
-     return res.json({
-    score: 0,
-    strengths: "Unable to parse examiner feedback.",
-    improvements: "AI returned invalid format.",
-    modelAnswer: "",
-      });
+    return res.json({
+ score:null,
+ strengths:"The examiner could not process this response.",
+ improvements:"Please retry marking this answer.",
+ modelAnswer:"",
+});
     }
-
+const safeScore = Math.min(
+  Number(result.score) || 0,
+  Number(marks)
+);
     res.json({
-      score: result.score ?? 0,
-      strengths: result.strengths ?? "Not provided.",
-      improvements: result.improvements ?? "Not provided.",
-      modelAnswer: result.modelAnswer ?? "",
-    });
+
+score:safeScore,
+
+strengths: result.strengths ?? "Not provided.",
+
+improvements: result.improvements ?? "Not provided.",
+
+modelAnswer: result.modelAnswer ?? ""
+
+});
 
   } catch (error) {
     console.error(error);
