@@ -18,6 +18,7 @@ import PracticeMistakes from "./components/practicemistakes";
 
 
 
+
 export default function App() {
   const [subject, setSubject] = useState("Biology");
 
@@ -139,6 +140,20 @@ examSubtopics,
   } catch(error) {
     console.error("Explanation error:", error);
   }
+}
+function findTopicFromSubtopic(subject, subtopic) {
+
+  const topics = subjectTopics[subject];
+
+  for (const topic in topics) {
+
+    if (topics[topic].includes(subtopic)) {
+      return topic;
+    }
+
+  }
+
+  return "";
 }
 async function generateQuestions(customData = null) {
   console.log("GENERATE QUESTIONS STARTED");
@@ -582,6 +597,7 @@ setCurrentRevisionIndex={setCurrentRevisionIndex}
     generateQuestions={generateQuestions} 
      examSubject={examSubject}
     examTopic={examTopic}
+    findTopicFromSubtopic={findTopicFromSubtopic}
     />
 )
 }

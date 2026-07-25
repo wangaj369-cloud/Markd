@@ -13,7 +13,9 @@ setCurrentRevisionIndex,
 
 generateQuestions,
 examSubject,
-examTopic
+examTopic,
+findTopicFromSubtopic
+
 
 }){
 
@@ -39,7 +41,29 @@ No weak topics found
 
 
 const weakTopics = examResults.weakTopics;
+const selectedTopicData = weakTopics.map(item => ({
 
+  subject: examResults.subject,
+
+  topic: findTopicFromSubtopic(
+    examResults.subject,
+    item.subtopic
+  ),
+
+  subtopic: item.subtopic,
+
+  mark: item.mark,
+
+  maxMark: item.maxMark,
+
+  percentage: item.percentage
+
+}));
+
+console.log(
+"SELECTED REVISION QUEUE:",
+selectedTopicData
+);
 
 function toggleTopic(topic){
 
@@ -147,35 +171,41 @@ disabled={selectedTopics.length===0}
 
 onClick={() => {
 
-setRevisionQueue(
-selectedTopics.map(t => ({
-  subject: examSubject, 
-  topic: t.topic,
-  subtopic: t.subtopic
-}))
+const queue = selectedTopicData.filter(item =>
+  selectedTopics.includes(item.subtopic)
 );
 
+
+console.log(
+"FINAL REVISION QUEUE:",
+queue
+);
+
+
+setRevisionQueue(queue);
+
 setCurrentRevisionIndex(0);
-const first = selectedTopics[0];
+
+
+const firstTopic = queue[0];
+
 
 generateQuestions({
-  subject: examSubject,
-  topic: first.topic,
-  subtopic: first.subtopic
+
+subject: firstTopic.subject,
+
+topic: firstTopic.topic,
+
+subtopic: firstTopic.subtopic
+
 });
+
 
 setRevisionStage("explanation");
-generateQuestions({
 
-subject: examSubject,
-
-topic: examTopic,
-
-subtopic: selectedTopics[0]
-
-});
 
 }}
+
 >
 
 Revise Selected Topics
