@@ -149,7 +149,7 @@ onClick={() => {
 
 setRevisionQueue(
 selectedTopics.map(t => ({
-  subject: examSubject, // or "Biology" if you're testing
+  subject: examSubject, 
   topic: t.topic,
   subtopic: t.subtopic
 }))
