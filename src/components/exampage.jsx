@@ -73,7 +73,10 @@ const questionsWithTopic = data.questions.map(q => ({
 
 setExamQuestions(questionsWithTopic);
 setExamQuestions(questionsWithTopic);
-
+console.log(
+"QUESTIONS WITH TOPIC:",
+questionsWithTopic
+);
 const questions = data.questions || [];
 const totalMarks = questions.reduce(
   (total, q) => total + Number(q.marks),
