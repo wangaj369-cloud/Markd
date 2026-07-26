@@ -26,6 +26,10 @@ const openrouter = new OpenAI({
  baseURL:"https://openrouter.ai/api/v1"
 });
 
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
 const app = express();
 
 app.get("/", (req, res) => {
@@ -736,8 +740,8 @@ Do not tell students to add labels unless the question asks for labels.
 Do not tell students to add written explanations unless the question asks for an explanation.
 `
   : "";
-   const completion = await openrouter.chat.completions.create({
-    model:"qwen/qwen2.5-vl-32b-instruct:free",
+   const completion = await openai.chat.completions.create({
+    model:"gpt-4o-mini",
 messages:[
 
 {
@@ -748,9 +752,10 @@ content:
 
 {
 role:"user",
-content:
-`
-
+content:[
+  {
+    type:"text",
+    text:`
 You are an AQA A-Level Biology examiner marking a student's response.
 
 Question:
@@ -827,19 +832,16 @@ Rules:
 
 Now mark the response.
 `
-},
-...(diagram ? [{
-role:"user",
-content: diagram
-}] : [])
-
-],
-
-response_format:{
-type:"json_object"
-}
-
+  },
+  ...(diagram ? [{
+    type:"image_url",
+    image_url:{
+      url:diagram
+    }
+  }] : [])
+]
 });
+
    let content = completion.choices[0].message.content;
 
 console.log("MARKING AI RESPONSE:");
