@@ -43,9 +43,10 @@ if (percentage >= 80) grade = "A";
 else if (percentage >= 70) grade = "B";
 else if (percentage >= 60) grade = "C";
 else if (percentage >= 50) grade = "D";
+
 const retryTopic = async () => {
 
-  // If there is no practice queue, normal revision behaviour
+  // Normal revision mode
   if (!revisionQueue || revisionQueue.length === 0) {
 
     setAnswers({});
@@ -58,95 +59,28 @@ const retryTopic = async () => {
     return;
   }
 
-
-  const nextIndex = currentRevisionIndex + 1;
-
-
-  // Finished all weak topics
-  if(nextIndex >= revisionQueue.length){
-
-    setRevisionStage("weakTopicsComplete");
-
-    return;
-
-}
-
-
-  const nextTopic = revisionQueue[nextIndex];
-
+  // Exam mode → retry the CURRENT weak topic
+  const currentTopic = revisionQueue[currentRevisionIndex];
 
   console.log(
-    "MOVING TO NEXT REVISION TOPIC:",
-    nextTopic
+    "RETRYING CURRENT TOPIC:",
+    currentTopic
   );
-
-
-  setCurrentRevisionIndex(nextIndex);
-
 
   setAnswers({});
   setResults({});
   setCurrentQuestion(0);
   setQuestions([]);
 
-
   await generateQuestions({
 
-    subject: nextTopic.subject,
+    subject: currentTopic.subject,
 
-    topic: nextTopic.topic,
+    topic: currentTopic.topic,
 
-    subtopic: nextTopic.subtopic
-
-  });
-
-
-  setRevisionStage("explanation");
-
-
-};
-const reviseNextWeakTopic = async () => {
-
-  const nextIndex = currentRevisionIndex + 1;
-
-
-  // Finished all weak topics
- if(nextIndex >= revisionQueue.length){
-
-    setRevisionStage("weakTopicsComplete");
-
-    return;
-
-}
-
-  const nextTopic = revisionQueue[nextIndex];
-
-
-  console.log(
-    "NEXT WEAK TOPIC:",
-    nextTopic
-  );
-
-
-  setCurrentRevisionIndex(nextIndex);
-
-
-  setAnswers({});
-  setResults({});
-  setQuestions([]);
-  setCurrentQuestion(0);
-
-
-  await generateQuestions({
-
-    subject: nextTopic.subject,
-
-    topic: nextTopic.topic,
-
-    subtopic: nextTopic.subtopic
+    subtopic: currentTopic.subtopic
 
   });
-
 
   setRevisionStage("explanation");
 
