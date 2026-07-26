@@ -5,6 +5,7 @@ dotenv.config();
 console.log("🔥 THIS IS THE CORRECT INDEX.JS RUNNING 🔥");
 import cors from "cors";
 import Groq from "groq-sdk";
+import OpenAI from "openai";
 import biologyVideos from "./biologyvideos.js";
 import chemistryVideos from "./chemistryvideos.js";
 import psychologyVideos from "./psychologyvideos.js";
@@ -18,6 +19,11 @@ console.log(Object.keys(videoLibraries.Chemistry));
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
+});
+
+const openrouter = new OpenAI({
+ apiKey: process.env.OPENROUTER_KEY,
+ baseURL:"https://openrouter.ai/api/v1"
 });
 
 const app = express();
@@ -387,10 +393,8 @@ Then:
 }
 
 `;
-const completion = await groq.chat.completions.create({
-
-model:"llama-3.1-8b-instant",
-
+const completion = await openrouter.chat.completions.create({
+model:"meta-llama/llama-3.1-8b-instruct:free",
 messages:[
 {
 role:"user",
@@ -732,8 +736,8 @@ Do not tell students to add labels unless the question asks for labels.
 Do not tell students to add written explanations unless the question asks for an explanation.
 `
   : "";
-    const completion = await groq.chat.completions.create({
-    model:"llama-3.3-70b-versatile",
+   const completion = await openrouter.chat.completions.create({
+model:"meta-llama/llama-4-maverick:free",
     response_format:{
   type:"json_object"
 },
