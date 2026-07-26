@@ -85,6 +85,45 @@ const retryTopic = async () => {
   setRevisionStage("explanation");
 
 };
+const reviseNextWeakTopic = async () => {
+
+  const nextIndex = currentRevisionIndex + 1;
+
+  // Finished all weak topics
+  if (nextIndex >= revisionQueue.length) {
+
+    setRevisionStage("weakTopicsComplete");
+    return;
+
+  }
+
+  const nextTopic = revisionQueue[nextIndex];
+
+  console.log(
+    "NEXT WEAK TOPIC:",
+    nextTopic
+  );
+
+  setCurrentRevisionIndex(nextIndex);
+
+  setAnswers({});
+  setResults({});
+  setQuestions([]);
+  setCurrentQuestion(0);
+
+  await generateQuestions({
+
+    subject: nextTopic.subject,
+
+    topic: nextTopic.topic,
+
+    subtopic: nextTopic.subtopic
+
+  });
+
+  setRevisionStage("explanation");
+
+};
 
 const chooseNewTopic = () => {
 
