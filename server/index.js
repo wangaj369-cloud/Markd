@@ -748,12 +748,8 @@ content:
 
 {
 role:"user",
-
-content:[
-
-{
-type:"text",
-text: `
+content:
+`
 
 You are an AQA A-Level Biology examiner marking a student's response.
 
@@ -832,23 +828,10 @@ Rules:
 Now mark the response.
 `
 },
-
-...(diagram
-?
-[
-{
-type:"image_url",
-image_url:{
-url:diagram
-}
-}
-]
-:
-[])
-
-]
-
-}
+...(diagram ? [{
+role:"user",
+content: diagram
+}] : [])
 
 ],
 
