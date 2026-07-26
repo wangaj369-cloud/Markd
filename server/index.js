@@ -737,9 +737,7 @@ Do not tell students to add written explanations unless the question asks for an
 `
   : "";
    const completion = await openrouter.chat.completions.create({
-
-model:"meta-llama/llama-4-maverick:free",
-
+    model:"qwen/qwen2.5-vl-32b-instruct:free",
 messages:[
 
 {
