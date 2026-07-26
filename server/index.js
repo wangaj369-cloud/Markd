@@ -721,56 +721,16 @@ app.post("/mark-answer", async (req, res) => {
   try {
     const { question, marks, answer, diagram, markScheme } = req.body;
     console.log("DIAGRAM RECEIVED:", diagram ? "YES" : "NO");
-const diagramInstructions = diagram
-  ? `
-The student has also submitted a labelled diagram.
+const markingPrompt = `You are an AQA A-Level examiner marking a student's response.
 
-Analyse the diagram carefully.
-
-Check:
-- Are labels correct?
-- Are important structures included?
-- Is the arrangement accurate?
-- Are there missing features?
-
-Include diagram feedback only when an actual diagram error exists.
-
-Do not give generic diagram advice.
-Do not tell students to add labels unless the question asks for labels.
-Do not tell students to add written explanations unless the question asks for an explanation.
-`
-  : "";
-   const completion = await openai.chat.completions.create({
-    model:"gpt-4o-mini",
-    messages: [
-      {
-        role:"system",
-        content:"You are an AQA A-Level Biology examiner. Return JSON only."
-      },
-      {
-        role:"user",
-        content: [
-          {
-            type:"text",
-            text:`
-You are an AQA A-Level Biology examiner marking a student's response.
-
-Question:
-${question}
-
-Maximum marks:
-${marks}
-
-Student written answer:
-${answer || "No written answer provided."}
-
-Mark scheme:
-${markScheme}
+Question: ${question}
+Maximum marks: ${marks}
+Student written answer: ${answer || "No written answer provided."}
+Mark scheme: ${markScheme}
 
 ${diagramInstructions}
 
 IMPORTANT MARKING RULES:
-
 You must mark the complete student response.
 
 If an image is provided:
@@ -780,7 +740,6 @@ If an image is provided:
 - Do not assume the student has no answer because the written response is empty.
 
 For diagrams check:
-
 - Are the correct biological structures shown?
 - Are labels scientifically accurate?
 - Are arrows pointing to the correct structures?
@@ -797,49 +756,39 @@ Do NOT:
 - Ask for labels unless the question specifically requires labels.
 - Penalise a blank written answer if the diagram itself answers the question.
 
-For biology diagrams:
-- Judge the diagram as the answer.
-- Award marks for correct structures and relationships.
-- Mention only specific errors.
-
-For chemical structures or mechanisms:
-- Treat the drawing as the complete answer.
-- Check atoms, bonds, structures, arrangements and mechanisms.
-- Do not request written explanations unless the question explicitly asks for one.
-
-Return ONLY valid JSON.
-
-Use exactly this format:
-
+Return ONLY valid JSON:
 {
   "score": 0,
-  "strengths": "Direct feedback to the student using you/your",
-  "improvements": "Direct feedback to the student using you/your",
+  "strengths": "Direct feedback using you/your",
+  "improvements": "Direct feedback using you/your",
   "modelAnswer": "Correct answer"
 }
 
 Rules:
-- All fields must exist.
-- No markdown.
-- No code blocks.
-- No text outside JSON.
-- Address the student directly.
-- If the answer is fully correct, say so.
-- If the diagram is wrong, explain exactly what is wrong.
+- All fields must exist
+- No markdown
+- No code blocks
+- No text outside JSON
+- Address the student directly`;
 
-Now mark the response.
-`
-          },
-          ...(diagram ? [{
-            type:"image_url",
-            image_url:{
-              url:diagram
-            }
-          }] : [])
-        ]
-      }
-    ]
-  });
+const completion = await groq.chat.completions.create({
+  model: "qwen/qwen3.6-27b",
+  messages: [
+    {
+      role: "system",
+      content: "You are an AQA A-Level examiner. Return JSON only. No markdown, no backticks."
+    },
+    {
+      role: "user",
+      content: diagram
+        ? [
+            { type: "text", text: markingPrompt },
+            { type: "image_url", image_url: { url: diagram } }
+          ]
+        : markingPrompt
+    }
+  ]
+});
 
    let content = completion.choices[0].message.content;
 
