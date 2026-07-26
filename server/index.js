@@ -737,136 +737,25 @@ Do not tell students to add written explanations unless the question asks for an
 `
   : "";
    const completion = await openrouter.chat.completions.create({
+
 model:"meta-llama/llama-4-maverick:free",
-    response_format:{
-  type:"json_object"
-},
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an AQA A-Level Biology examiner. Return valid JSON only. Address the student directly using 'you' and 'your' in your feedback.",
-        },
-        {
-          role: "user",
-content: [
-  {
-    type: "text",
-    text: `
-Question:
-${question}
 
-Maximum marks:
-${marks}
-
-Your answer:
-${answer}
-
-Expected mark scheme:
-${markScheme}
-
-${diagramInstructions}
-
-You are an AQA A-Level Biology examiner.
-
-You MUST return ONLY valid JSON.
-
-You MUST follow this schema exactly:
+messages:[
 
 {
-  "score": 0,
-  "strengths": "string",
-  "improvements": "string",
-  "modelAnswer": "string"
-}
+role:"system",
+content:
+"You are an AQA A-Level Biology examiner. Return JSON only."
+},
 
-RULES:
-- ALL keys must exist
-- DO NOT omit any field
-- DO NOT add extra keys
-- DO NOT include markdown
-- DO NOT include explanation outside JSON
-- Always start with a capital letter
-- Address the student directly using "you" and "your" in strengths and improvements
-- If the written answer is blank but a diagram has been submitted:
-  - Do NOT mark the student down for having no written response.
-  - Do NOT mention that they did not provide a written answer.
-  - Mark only the diagram against the requirements of the question.
-  - Only expect written explanation if the question explicitly asks for explanation, description, evaluation, justification, or calculations.
+{
+role:"user",
 
-- If the written answer is blank and no diagram has been submitted:
-  - Award marks only if the question can be answered without written text (for example a structure drawing).
-  - Otherwise explain what information is missing.
-- Only provide Strengths when the answer contains relevant scientific/subject knowledge.
+content:[
 
-If a diagram image is provided:
-
-IMPORTANT:
-The diagram is part of the student's answer.
-
-Do NOT mark the answer as blank just because the written response is empty.
-
-Analyse the diagram itself.
-
-Check:
-- Are all required structures present?
-- Are labels scientifically correct?
-- Are arrows/annotations accurate?
-- Are bonds, shapes, and arrangements correct?
-- Are important intermediate steps included?
-- Are there missing features required by the mark scheme?
-
-Award marks based on the diagram quality.
-
-IMPORTANT:
-Do not penalise the student for not writing an explanation when the question only requires a diagram, structure, mechanism, graph, or labelled drawing.
-
-Only mention missing written explanation if the question wording requires:
-- explain
-- describe
-- discuss
-- evaluate
-- justify
-- calculate
-- compare
-
-If the question contains a chemical structure or mechanism diagram:
-
-Analyse the student's diagram as a chemistry examiner.
-For mechanism drawing questions:
-
-The diagram itself is the complete answer.
-
-Do NOT request:
-- written explanations
-- extra labels
-- descriptions of steps
-
-unless the question explicitly asks for them.
-Do not give generic advice such as "make your diagram clearer" unless a genuine visual error is visible.
-
-For organic structures:
-- Identify every carbon atom position.
-- Count the carbon chain carefully.
-- Check the position of every functional group.
-- Check whether substituents are attached to the correct carbon number.
-- Check stereochemistry if relevant.
-- Carefully inspect the student's drawing before making a judgement.
-- Do not rely on guessing from unclear handwriting.
-- If a structure appears incorrect, explain exactly:
-  - which atom is wrong
-  - which carbon number is affected
-  - what the correct position should be
-- Only deduct marks for visible structural errors.
-- If the student's structure is correct, award the marks.
-
-For displayed structural formulas:
-- Trace the carbon backbone from left to right.
-- Number the longest carbon chain.
-- Verify substituent positions.
-- Verify bonds and atoms.
-
-Mark this response:
+{
+type:"text",
+text:`
 
 Question:
 ${question}
@@ -874,28 +763,59 @@ ${question}
 Maximum marks:
 ${marks}
 
-Student written answer:
+Student answer:
 ${answer || "No written answer provided."}
 
-A diagram has been submitted:
-${diagram ? "YES - analyse the image carefully." : "NO"}
-`
-  },
+Mark scheme:
+${markScheme}
 
-  ...(diagram
-    ? [
-        {
-          type: "image_url",
-          image_url: {
-            url: diagram,
-         },
-              },
-            ]
-          : []),
-      ],
-    },
-  ],
-});  
+
+Analyse the student's answer.
+
+If an image is attached:
+- The image is part of the answer.
+- Mark the diagram itself.
+- Check structures.
+- Check labels.
+- Check accuracy.
+- Only mention real errors.
+
+Return exactly:
+
+{
+"score":0,
+"strengths":"",
+"improvements":"",
+"modelAnswer":""
+}
+
+`
+},
+
+...(diagram
+?
+[
+{
+type:"image_url",
+image_url:{
+url:diagram
+}
+}
+]
+:
+[])
+
+]
+
+}
+
+],
+
+response_format:{
+type:"json_object"
+}
+
+});
    let content = completion.choices[0].message.content;
 
 console.log("MARKING AI RESPONSE:");
