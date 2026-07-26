@@ -742,20 +742,17 @@ Do not tell students to add written explanations unless the question asks for an
   : "";
    const completion = await openai.chat.completions.create({
     model:"gpt-4o-mini",
-messages:[
-
-{
-role:"system",
-content:
-"You are an AQA A-Level Biology examiner. Return JSON only."
-},
-
-{
-role:"user",
-content:[
-  {
-    type:"text",
-    text:`
+    messages: [
+      {
+        role:"system",
+        content:"You are an AQA A-Level Biology examiner. Return JSON only."
+      },
+      {
+        role:"user",
+        content: [
+          {
+            type:"text",
+            text:`
 You are an AQA A-Level Biology examiner marking a student's response.
 
 Question:
@@ -832,15 +829,17 @@ Rules:
 
 Now mark the response.
 `
-  },
-  ...(diagram ? [{
-    type:"image_url",
-    image_url:{
-      url:diagram
-    }
-  }] : [])
-]
-});
+          },
+          ...(diagram ? [{
+            type:"image_url",
+            image_url:{
+              url:diagram
+            }
+          }] : [])
+        ]
+      }
+    ]
+  });
 
    let content = completion.choices[0].message.content;
 
