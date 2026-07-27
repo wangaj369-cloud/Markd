@@ -168,6 +168,28 @@ return (
 
 </div>
 
+{result.automaticMarkingFailed && (
+  <>
+    <h2>Automatic marking unavailable</h2>
+
+    <h3>Model answer</h3>
+
+    <pre>{result.modelAnswer}</pre>
+
+    <h3>Official mark scheme</h3>
+
+    <pre>{result.markScheme}</pre>
+
+    <div>
+      <button onClick={()=>selfMark(0)}>0</button>
+      <button onClick={()=>selfMark(1)}>1</button>
+      <button onClick={()=>selfMark(2)}>2</button>
+      ...
+      <button onClick={()=>selfMark(maxMarks)}>Full Marks</button>
+    </div>
+  </>
+)}
+
 </div>
 <button
   className="next-question-button"

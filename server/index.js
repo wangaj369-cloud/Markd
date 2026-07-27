@@ -716,6 +716,42 @@ error:"Exam marking failed"
 
 
 });
+async function generateModelAnswer(question, marks, markScheme) {
+  try {
+
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are an AQA examiner. Produce only a full-mark model answer."
+        },
+        {
+          role: "user",
+          content: `
+Question:
+${question}
+
+Maximum marks:
+${marks}
+
+Official mark scheme:
+${markScheme}
+`
+        }
+      ]
+    });
+
+    return completion.choices[0].message.content;
+
+  } catch {
+
+    return "";
+
+  }
+}
 app.post("/mark-answer", async (req, res) => {
   console.log("MARK ANSWER RECEIVED:", req.body);
   try {
@@ -771,8 +807,8 @@ Rules:
 - No text outside JSON
 - Address the student directly`;
 
-const completion = await groq.chat.completions.create({
-  model: "qwen/qwen3.6-27b",
+const completion = await openrouter.chat.completions.create({
+  model: "meta-llama/llama-4-maverick",
   messages: [
     {
       role: "system",
@@ -831,14 +867,31 @@ improvements: result.improvements ?? "Not provided.",
 modelAnswer: result.modelAnswer ?? ""
 
 });
+} catch (error) {
 
-  } catch (error) {
-    console.error(error);
+  console.error("Automatic marking failed:", error);
 
-    res.status(500).json({
-      error: "Failed to mark answer",
-    });
-  }
+  const fallbackModelAnswer =
+    await generateModelAnswer(question, marks, markScheme);
+
+  return res.json({
+
+    score: null,
+
+    strengths: "",
+
+    improvements:
+      "Automatic marking is currently unavailable. You can either mark yourself using the official mark scheme below or compare your work with the model answer.",
+
+    modelAnswer: fallbackModelAnswer,
+
+    markScheme,
+
+    automaticMarkingFailed: true
+
+  });
+
+}
 });
 app.post("/api/generate-summary", async (req, res) => {
   try {
