@@ -757,7 +757,12 @@ app.post("/mark-answer", async (req, res) => {
   try {
     const { question, marks, answer, diagram, markScheme } = req.body;
     console.log("DIAGRAM RECEIVED:", diagram ? "YES" : "NO");
-const markingPrompt = `You are an AQA A-Level examiner marking a student's response.
+
+    const diagramInstructions = diagram
+      ? `The student has also submitted a diagram. Analyse it carefully. Check labels, structures, accuracy and completeness. Only flag genuine errors.`
+      : "";
+
+    const markingPrompt = `You are an AQA A-Level examiner marking a student's response.
 
 Question: ${question}
 Maximum marks: ${marks}
@@ -770,27 +775,25 @@ IMPORTANT MARKING RULES:
 You must mark the complete student response.
 
 If an image is provided:
-- The image is part of the student's answer.
-- Analyse the image carefully.
-- Do not ignore the diagram.
-- Do not assume the student has no answer because the written response is empty.
+- The image is part of the student's answer
+- Analyse it carefully
+- Do not ignore the diagram
+- Do not penalise a blank written answer if the diagram answers the question
 
 For diagrams check:
-- Are the correct biological structures shown?
+- Are the correct structures shown?
 - Are labels scientifically accurate?
-- Are arrows pointing to the correct structures?
-- Are processes or sequences shown correctly?
-- Are important features required by the mark scheme present?
+- Are arrows pointing to correct structures?
+- Are important mark scheme features present?
 - Are there any visible scientific errors?
 
 Only deduct marks for genuine visible errors.
 
 Do NOT:
-- Give generic advice.
-- Say "add more detail" unless a required feature is missing.
-- Ask for explanations if the question only requires a diagram.
-- Ask for labels unless the question specifically requires labels.
-- Penalise a blank written answer if the diagram itself answers the question.
+- Give generic advice
+- Say add more detail unless a required feature is missing
+- Ask for explanations if the question only requires a diagram
+- Ask for labels unless the question specifically requires labels
 
 Return ONLY valid JSON:
 {
@@ -802,100 +805,89 @@ Return ONLY valid JSON:
 
 Rules:
 - All fields must exist
-- No markdown
-- No code blocks
-- No text outside JSON
+- No markdown, no code blocks, no text outside JSON
 - Address the student directly`;
 
-const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-    "HTTP-Referer": "https://markdai.app",
-    "X-Title": "Markd"
-  },
-  body: JSON.stringify({
-    model: "meta-llama/llama-4-maverick:free",
-    messages: [
-      {
-        role: "user",
-        content: [
+    // Build messages differently based on whether diagram exists
+    const userContent = diagram
+      ? [
           { type: "text", text: markingPrompt },
           { type: "image_url", image_url: { url: diagram } }
         ]
-      }
-    ]
-  })
-});
+      : markingPrompt; // plain string when no diagram
 
-const data = await res.json();
-const content = data.choices[0].message.content;
+    const openRouterRes = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "HTTP-Referer": "https://markdai.app",
+        "X-Title": "Markd"
+      },
+      body: JSON.stringify({
+        model: "meta-llama/llama-4-maverick:free",
+        messages: [
+          {
+            role: "user",
+            content: userContent
+          }
+        ]
+      })
+    });
 
-console.log("MARKING AI RESPONSE:");
-console.log(content);
+    const openRouterData = await openRouterRes.json();
+    console.log("OpenRouter raw response:", JSON.stringify(openRouterData));
 
-content = content
-  .replace(/```json/g, "")
-  .replace(/```/g, "")
-  .trim();
+    let rawContent = openRouterData.choices[0].message.content;
 
-console.log("CLEANED JSON:");
-console.log(content);
+    console.log("MARKING AI RESPONSE:", rawContent);
+
+    let cleaned = rawContent
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    console.log("CLEANED JSON:", cleaned);
+
     let result;
-
     try {
-      result = JSON.parse(content);
+      result = JSON.parse(cleaned);
     } catch (e) {
-      console.log("BAD JSON FROM AI:", content);
+      console.log("BAD JSON FROM AI:", cleaned);
+      return res.json({
+        score: null,
+        strengths: "The examiner could not process this response.",
+        improvements: "Please retry marking this answer.",
+        modelAnswer: "",
+      });
+    }
+
+    const safeScore = Math.min(
+      Number(result.score) || 0,
+      Number(marks)
+    );
+
+    res.json({
+      score: safeScore,
+      strengths: result.strengths ?? "Not provided.",
+      improvements: result.improvements ?? "Not provided.",
+      modelAnswer: result.modelAnswer ?? ""
+    });
+
+  } catch (error) {
+    console.error("Automatic marking failed:", error);
+
+    const fallbackModelAnswer = await generateModelAnswer(question, marks, markScheme);
 
     return res.json({
- score:null,
- strengths:"The examiner could not process this response.",
- improvements:"Please retry marking this answer.",
- modelAnswer:"",
-});
-    }
-const safeScore = Math.min(
-  Number(result.score) || 0,
-  Number(marks)
-);
-    res.json({
-
-score:safeScore,
-
-strengths: result.strengths ?? "Not provided.",
-
-improvements: result.improvements ?? "Not provided.",
-
-modelAnswer: result.modelAnswer ?? ""
-
-});
-} catch (error) {
-
-  console.error("Automatic marking failed:", error);
-
-  const fallbackModelAnswer =
-    await generateModelAnswer(question, marks, markScheme);
-
-  return res.json({
-
-    score: null,
-
-    strengths: "",
-
-    improvements:
-      "Automatic marking is currently unavailable. You can either mark yourself using the official mark scheme below or compare your work with the model answer.",
-
-    modelAnswer: fallbackModelAnswer,
-
-    markScheme,
-
-    automaticMarkingFailed: true
-
-  });
-
-}
+      score: null,
+      strengths: "",
+      improvements: "Automatic marking is currently unavailable. Compare your work with the model answer below.",
+      modelAnswer: fallbackModelAnswer,
+      markScheme,
+      automaticMarkingFailed: true
+    });
+  }
 });
 app.post("/api/generate-summary", async (req, res) => {
   try {
