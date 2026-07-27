@@ -807,26 +807,30 @@ Rules:
 - No text outside JSON
 - Address the student directly`;
 
-const completion = await openrouter.chat.completions.create({
-  model: "meta-llama/llama-4-maverick",
-  messages: [
-    {
-      role: "system",
-      content: "You are an AQA A-Level examiner. Return JSON only. No markdown, no backticks."
-    },
-    {
-      role: "user",
-      content: diagram
-        ? [
-            { type: "text", text: markingPrompt },
-            { type: "image_url", image_url: { url: diagram } }
-          ]
-        : markingPrompt
-    }
-  ]
+const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+    "HTTP-Referer": "https://markdai.app",
+    "X-Title": "Markd"
+  },
+  body: JSON.stringify({
+    model: "meta-llama/llama-4-maverick:free",
+    messages: [
+      {
+        role: "user",
+        content: [
+          { type: "text", text: markingPrompt },
+          { type: "image_url", image_url: { url: diagram } }
+        ]
+      }
+    ]
+  })
 });
 
-   let content = completion.choices[0].message.content;
+const data = await res.json();
+const content = data.choices[0].message.content;
 
 console.log("MARKING AI RESPONSE:");
 console.log(content);
