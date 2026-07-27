@@ -878,13 +878,8 @@ Rules:
 - No markdown, no code blocks, no text outside JSON
 - Address the student directly`;
 
-    // Build messages differently based on whether diagram exists
-    const userContent = diagram
-      ? [
-          { type: "text", text: markingPrompt },
-          { type: "image_url", image_url: { url: diagram } }
-        ]
-      : markingPrompt; // plain string when no diagram
+    // Always use string content to avoid OpenRouter API errors
+    const userContent = markingPrompt;
 
     const openRouterRes = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
