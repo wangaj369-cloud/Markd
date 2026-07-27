@@ -835,15 +835,15 @@ Rules:
 
       })
     });
+console.log("OpenRouter HTTP status:", openRouterRes.status);
 const openRouterData = await openRouterRes.json();
-console.log("OpenRouter status:", openRouterRes.status);
-console.log("OpenRouter raw response:", JSON.stringify(openRouterData));
+console.log("OpenRouter response:", JSON.stringify(openRouterData, null, 2));
 
-// Add this check before accessing choices
-if (!openRouterRes.ok || !openRouterData.choices) {
-  console.log("OpenRouter failed:", JSON.stringify(openRouterData));
-  throw new Error("OpenRouter request failed");
+if (!openRouterRes.ok) {
+  throw new Error(`OpenRouter failed: ${JSON.stringify(openRouterData)}`);
 }
+
+
 
     let rawContent = openRouterData.choices[0].message.content;
 
