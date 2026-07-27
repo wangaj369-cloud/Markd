@@ -172,28 +172,73 @@ return (
 
 </div>
 
-{results[currentQuestion].automaticMarkingFailed && (
-  <>
-    <h2>Automatic marking unavailable</h2>
+{question.requiresDiagram && results[currentQuestion] && (
+<>
+<div className="feedback-container">
 
-    <h3>Model answer</h3>
 
-    <pre>{results[currentQuestion].modelAnswer}</pre>
+<div className="feedback-card">
 
-    <h3>Official mark scheme</h3>
+<h4>
+📝 Model Answer
+</h4>
 
-    <pre>{results[currentQuestion].markScheme}</pre>
+<p>
+{question.modelAnswer}
+</p>
 
-    <div>
-      <button onClick={()=>selfMark(0)}>0</button>
-      <button onClick={()=>selfMark(1)}>1</button>
-      <button onClick={()=>selfMark(2)}>2</button>
-      ...
-      <button onClick={()=>selfMark(question.marks)}>Full Marks</button>
-    </div>
-  </>
+</div>
+
+
+
+<div className="feedback-card">
+
+<h4>
+📋 Mark Scheme
+</h4>
+
+{question.markScheme.map((mark,index)=>(
+<p key={index}>
+{mark}
+</p>
+))}
+
+</div>
+
+
+
+<div className="feedback-card">
+
+<h4>
+⭐ Self Assessment
+</h4>
+
+<p>
+Compare your diagram with the mark scheme and award yourself.
+</p>
+
+
+<button onClick={()=>selfMark(0)}>
+0 marks
+</button>
+
+
+<button onClick={()=>selfMark(Math.ceil(question.marks/2))}>
+Half marks
+</button>
+
+
+<button onClick={()=>selfMark(question.marks)}>
+Full marks
+</button>
+
+
+</div>
+
+
+</div>
+</>
 )}
-
 </div>
 <button
   className="next-question-button"

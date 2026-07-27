@@ -186,9 +186,9 @@ Include calculations,mechanisms etc for some of the chemistry questions.
 
 IMPORTANT DIAGRAM RULES:
 
-Only set requiresDrawing to true if the student MUST create a visual diagram as part of the mark scheme.
+Only set requiresDiagram to true if the student MUST create a visual diagram as part of the mark scheme.
 
-Set requiresDrawing to false for:
+Set requiresDiagram to false for:
 - Questions that only ask to describe, explain, compare, or outline
 - Questions where a diagram would be helpful but is not required
 - Questions asking about processes where written answers are acceptable
@@ -234,17 +234,63 @@ Normally set requiresDiagram to false unless the question explicitly requires a 
 
 
 Do not mark a question as requiring a drawing unless the wording explicitly requires a diagram/drawing/graph/structure.
-Return format:
+MARK SCHEME RULES:
+
+The markScheme must contain individual AQA-style marking points.
+
+Each mark must represent one specific thing the examiner awards.
+
+Do NOT write:
+- "Good explanation"
+- "Correct answer"
+- "Shows understanding"
+- "Detailed response"
+
+Write specific scientific marking points.
+
+Examples:
+
+Chemistry:
+[
+"1 mark - correct four-carbon carbon chain shown",
+"1 mark - correct number of hydrogen atoms shown"
+]
+
+Mechanism:
+[
+"1 mark - correct reactant structure drawn",
+"1 mark - curly arrow starts from the lone pair",
+"1 mark - curly arrow points towards the carbon atom",
+"1 mark - correct product formed"
+]
+
+Biology:
+[
+"1 mark - DNA is replicated by semi-conservative replication",
+"1 mark - hydrogen bonds break between bases",
+"1 mark - each strand acts as a template"
+]
+
+Psychology:
+[
+"1 mark - identifies the independent variable",
+"1 mark - explains how the variable is measured",
+"1 mark - gives a valid strength of the method"
+]
 {
-  "questions": [
-    {
-      "question": "...",
-      "marks": "...",
-       "requiresDiagram": false
-       "markScheme":"..."
-      
-    }
-  ]
+ "questions":[
+  {
+   "question":"",
+   "marks":5,
+   "requiresDiagram":false,
+
+   "markScheme":[
+     "1 mark - ..."
+   ],
+
+   "modelAnswer":""
+  }
+ ]
 }
 `
       },
@@ -746,8 +792,37 @@ async function generateModelAnswer(question, marks, markScheme) {
 app.post("/mark-answer", async (req, res) => {
   console.log("MARK ANSWER RECEIVED:", req.body);
   try {
-    const { question, marks, answer, diagram, markScheme } = req.body;
+   const { 
+  question, 
+  marks, 
+  answer, 
+  diagram, 
+  markScheme,
+  requiresDiagram,
+  modelAnswer
+} = req.body;
     console.log("DIAGRAM RECEIVED:", diagram ? "YES" : "NO");
+    // Diagram questions use student self-assessment
+if (requiresDiagram) {
+
+  return res.json({
+
+    automaticMarkingFailed: true,
+
+    score: null,
+
+    strengths: "",
+
+    improvements:
+      "Automatic marking is unavailable for diagram questions. Compare your answer with the model answer and mark scheme, then award yourself marks.",
+
+    modelAnswer: modelAnswer,
+
+    markScheme: markScheme
+
+  });
+
+}
 
     const diagramInstructions = diagram
       ? `The student has also submitted a diagram. Analyse it carefully. Check labels, structures, accuracy and completeness. Only flag genuine errors.`
