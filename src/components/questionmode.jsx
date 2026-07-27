@@ -16,6 +16,10 @@ export default function QuestionMode({
   const [answer, setAnswer] = useState("");
 const [diagram, setDiagram] = useState(null);
 const question = questions[currentQuestion];
+
+function selfMark(score) {
+  markAnswer(question, currentQuestion, diagram, score);
+}
 if (!question || questions.length === 0) {
   return <p>Loading questions...</p>;
 }
@@ -168,24 +172,24 @@ return (
 
 </div>
 
-{result.automaticMarkingFailed && (
+{results[currentQuestion].automaticMarkingFailed && (
   <>
     <h2>Automatic marking unavailable</h2>
 
     <h3>Model answer</h3>
 
-    <pre>{result.modelAnswer}</pre>
+    <pre>{results[currentQuestion].modelAnswer}</pre>
 
     <h3>Official mark scheme</h3>
 
-    <pre>{result.markScheme}</pre>
+    <pre>{results[currentQuestion].markScheme}</pre>
 
     <div>
       <button onClick={()=>selfMark(0)}>0</button>
       <button onClick={()=>selfMark(1)}>1</button>
       <button onClick={()=>selfMark(2)}>2</button>
       ...
-      <button onClick={()=>selfMark(maxMarks)}>Full Marks</button>
+      <button onClick={()=>selfMark(question.marks)}>Full Marks</button>
     </div>
   </>
 )}

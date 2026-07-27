@@ -247,8 +247,23 @@ return {
     }
 setLoading(false);
   }
-async function markAnswer(question, index, diagram) {
+async function markAnswer(question, index, diagram, selfScore = null) {
   console.log("Diagram sent:", diagram);
+  
+  if (selfScore !== null) {
+    setResults({
+      ...results,
+      [index]: {
+        score: selfScore,
+        strengths: "Self-assessed mark",
+        improvements: "Compare your answer with the model answer and mark scheme",
+        modelAnswer: results[index]?.modelAnswer || "",
+        automaticMarkingFailed: false
+      }
+    });
+    return;
+  }
+  
     try {
       const res = await fetch("https://markd-ltw1.onrender.com/mark-answer", {
           method: "POST",
