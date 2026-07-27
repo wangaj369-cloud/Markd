@@ -172,7 +172,7 @@ return (
 
 </div>
 
-{question.requiresDiagram && results[currentQuestion] && (
+{results[currentQuestion].automaticMarkingFailed && (
 <>
 <div className="feedback-container">
 
@@ -184,7 +184,7 @@ return (
 </h4>
 
 <p>
-{question.modelAnswer}
+{results[currentQuestion].modelAnswer}
 </p>
 
 </div>
@@ -197,15 +197,15 @@ return (
 📋 Mark Scheme
 </h4>
 
-{Array.isArray(question.markScheme) ? (
-  question.markScheme.map((mark,index)=>(
+{Array.isArray(results[currentQuestion].markScheme) ? (
+  results[currentQuestion].markScheme.map((mark,index)=>(
     <p key={index}>
       {mark}
     </p>
   ))
 ) : (
   <p>
-    {question.markScheme}
+    {results[currentQuestion].markScheme}
   </p>
 )}
 
