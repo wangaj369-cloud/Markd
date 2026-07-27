@@ -292,6 +292,10 @@ Psychology:
   }
  ]
 }
+
+IMPORTANT:
+- markScheme must always be an array of strings.
+- Never combine marks into one paragraph.
 `
       },
       {

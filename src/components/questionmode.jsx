@@ -197,11 +197,17 @@ return (
 📋 Mark Scheme
 </h4>
 
-{question.markScheme.map((mark,index)=>(
-<p key={index}>
-{mark}
-</p>
-))}
+{Array.isArray(question.markScheme) ? (
+  question.markScheme.map((mark,index)=>(
+    <p key={index}>
+      {mark}
+    </p>
+  ))
+) : (
+  <p>
+    {question.markScheme}
+  </p>
+)}
 
 </div>
 
