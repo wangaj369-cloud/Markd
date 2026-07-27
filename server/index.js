@@ -718,40 +718,31 @@ error:"Exam marking failed"
 });
 async function generateModelAnswer(question, marks, markScheme) {
   try {
-
-    const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
-
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an AQA examiner. Produce only a full-mark model answer."
-        },
-        {
-          role: "user",
-          content: `
-Question:
-${question}
-
-Maximum marks:
-${marks}
-
-Official mark scheme:
-${markScheme}
-`
-        }
-      ]
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "HTTP-Referer": "https://markdai.app",
+        "X-Title": "Markd"
+      },
+      body: JSON.stringify({
+        model: "meta-llama/llama-4-maverick:free",
+        messages: [
+          {
+            role: "user",
+            content: `You are an AQA examiner. Give a full mark model answer.\nQuestion: ${question}\nMarks: ${marks}\nMark scheme: ${markScheme}`
+          }
+        ]
+      })
     });
-
-    return completion.choices[0].message.content;
-
+    const data = await res.json();
+    return data.choices[0].message.content;
   } catch {
-
     return "";
-
   }
 }
+
 app.post("/mark-answer", async (req, res) => {
   console.log("MARK ANSWER RECEIVED:", req.body);
   try {
@@ -858,6 +849,9 @@ if (!openRouterRes.ok) {
 
     let result;
     try {
+  console.log("Starting mark-answer route");
+  const { question, marks, answer, diagram, markScheme } = req.body;
+  console.log("Variables destructured OK");
       result = JSON.parse(cleaned);
     } catch (e) {
       console.log("BAD JSON FROM AI:", cleaned);
