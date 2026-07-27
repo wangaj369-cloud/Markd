@@ -109,68 +109,42 @@ return (
         <>
          <div className="feedback-container">
 
- <div className="feedback-card mark-card">
+{!results[currentQuestion].automaticMarkingFailed && (
+  <>
+    <div className="feedback-card mark-card">
+      <div className="score-card">
+        <h3>⭐ Mark Awarded</h3>
+        <div
+          className={
+            results[currentQuestion].score >= question.marks / 2
+              ? "score good"
+              : "score bad"
+          }
+        >
+          {results[currentQuestion].score}/{question.marks}
+        </div>
+      </div>
+      <p>
+        {results[currentQuestion].score}/{question.marks}
+      </p>
+    </div>
 
-<div className="score-card">
+    <div className="feedback-card">
+      <h4>✅ Strengths</h4>
+      <p>{results[currentQuestion].strengths}</p>
+    </div>
 
-  <h3>⭐ Mark Awarded</h3>
+    <div className="feedback-card">
+      <h4>📈 Improvements</h4>
+      <p>{results[currentQuestion].improvements}</p>
+    </div>
 
-  <div
-    className={
-      results[currentQuestion].score >= question.marks / 2
-        ? "score good"
-        : "score bad"
-    }
-  >
-    {results[currentQuestion].score}/{question.marks}
-  </div>
-
-</div>
-
-  <p>
-    {results[currentQuestion].score}/{question.marks}
-  </p>
-
-</div>
-
-
-<div className="feedback-card">
-
-  <h4>
-    ✅ Strengths
-  </h4>
-
-  <p>
-    {results[currentQuestion].strengths}
-  </p>
-
-</div>
-
-
-<div className="feedback-card">
-
-  <h4>
-    📈 Improvements
-  </h4>
-
-  <p>
-    {results[currentQuestion].improvements}
-  </p>
-
-</div>
-
-
-<div className="feedback-card">
-
-  <h4>
-    📝 Model Answer
-  </h4>
-
-  <p>
-    {results[currentQuestion].modelAnswer}
-  </p>
-
-</div>
+    <div className="feedback-card">
+      <h4>📝 Model Answer</h4>
+      <p>{results[currentQuestion].modelAnswer}</p>
+    </div>
+  </>
+)}
 
 {results[currentQuestion].automaticMarkingFailed && (
 <>
