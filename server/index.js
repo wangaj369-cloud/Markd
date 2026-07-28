@@ -549,7 +549,7 @@ Then:
 
 `;
 const completion = await openrouter.chat.completions.create({
-model:"meta-llama/llama-3.1-8b-instruct:free",
+ model: "nvidia/nemotron-3-ultra-550b-a55b:free",
 messages:[
 {
 role:"user",
