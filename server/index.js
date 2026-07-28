@@ -148,307 +148,276 @@ Subtopic: ${subtopic}
   });
 });
 app.post("/generate-questions", async (req, res) => {
-  
-  console.log("ROUTE HIT");
-  console.log(req.body);
-  const { subject, topic, subtopic } = req.body;
 
-  const completion = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
-    messages: [
-      {
-        role: "system",
-       content: `
+  try {
+
+    console.log("ROUTE HIT");
+    console.log(req.body);
+
+    const { subject, topic, subtopic } = req.body;
+
+
+    const completion = await groq.chat.completions.create({
+
+      model: "llama-3.3-70b-versatile",
+
+      temperature: 0.2,
+
+      max_tokens: 3000,
+
+      messages: [
+
+        {
+          role: "system",
+
+          content: `
+
 You are an AQA A-Level ${subject} examiner.
 
-Generate questions that closely match real AQA exam style.
-
-Questions must:
-- Be based only on the official AQA specification content.
-- Use wording and command terms similar to AQA past papers.
-- Match the difficulty and style of AQA examinations.
-- Include realistic mark allocations.
-- Test application, analysis, and recall where appropriate.
-- Avoid unrealistic or overly broad questions.
-
-Use past papers as inspiration for:
-- question structure
-- command words
-- difficulty
-- mark scheme expectations
-
-Do not copy past paper questions word-for-word.
-Create original questions with the same style.
-You MUST respond ONLY in valid JSON.
-Do NOT include markdown, backticks, or explanations.
-Give a mix of short answer questions and long answer questions.
-Include calculations,mechanisms etc for some of the chemistry questions.
-
-
-IMPORTANT DIAGRAM RULES:
-
-Only set requiresDiagram to true if the student MUST create a visual diagram as part of the mark scheme.
-
-Set requiresDiagram to false for:
-- Questions that only ask to describe, explain, compare, or outline
-- Questions where a diagram would be helpful but is not required
-- Questions asking about processes where written answers are acceptable
-- Questions involving formulas, calculations, definitions, or explanations
-Subject-specific diagram rules:
-
-BIOLOGY DIAGRAM RULES:
-
-For Biology, requiresDiagram should almost always be false.
-
-Only set requiresDiagram to true for:
-- Drawing a genetic diagram (Punnett square)
-- Drawing a graph from experimental data
-- Completing or annotating a provided diagram
-- Drawing a simple scientific model where AQA commonly expects it
-
-Do NOT require students to draw:
-- Organs (heart, lungs, kidney, etc.)
-- Cells
-- Biological structures from memory
-- Microscopic structures
-- Protein structures
-- Enzymes
-- Molecules
-
-If a biological structure is normally tested, ask the student to explain, identify, or interpret it instead.
-
-Only create diagram questions if the wording "draw", "complete", "plot", or "construct" would realistically appear in an AQA mark scheme.
-
-CHEMISTRY:
-Set requiresDiagram to true for:
-- displayed formula drawings
-- structural formula drawings
-- organic mechanisms
-- curly arrow mechanisms
-- reaction diagrams
-- graphs where drawing is required
-
-PSYCHOLOGY:
-Normally set requiresDiagram to false unless the question explicitly requires a diagram or graph.
-
-
-
-
-Do not mark a question as requiring a drawing unless the wording explicitly requires a diagram/drawing/graph/structure.
-MARK SCHEME RULES
-
-The markScheme MUST be an array.
-
-Each array item must award exactly ONE mark.
-
-Never combine multiple marks into one sentence.
-
-Write the mark scheme exactly like an AQA examiner.
-
-Good examples:
-
-[
-"1 mark - identifies hydrogen bonding",
-"1 mark - explains hydrogen bonds require extra energy to break",
-"1 mark - compares alcohols with alkanes"
-]
-
-Mechanism example:
-
-[
-"1 mark - correct first step",
-"1 mark - correct intermediate",
-"1 mark - correct electron movement",
-"1 mark - correct product",
-"1 mark - correct mechanism"
-]
-
-Calculation example:
-
-[
-"1 mark - correct equation used",
-"1 mark - substitutes correct values",
-"1 mark - correct answer with units"
-]
-
-Displayed formula example:
-
-[
-"1 mark - correct structure",
-"1 mark - correct functional group",
-"1 mark - correct bonding",
-"1 mark - correct hydrogens"
-]
-
-Biology example:
-
-[
-"1 mark - DNA helicase breaks hydrogen bonds",
-"1 mark - each strand acts as a template",
-"1 mark - complementary base pairing occurs",
-"1 mark - DNA polymerase joins nucleotides"
-]
-
-Psychology example:
-
-[
-"1 mark - identifies the independent variable",
-"1 mark - explains why it was manipulated",
-"1 mark - identifies the dependent variable",
-"1 mark - explains how it was measured"
-]
-
-DO NOT write:
-
-"Correct answer (3 marks)"
-"Good explanation (2 marks)"
-"Detailed answer (4 marks)"
-
-Every mark must stand alone.
-
-MODEL ANSWER RULES
-
-Every question must include:
-
-- question
-- marks
-- requiresDiagram
-- answerType
-- markScheme
-- modelAnswer
-
-The modelAnswer must:
-
-- Answer the question fully.
-- Include every marking point.
-- Use correct AQA scientific terminology.
-- Be written exactly as a student could write in an exam.
-- Include calculations, equations or units where appropriate.
-- Never be blank.
-
-MARK SCHEME RULES
-
-- markScheme must always be an array.
-- Every item awards exactly ONE mark.
-- Never combine multiple marks into one line.
-
-Example:
-
-[
-"1 mark - identifies hydrogen bonding",
-"1 mark - explains hydrogen bonds require extra energy to break",
-"1 mark - compares alcohols with alkanes"
-]
-
-DIAGRAM RULES
-
-If requiresDiagram is false:
-
-- modelAnswer MUST be plain text only.
-- Never draw displayed formulae.
-- Never draw mechanisms.
-- Never draw curly arrows.
-- Never use ASCII diagrams.
-- Never use vertical or horizontal bonds.
-- Never include raw line breaks.
-- Use condensed structural formulae where needed.
-
-Correct examples:
-
-CH3CH2CH2Br
-
-CH3CH=C(CH3)2
-
-2-bromo-2-methylpropane
-
-If requiresDiagram is true:
-
-- modelAnswer should describe exactly what the finished diagram should contain.
-- Do NOT draw the diagram.
-- Explain every important label and feature that must appear.
-
-Example:
-
-"The displayed formula should show a central carbon atom bonded to three CH3 groups and one bromine atom. The central carbon has no hydrogen atoms attached. All bonds should be single covalent bonds. The IUPAC name is 2-bromo-2-methylpropane."
-
-JSON FORMAT
+Generate 5 realistic AQA style exam questions.
 
 Return ONLY valid JSON.
+No markdown.
+No code blocks.
+No explanations outside JSON.
+
+Your output must exactly follow this structure:
 
 {
-  "questions":[
-    {
-      "question":"",
-      "marks":5,
-      "requiresDiagram":false,
-      "answerType":"written",
-      "markScheme":[
-        "1 mark - ...",
-        "1 mark - ..."
-      ],
-      "modelAnswer":"..."
-    }
-  ]
+ "questions":[
+  {
+   "question":"",
+   "marks":5,
+   "requiresDiagram":false,
+   "answerType":"",
+   "markScheme":[],
+   "modelAnswer":""
+  }
+ ]
 }
 
-Rules:
 
-- Return ONLY JSON.
-- No markdown.
-- No code blocks.
-- Escape newline characters if they ever appear inside strings.
-IMPORTANT JSON FORMATTING RULES:
-- Return ONLY valid JSON.
-- Escape all newline characters inside strings using \n.
-- Never put raw line breaks inside JSON string values.
-- Do not use markdown or code blocks.
+QUESTION RULES:
+
+- Use AQA command words.
+- Create original questions.
+- Include realistic mark allocations.
+- Include recall and application.
+- Include calculations and mechanisms where appropriate.
+
+
+DIAGRAM RULES:
+
+requiresDiagram is ONLY true when the student must draw something.
+
+Chemistry:
+requiresDiagram:true for:
+- organic mechanisms
+- curly arrow mechanisms
+- displayed formula drawing
+- structural formula drawing
+- reaction diagrams
+
+requiresDiagram:false for:
+- explanations
+- calculations
+- definitions
+- descriptions
+
+
+MODEL ANSWER RULES:
+
+If requiresDiagram:false:
+
+modelAnswer:
+- plain text only
+- no diagrams
+- no ASCII structures
+- no curly arrows
+- no markdown
+
+
+If requiresDiagram:true:
+
+modelAnswer:
+- MUST describe the correct answer AND include the diagram.
+- The diagram must be inside the modelAnswer string.
+- Use \\n for line breaks.
+- Do not use markdown code blocks.
+- Do not use backticks.
+
+
+Example diagram answer:
+
+"The mechanism should show protonation of the alcohol followed by loss of water.\\n\\nCH3CH2OH + H+ -> CH3CH2OH2+\\n\\nCurly arrow from the C-O bond to oxygen showing water leaving."
+
+
+MARK SCHEME RULES:
+
+markScheme MUST be an array.
+
+Each item gives exactly ONE mark.
+
+Example:
+
+[
+"1 mark - correct reagent",
+"1 mark - correct condition",
+"1 mark - correct mechanism",
+"1 mark - correct product"
+]
+
+
+Never write:
+
+"Correct answer (4 marks)"
+
+Every mark must be separate.
+
+
+JSON RULES:
+
+- Escape all quotes inside strings.
+- Escape all newline characters using \\n.
+- Never output raw line breaks inside JSON strings.
 
 `
-      },
-      {
-        role: "user",
-        content: `
+
+        },
+
+        {
+
+          role:"user",
+
+          content:`
+
 Subject: ${subject}
+
 Topic: ${topic}
+
 Subtopic: ${subtopic}
+
 
 Generate 5 exam questions.
 
-        `
-      }
-    ]
-  });
+`
 
-  const raw = completion.choices[0].message.content;
+        }
 
-  const cleaned = raw
-    .replace(/```json\n?/g, "")
-    .replace(/```\n?/g, "")
-    .trim();
+      ]
 
-  console.log("RAW AI RESPONSE:");
-  console.log(raw);
-
-  console.log("CLEANED RESPONSE:");
-  console.log(cleaned);
-
-  let parsed;
-  try {
-parsed = JSON.parse(cleaned);
-  parsed.questions.forEach(q => {
-  if (!q.requiresDiagram && q.modelAnswer) {
-    q.modelAnswer = q.modelAnswer.replace(/\r?\n/g, " ");
-  }
-});
-  } catch (err) {
-    console.log("JSON PARSE ERROR:", err.message);
-    return res.status(500).json({
-      error: "AI returned invalid JSON",
-      raw: cleaned
     });
+
+
+
+    const raw = completion.choices[0].message.content;
+
+
+    console.log("RAW AI RESPONSE:");
+    console.log(raw);
+
+
+
+    let cleaned = raw
+      .replace(/```json/g,"")
+      .replace(/```/g,"")
+      .trim();
+
+
+
+    // Extract JSON only
+
+    const start = cleaned.indexOf("{");
+    const end = cleaned.lastIndexOf("}");
+
+
+    if(start === -1 || end === -1){
+
+      throw new Error("No JSON found");
+
+    }
+
+
+    cleaned = cleaned.substring(start,end+1);
+
+
+
+    console.log("CLEANED JSON:");
+    console.log(cleaned);
+
+
+
+    let parsed;
+
+
+    try {
+
+      parsed = JSON.parse(cleaned);
+
+
+    }
+
+    catch(error){
+
+      console.log("JSON ERROR:",error.message);
+
+      return res.status(500).json({
+
+        error:"AI returned invalid JSON",
+
+        raw:cleaned
+
+      });
+
+    }
+
+
+
+    // Remove accidental line breaks from non-diagram answers
+
+    parsed.questions.forEach(q=>{
+
+      if(
+        q.requiresDiagram === false &&
+        q.modelAnswer
+      ){
+
+        q.modelAnswer =
+        q.modelAnswer.replace(/\r?\n/g," ");
+
+      }
+
+
+    });
+
+
+
+    res.json(parsed);
+
+
+
   }
 
-  res.json(parsed);
+
+  catch(error){
+
+    console.error("GENERATE QUESTIONS ERROR:");
+
+    console.error(error);
+
+
+    res.status(500).json({
+
+      error:"Question generation failed",
+
+      details:error.message
+
+    });
+
+
+  }
+
+
 });
 app.post("/generate-exam", async (req,res)=>{
 
