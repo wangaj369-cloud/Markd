@@ -40,23 +40,29 @@ const [startingExam, setStartingExam] = useState(false);
 
 return (
 
-<div className="exam-setup-page">
+<div className="exam-mode">
 
+  <div className="exam-shell">
 
-<h1>
-📝 Exam Paper Mode
-</h1>
+    <div className="exam-header">
 
+      <span className="exam-badge">
+        EXAM MODE
+      </span>
 
-<p>
-AI generated A-Level exam paper
-</p>
+      <h1>AQA Practice Paper</h1>
 
+      <p>
+        Personalise Your Exam Paper
+      </p>
 
+    </div>
 
-<label>Subject</label>
+<label className="exam-label">
+Subject
+</label>
 
-<select
+<select className="exam-select"
 
 value={examSubject}
 
@@ -83,16 +89,17 @@ setExamSubtopics([]);
 
 
 
-<label>Paper Type</label>
+<label className="exam-label">
+Paper Type
+</label>
 
 <div className="paper-type-buttons">
 
 <button
-
 className={
 examPaperType==="Full Subject"
-? "active"
-: ""
+? "paper-button active"
+: "paper-button"
 }
 
 onClick={()=>{
@@ -111,11 +118,10 @@ Full Subject
 
 
 <button
-
 className={
-examPaperType === "By Topic"
-? "active"
-: ""
+examPaperType==="By Topic"
+? "paper-button active"
+: "paper-button"
 }
 
 onClick={()=>{setExamPaperType("By Topic"); setShowTopicDropdown(true);}}
@@ -127,11 +133,10 @@ By Topic
 </button>
 
 <button
-
 className={
 examPaperType==="By Subtopic"
-? "active"
-: ""
+? "paper-button active"
+: "paper-button"
 }
 
 onClick={()=>{setExamPaperType("By Subtopic"); setShowTopicDropdown(true);}}
@@ -150,12 +155,13 @@ By Subtopic
 
 <div className="exam-topic-select">
 
-<label>
+<label className="exam-label">
 Topic
 </label>
 
 
-<select
+
+<select className="exam-select"
 
 value={examTopic}
 
@@ -217,12 +223,12 @@ value={topic}
 
 <div className="exam-subtopic-select">
 
-<label>
+<label className="exam-label">
 Subtopics
 </label>
 
 
-<select
+<select className="exam-select"
 
 multiple
 
@@ -274,6 +280,7 @@ value={subtopic}
 
 
 <button
+className="done-button"
 onClick={()=>setShowSubtopicDropdown(false)}
 >
 Done
@@ -287,12 +294,12 @@ Done
 
 
 
-<label>
+<label className="exam-label">
 Number of Questions
 </label>
 
 
-<select
+<select className="exam-select"
 
 value={examQuestionCount}
 
@@ -374,9 +381,11 @@ if(e.key === "Enter") setShowCustomQuestionsInput(false);
 
 )}
 
- <label>Difficulty</label>
+<label className="exam-label">
+Difficulty
+</label>
 
-<select
+<select className="exam-select"
 value={examDifficulty}
 onChange={(e)=>setExamDifficulty(e.target.value)}
 >
@@ -479,12 +488,9 @@ onClick={() => {
 
 </button>
 
-
-
+</div>
 </div>
 
 );
 
-
 }
-
