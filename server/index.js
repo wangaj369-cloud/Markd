@@ -28,6 +28,9 @@ const openrouter = new OpenAI({
   apiKey: process.env.OPENROUTER_KEY,
   baseURL: "https://openrouter.ai/api/v1"
 });
+
+
+
 const app = express();
 
 app.get("/", (req, res) => {
