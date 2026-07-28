@@ -296,6 +296,7 @@ Psychology:
 IMPORTANT:
 - markScheme must always be an array of strings.
 - Never combine marks into one paragraph.
+- For diagram questions (requiresDiagram: true), you MUST provide a detailed modelAnswer describing what the correct diagram should show.
 `
       },
       {

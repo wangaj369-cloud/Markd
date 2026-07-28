@@ -149,6 +149,22 @@ return (
 <>
 <div className="feedback-container">
 
+{results[currentQuestion].score !== null && (
+  <div className="feedback-card mark-card">
+    <div className="score-card">
+      <h3>⭐ Mark Awarded</h3>
+      <div
+        className={
+          results[currentQuestion].score >= question.marks / 2
+            ? "score good"
+            : "score bad"
+        }
+      >
+        {results[currentQuestion].score}/{question.marks}
+      </div>
+    </div>
+  </div>
+)}
 
 <div className="feedback-card">
 
