@@ -549,16 +549,13 @@ Then:
 
 `;
 const completion = await openrouter.chat.completions.create({
- model: "nvidia/nemotron-3-ultra-550b-a55b:free",
+ model: "nvidia/nemotron-3-nano-30b-a3b:free",
 messages:[
 {
 role:"user",
 content:prompt
 }
-],
-
-
-});
+]});
 
 
 let text =
@@ -780,7 +777,6 @@ const completion = await groq.chat.completions.create({
 
 model:"llama-3.1-8b-instant",
 
-temperature:0,
 
 messages:[
 {
@@ -878,7 +874,7 @@ async function generateModelAnswer(question, marks, markScheme) {
         "X-Title": "Markd"
       },
      body: JSON.stringify({
-  model: "nvidia/nemotron-3-ultra-550b-a55b:free",
+ model:"nvidia/nemotron-3-super-120b-a12b:free",
         messages: [
           {
             role: "user",
@@ -936,13 +932,13 @@ Rules:
         "X-Title": "Markd"
       },
      body: JSON.stringify({
-  model:"nvidia/nemotron-3-ultra-550b-a55b:free",
+ model:"nvidia/nemotron-3-nano-30b-a3b:free",
         messages: [
           {
             role: "user",
             content: userContent
           }
-        ]
+        ],
 
       })
     });

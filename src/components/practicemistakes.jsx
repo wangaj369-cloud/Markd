@@ -212,22 +212,6 @@ Revise Selected Topics
 </button>
 
 
-<button
-
-onClick={()=>{
-
-console.log(
-"REVISING ALL:",
-weakTopics.map(t=>t.subtopic)
-);
-
-}}
-
->
-
-Revise All
-
-</button>
 
 
 

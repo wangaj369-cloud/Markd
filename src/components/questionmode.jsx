@@ -16,6 +16,7 @@ export default function QuestionMode({
   const [answer, setAnswer] = useState("");
 const [diagram, setDiagram] = useState(null);
 const question = questions[currentQuestion];
+const [marking, setMarking] = useState(false);
 
 function selfMark(score) {
 
@@ -99,13 +100,16 @@ return (
 )}
 
 
-    <button
+ <button
   className="mark-button"
-  onClick={() => {
+  disabled={marking}
+  onClick={async () => {
+
+    setMarking(true);
 
     if(question.requiresDiagram){
 
-      markAnswer(
+      await markAnswer(
         question,
         currentQuestion,
         true
@@ -113,7 +117,7 @@ return (
 
     } else {
 
-      markAnswer(
+      await markAnswer(
         question,
         currentQuestion,
         false
@@ -121,10 +125,19 @@ return (
 
     }
 
+    setMarking(false);
+
   }}
 >
-  Mark Answer →
+  {marking ? "Marking..." : "Mark Answer →"}
 </button>
+{marking && (
+<div className="ai-loading">
+
+🤖 Your AI examiner is marking your answer...
+
+</div>
+)}
 
       {results[currentQuestion] && (
         <>
