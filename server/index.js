@@ -256,11 +256,11 @@ Good examples:
 Mechanism example:
 
 [
-"1 mark - correct reactant drawn",
-"1 mark - curly arrow starts from the lone pair",
-"1 mark - curly arrow points to the carbon atom",
-"1 mark - correct carbocation shown",
-"1 mark - correct product drawn"
+"1 mark - correct first step",
+"1 mark - correct intermediate",
+"1 mark - correct electron movement",
+"1 mark - correct product",
+"1 mark - correct mechanism"
 ]
 
 Calculation example:
@@ -274,10 +274,10 @@ Calculation example:
 Displayed formula example:
 
 [
-"1 mark - correct carbon chain",
-"1 mark - correct functional group position",
-"1 mark - all bonds shown correctly",
-"1 mark - correct number of hydrogen atoms"
+"1 mark - correct structure",
+"1 mark - correct functional group",
+"1 mark - correct bonding",
+"1 mark - correct hydrogens"
 ]
 
 Biology example:
@@ -308,156 +308,95 @@ Every mark must stand alone.
 
 MODEL ANSWER RULES
 
-Every question must include a modelAnswer.
+Every question must include:
 
-The modelAnswer must be a genuine full-mark answer.
+- question
+- marks
+- requiresDiagram
+- answerType
+- markScheme
+- modelAnswer
 
-The model answer should:
+The modelAnswer must:
+
+- Answer the question fully.
 - Include every marking point.
-- Use AQA scientific terminology.
-- Be written exactly as a student could write in the exam.
-- Be concise but complete.
-- Include calculations where required.
-- Include equations where required.
-- Include mechanisms where required.
-- Include units where required.
+- Use correct AQA scientific terminology.
+- Be written exactly as a student could write in an exam.
+- Include calculations, equations or units where appropriate.
+- Never be blank.
 
-If requiresDiagram is true:
-- modelAnswer should describe exactly what the finished diagram should contain.
-- Do NOT leave it blank.
-- Describe every important label and feature that should appear.
+MARK SCHEME RULES
 
-Return ONLY this JSON format:
-Every mark must stand alone.
-{
- "questions":[
-  {
-   "question":"",
-   "marks":5,
-   "requiresDiagram":false,
-   "answerType":"written",
+- markScheme must always be an array.
+- Every item awards exactly ONE mark.
+- Never combine multiple marks into one line.
 
-  "markScheme":[
- "1 mark - first marking point",
- "1 mark - second marking point",
- "1 mark - third marking point"
-],
+Example:
 
-"modelAnswer":"A complete full-mark answer."
-  }
- ]
-}
-IMPORTANT:
-IMPORTANT RULES:
+[
+"1 mark - identifies hydrogen bonding",
+"1 mark - explains hydrogen bonds require extra energy to break",
+"1 mark - compares alcohols with alkanes"
+]
+
+DIAGRAM RULES
 
 If requiresDiagram is false:
-- Model answers must be plain text only.
-- Never include displayed formulae.
-- Never include ASCII diagrams.
-- Never include line breaks for structures.
-- Use condensed structural formulae only.
-Example:
-CH3CH2CH2CH3
 
-If requiresDiagram is true:
-- You may include a displayed formula or diagram.
-
-requiresDiagram MUST ONLY be true or false.
-
-true:
-Only when the student must physically draw something.
-
-false:
-For all written answers.
-IMPORTANT
-
-modelAnswer MUST NEVER be empty.
-
-markScheme MUST NEVER be empty.
-
-For every question generate BOTH.
-
-If requiresDiagram=true:
-
-modelAnswer must describe exactly what the correct finished diagram looks like.
-
-{
-"question":"Draw the displayed formula of 2-bromo-2-methylpropane and give its IUPAC name.",
-"marks":2,
-"requiresDiagram":true,
-"answerType":"displayedFormula",
-"markScheme":[
-"1 mark - correct displayed formula",
-"1 mark - correct IUPAC name"
-],
-"modelAnswer":
-"      CH3\n       |\nCH3-C-Br\n       |\n      CH3\n\nIUPAC name: 2-bromo-2-methylpropane"
-}
-Never return:
-
-"Displayed formula (3 marks)"
-
-Never combine marks together.
-
-Every available mark must have its own line.
-
-Never leave modelAnswer blank.
-
-ALSO IMPORTANT:
-- markScheme must always be an array of strings.
-- Never combine marks into one paragraph.
-- For diagram questions (requiresDiagram: true), you MUST provide a detailed modelAnswer describing what the correct diagram should show.
-CHEMISTRY MODEL ANSWER RULES
-
-If requiresDiagram = false
-
+- modelAnswer MUST be plain text only.
 - Never draw displayed formulae.
-- Never use ASCII art.
-- Never use vertical or horizontal bonds.
-- Never include raw newline characters.
-- Never draw reaction mechanisms.
+- Never draw mechanisms.
 - Never draw curly arrows.
-- Use condensed structural formulae only.
+- Never use ASCII diagrams.
+- Never use vertical or horizontal bonds.
+- Never include raw line breaks.
+- Use condensed structural formulae where needed.
 
-Examples
+Correct examples:
 
-Correct:
 CH3CH2CH2Br
 
-Correct:
 CH3CH=C(CH3)2
 
-Correct:
 2-bromo-2-methylpropane
 
-Incorrect:
+If requiresDiagram is true:
 
-    Br
-     |
-CH3-CH2
+- modelAnswer should describe exactly what the finished diagram should contain.
+- Do NOT draw the diagram.
+- Explain every important label and feature that must appear.
 
-Incorrect:
+Example:
 
-CH3
- |
-CH3-C-Br
- |
-CH3
+"The displayed formula should show a central carbon atom bonded to three CH3 groups and one bromine atom. The central carbon has no hydrogen atoms attached. All bonds should be single covalent bonds. The IUPAC name is 2-bromo-2-methylpropane."
 
-Incorrect:
+JSON FORMAT
 
-:OH⁻ → C⁺
+Return ONLY valid JSON.
 
-------------------------------------------------
+{
+  "questions":[
+    {
+      "question":"",
+      "marks":5,
+      "requiresDiagram":false,
+      "answerType":"written",
+      "markScheme":[
+        "1 mark - ...",
+        "1 mark - ..."
+      ],
+      "modelAnswer":"..."
+    }
+  ]
+}
 
-If requiresDiagram = true
+Rules:
 
-The modelAnswer MUST contain the complete displayed formula, mechanism, curly-arrow mechanism, graph, or diagram.
-
-Displayed formulae and mechanisms may use ASCII formatting and escaped newline characters (\\n).
-
-Never leave modelAnswer blank.
-
+- Return ONLY JSON.
+- No markdown.
+- No code blocks.
+- Escape newline characters if they ever appear inside strings.
 IMPORTANT JSON FORMATTING RULES:
 - Return ONLY valid JSON.
 - Escape all newline characters inside strings using \n.
@@ -495,7 +434,9 @@ Generate 5 exam questions.
 
   let parsed;
   try {
-    parsed = JSON.parse(cleaned);
+    const fixed = cleaned.replace(/\r?\n/g, "\\n");
+
+parsed = JSON.parse(fixed);
     parsed.questions.forEach(q => {
   if (!q.requiresDiagram && q.modelAnswer) {
     q.modelAnswer = q.modelAnswer.replace(/\n/g, " ");
