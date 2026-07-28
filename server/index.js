@@ -348,6 +348,20 @@ Every mark must stand alone.
  ]
 }
 IMPORTANT:
+IMPORTANT RULES:
+
+If requiresDiagram is false:
+- Model answers must be plain text only.
+- Never include displayed formulae.
+- Never include ASCII diagrams.
+- Never include line breaks for structures.
+- Use condensed structural formulae only.
+Example:
+CH3CH2CH2CH3
+
+If requiresDiagram is true:
+- You may include a displayed formula or diagram.
+
 requiresDiagram MUST ONLY be true or false.
 
 true:
@@ -417,6 +431,7 @@ IMPORTANT JSON FORMATTING RULES:
 - Escape all newline characters inside strings using \n.
 - Never put raw line breaks inside JSON string values.
 - Do not use markdown or code blocks.
+
 `
       },
       {
