@@ -258,7 +258,6 @@ function clearCanvas() {
 
 <p className="diagram-help">
 Include clear labels, arrows and accurate structures.
-When finished, press "Submit Answer".
 </p>
 
     <canvas
@@ -266,7 +265,9 @@ When finished, press "Submit Answer".
  className="diagram-canvas"
 
  style={{
-   touchAction:"none"
+   touchAction:"none",
+   width: "100%",
+   height: "400px"
  }}
 
  onPointerDown={startDrawing}
@@ -348,14 +349,6 @@ Number(e.target.value)
 {brushSize}px
 
 </span>
-
-
-<button 
-className="submit-diagram-button"
-onClick={saveCanvas}
->
-Submit Answer →
-</button>
 
 </div>
 
