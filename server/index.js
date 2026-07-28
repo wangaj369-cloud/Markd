@@ -873,7 +873,7 @@ async function generateModelAnswer(question, marks, markScheme) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Authorization": `Bearer ${process.env.OPENROUTER_KEY}`,
         "HTTP-Referer": "https://markdai.app",
         "X-Title": "Markd"
       },
@@ -931,7 +931,7 @@ Rules:
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Authorization": `Bearer ${process.env.OPENROUTER_KEY}`,
         "HTTP-Referer": "https://markdai.app",
         "X-Title": "Markd"
       },
