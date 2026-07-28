@@ -53,9 +53,9 @@ Exam Feedback
 Question {currentQuestion+1} / {examResults.feedback.length}
 </h2>
 
-{feedback.score !== null && (
+{feedback.mark !== null && feedback.mark !== undefined && (
   <div className="score-display">
-    <strong>Score: {feedback.score} / {feedback.maxMarks || feedback.marks}</strong>
+    <strong>Score: {feedback.mark} / {feedback.maxMark}</strong>
   </div>
 )}
 
