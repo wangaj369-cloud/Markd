@@ -1545,616 +1545,286 @@ box-shadow:
   }
 
 
-}
-/* =====================================================
-   EXAM MODE - DARK SERIOUS UI
-===================================================== */
+}.exam-setup-page{
 
-.exam-setup-page,
-.exam-page {
+max-width:800px;
 
-    min-height:100vh;
+margin:auto;
 
-    width:100%;
+padding:30px;
 
-    background:#050505;
-
-    color:white;
-
-    padding:40px 20px;
+text-align:center;
 
 }
-
-
-/* =====================================================
-   SETUP CONTAINER
-===================================================== */
-
-
-.exam-setup-page {
-
-    max-width:850px;
-
-    margin:auto;
-
-    text-align:center;
-
-    background:
-    linear-gradient(
-        145deg,
-        #0a0a0a,
-        #111111
-    );
-
-    border:1px solid #27272a;
-
-    border-radius:30px;
-
-    padding:45px;
-
-    box-shadow:
-    0 30px 100px rgba(0,0,0,.7);
-
-}
-
-
-/* =====================================================
-   HEADERS
-===================================================== */
-
-
-.exam-header {
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:35px;
-
-}
-
-
-.exam-setup-page h1,
-.exam-page h1 {
-
-    color:white;
-
-    font-size:42px;
-
-    font-weight:800;
-
-}
-
-
-.exam-setup-page h2,
-.exam-page h2 {
-
-    color:white;
-
-}
-
-
-.exam-setup-page p,
-.exam-page p {
-
-    color:#94a3b8;
-
-}
-
-
-
-/* =====================================================
-   OPTIONS BUTTONS
-===================================================== */
 
 
 .exam-options,
-.question-options {
+.question-options{
 
-    display:flex;
+display:flex;
 
-    justify-content:center;
+justify-content:center;
 
-    gap:15px;
+gap:15px;
 
-    flex-wrap:wrap;
-
-    margin:25px 0;
+flex-wrap:wrap;
 
 }
 
 
 
 .exam-options button,
-.question-options button {
+.question-options button{
 
+padding:15px 25px;
 
-    padding:16px 25px;
+border-radius:15px;
 
-    border-radius:16px;
+border:none;
 
-    cursor:pointer;
+cursor:pointer;
 
-    font-size:17px;
-
-    font-weight:700;
-
-    background:#18181b;
-
-    color:#e5e7eb;
-
-    border:1px solid #303036;
-
-    transition:.25s;
+font-size:18px;
 
 }
 
+
+
+.exam-options button.active,
+.question-options button.active{
+
+background:#2563eb;
+
+color:white;
+
+}
+
+
+
+.exam-summary{
+
+background:#f1f5f9;
+
+padding:20px;
+
+border-radius:20px;
+
+margin:30px auto;
+
+max-width:400px;
+
+}.exam-page{
+
+max-width:900px;
+
+margin:auto;
+
+padding:30px;
+
+}
+
+
+
+.exam-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+
+.exam-timer{
+
+font-size:28px;
+
+font-weight:bold;
+
+color:red;
+
+}
+
+
+
+.exam-question{
+
+margin-top:40px;
+
+background:white;
+
+padding:30px;
+
+border-radius:20px;
+
+}
+
+
+
+.exam-question textarea{
+
+width:100%;
+
+min-height:250px;
+
+font-size:18px;
+
+padding:15px;
+
+}
+
+
+
+.exam-navigation{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:30px;
+
+}/* =========================
+   EXAM MODE STYLING
+========================= */
+
+
+.exam-setup-page,
+.exam-page {
+
+  background:#f8fafc;
+  color:#111827;
+  min-height:100vh;
+  padding:30px;
+
+}
+
+
+/* Headings */
+
+.exam-setup-page h1,
+.exam-page h1,
+.exam-setup-page h2,
+.exam-page h2 {
+
+  color:#111827;
+
+}
+
+
+/* Paragraphs */
+
+.exam-setup-page p,
+.exam-page p {
+
+  color:#374151;
+
+}
+
+
+/* Select boxes */
+
+.exam-setup-page select,
+.exam-setup-page input {
+
+  background:white;
+  color:#111827;
+  border:2px solid #cbd5e1;
+  padding:12px;
+  border-radius:12px;
+  font-size:16px;
+
+}
+
+
+
+/* Option buttons */
+
+.exam-options button,
+.question-options button {
+
+  background:white;
+  color:#111827;
+  border:2px solid #cbd5e1;
+
+}
 
 
 .exam-options button:hover,
 .question-options button:hover {
 
-
-    border-color:#8b5cf6;
-
-    transform:translateY(-3px);
+  background:#e0f2fe;
 
 }
 
 
 
-/* ACTIVE */
+/* Active buttons */
 
 .exam-options button.active,
 .question-options button.active {
 
-
-    background:#231942;
-
-    color:white;
-
-    border-color:#8b5cf6;
-
-    box-shadow:
-
-    0 0 25px rgba(139,92,246,.35);
+  background:#2563eb;
+  color:white;
+  border-color:#2563eb;
 
 }
 
 
 
-/* =====================================================
-   DROPDOWNS
-===================================================== */
-
-
-.exam-setup-page select,
-.exam-setup-page input {
-
-
-    width:100%;
-
-    padding:17px 20px;
-
-    margin:12px 0;
-
-    background:#18181b;
-
-    color:white;
-
-    border:1px solid #303036;
-
-    border-radius:16px;
-
-    font-size:16px;
-
-    outline:none;
-
-    transition:.25s;
-
-}
-
-
-
-.exam-setup-page select:hover,
-.exam-setup-page select:focus,
-.exam-setup-page input:focus {
-
-
-    border-color:#8b5cf6;
-
-    box-shadow:
-
-    0 0 0 4px rgba(139,92,246,.15);
-
-}
-
-
-
-/* =====================================================
-   SUMMARY CARD
-===================================================== */
-
+/* Summary box */
 
 .exam-summary {
 
-
-    background:
-
-    linear-gradient(
-    145deg,
-    #171717,
-    #0f172a
-    );
-
-
-    color:white;
-
-    border:
-
-    1px solid #8b5cf6;
-
-
-    padding:25px;
-
-    border-radius:24px;
-
-    margin:35px auto;
-
-    max-width:500px;
-
-
-    box-shadow:
-
-    0 0 35px rgba(139,92,246,.15);
-
-
-}
-
-
-.exam-summary strong {
-
-    color:#a78bfa;
+  background:white;
+  color:#111827;
+  border:1px solid #e5e7eb;
 
 }
 
 
 
-/* =====================================================
-   START BUTTON
-===================================================== */
-
+/* Start button */
 
 .exam-setup-page .start-button {
 
-
-    width:100%;
-
-    padding:22px;
-
-    margin-top:30px;
-
-    border:none;
-
-    border-radius:20px;
-
-    background:
-
-    linear-gradient(
-    145deg,
-    #8b5cf6,
-    #6d28d9
-    );
-
-
-    color:white;
-
-    font-size:22px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.25s;
-
+  background:#2563eb;
+  color:white;
 
 }
 
 
 
-.exam-setup-page .start-button:hover {
+/* Exam question card */
 
+.exam-question {
 
-    transform:translateY(-5px);
-
-    box-shadow:
-
-    0 20px 45px rgba(139,92,246,.4);
-
-
-}
-
-
-
-
-/* =====================================================
-   EXAM PAPER PAGE
-===================================================== */
-
-
-.exam-page {
-
-
-    max-width:1000px;
-
-    margin:auto;
+  background:white;
+  color:#111827;
+  border-radius:20px;
+  border:1px solid #e5e7eb;
 
 }
 
 
+/* Answer box */
+
+.exam-question textarea {
+
+  background:white;
+  color:#111827;
+  border:2px solid #cbd5e1;
+
+}
+
+
+/* Timer */
 
 .exam-timer {
 
-
-    font-size:28px;
-
-    font-weight:bold;
-
-    color:#f87171;
-
-    background:#450a0a;
-
-    padding:12px 20px;
-
-    border-radius:15px;
-
-}
-
-
-
-
-.exam-question {
-
-
-    margin-top:40px;
-
-    background:#111111;
-
-    color:white;
-
-    padding:35px;
-
-    border-radius:25px;
-
-    border:1px solid #27272a;
-
-
-}
-
-
-
-.exam-question textarea {
-
-
-    width:100%;
-
-    min-height:250px;
-
-    margin-top:20px;
-
-    padding:18px;
-
-    font-size:18px;
-
-    resize:vertical;
-
-    background:#18181b;
-
-    color:white;
-
-    border:
-
-    1px solid #303036;
-
-    border-radius:18px;
-
-
-}
-
-
-
-.exam-question textarea:focus {
-
-
-    outline:none;
-
-    border-color:#8b5cf6;
-
-
-}
-
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-
-.exam-navigation {
-
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    margin-top:30px;
-
-
-}
-
-
-.exam-navigation button {
-
-
-    flex:1;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    background:#18181b;
-
-    color:white;
-
-    border:1px solid #303036;
-
-    cursor:pointer;
-
-}
-
-
-.exam-navigation button:hover {
-
-
-    border-color:#8b5cf6;
-
-
-}
-
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-
-@media(max-width:700px){
-
-
-.exam-setup-page,
-.exam-page {
-
-
-    padding:20px 15px;
-
-
-}
-
-
-
-.exam-setup-page {
-
-
-    padding:25px 20px;
-
-    border-radius:22px;
-
-
-}
-
-
-
-.exam-header {
-
-
-    flex-direction:column;
-
-    gap:20px;
-
-
-}
-
-
-
-.exam-setup-page h1,
-.exam-page h1 {
-
-
-    font-size:30px;
-
-
-}
-
-
-
-.exam-options,
-.question-options {
-
-
-    flex-direction:column;
-
-
-}
-
-
-
-.exam-options button,
-.question-options button {
-
-
-    width:100%;
-
-
-}
-
-
-
-.exam-summary {
-
-
-    padding:20px;
-
-
-}
-
-
-
-.exam-question {
-
-
-    padding:22px;
-
-    margin-top:25px;
-
-
-}
-
-
-
-.exam-question textarea {
-
-
-    min-height:180px;
-
-    font-size:16px;
-
-
-}
-
-
-
-.exam-navigation {
-
-
-    flex-direction:column;
-
-
-}
-
-
-
-.exam-navigation button {
-
-
-    width:100%;
-
-
-}
-
-
+  background:#fee2e2;
+  color:#991b1b;
+  padding:12px 20px;
+  border-radius:15px;
 
 }
