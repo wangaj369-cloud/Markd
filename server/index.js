@@ -335,7 +335,7 @@ Every mark must stand alone.
    "question":"",
    "marks":5,
    "requiresDiagram":false,
-  
+   "answerType":"written",
 
   "markScheme":[
  "1 mark - first marking point",
@@ -367,22 +367,18 @@ If requiresDiagram=true:
 
 modelAnswer must describe exactly what the correct finished diagram looks like.
 
-Example:
-
-Question:
-Draw the displayed formula of 2-bromo-2-methylpropane.
-
-modelAnswer:
-"The correct displayed formula is a central carbon atom bonded to Br, three CH3 groups and no hydrogen atoms."
-
-markScheme:
-[
-"1 mark - correct central carbon",
-"1 mark - three methyl groups attached",
-"1 mark - bromine attached to the central carbon",
-"1 mark - all bonds shown correctly"
-]
-
+{
+"question":"Draw the displayed formula of 2-bromo-2-methylpropane and give its IUPAC name.",
+"marks":2,
+"requiresDiagram":true,
+"answerType":"displayedFormula",
+"markScheme":[
+"1 mark - correct displayed formula",
+"1 mark - correct IUPAC name"
+],
+"modelAnswer":
+"      CH3\n       |\nCH3-C-Br\n       |\n      CH3\n\nIUPAC name: 2-bromo-2-methylpropane"
+}
 Never return:
 
 "Displayed formula (3 marks)"
@@ -396,7 +392,26 @@ Never leave modelAnswer blank.
 ALSO IMPORTANT:
 - markScheme must always be an array of strings.
 - Never combine marks into one paragraph.
-- For diagram questions (requiresDiagram: true), you MUST provide a detailed modelAnswer describing what the correct diagram should show.
+- For diagram questions (requiresDiagram: true), you MUST provide a detailed modelAnswer describing what the correct diagram should show.For chemistry questions requiring displayed formulas, structural formulas, mechanisms, or curly arrow diagrams:
+
+The modelAnswer MUST show the actual chemical representation.
+
+Use plain text chemistry notation where possible.
+
+Examples:
+
+Displayed formula example:
+CH3
+ |
+CH3-C-Br
+ |
+CH3
+
+Mechanism example:
+:OH⁻ → C⁺
+(show curly arrow directions using text arrows)
+
+Do not only describe the structure.
 `
       },
       {
@@ -878,8 +893,8 @@ async function generateModelAnswer(question, marks, markScheme) {
         messages: [
           {
             role: "user",
-            content: `You are an AQA examiner. Give a full mark model answer.\nQuestion: ${question}\nMarks: ${marks}\nMark scheme: ${markScheme}`
-          }
+            content: `You are an AQA examiner. Give a full mark model answer.\nQuestion: ${question}\nMarks: ${marks}\nMark scheme: ${markScheme}` 
+         }
         ]
       })
     });
@@ -916,6 +931,7 @@ Return ONLY valid JSON:
 }
 
 Rules:
+- Always try to produce a diagram for the model answer alongside text.
 - All fields must exist
 - No markdown, no code blocks, no text outside JSON
 - Address the student directly`;

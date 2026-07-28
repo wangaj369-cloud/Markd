@@ -206,10 +206,9 @@ return (
 📝 Model Answer
 </h4>
 
-<p>
+<pre className="model-answer">
 {results[currentQuestion].modelAnswer}
-</p>
-
+</pre>
 </div>
 
 

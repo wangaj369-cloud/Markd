@@ -296,8 +296,8 @@ async function markAnswer(question, index, diagram, selfScore = null) {
 
   requiresDiagram: question.requiresDiagram,
 
-  modelAnswer: question.modelAnswer
-
+  modelAnswer: question.modelAnswer,
+answerType: question.answerType
 })
     });
 
