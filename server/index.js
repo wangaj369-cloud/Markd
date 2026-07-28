@@ -234,49 +234,100 @@ Normally set requiresDiagram to false unless the question explicitly requires a 
 
 
 Do not mark a question as requiring a drawing unless the wording explicitly requires a diagram/drawing/graph/structure.
-MARK SCHEME RULES:
+MARK SCHEME RULES
 
-The markScheme must contain individual AQA-style marking points.
+The markScheme MUST be an array.
 
-Each mark must represent one specific thing the examiner awards.
+Each array item must award exactly ONE mark.
 
-Do NOT write:
-- "Good explanation"
-- "Correct answer"
-- "Shows understanding"
-- "Detailed response"
+Never combine multiple marks into one sentence.
 
-Write specific scientific marking points.
+Write the mark scheme exactly like an AQA examiner.
 
-Examples:
+Good examples:
 
-Chemistry:
 [
-"1 mark - correct four-carbon carbon chain shown",
-"1 mark - correct number of hydrogen atoms shown"
+"1 mark - identifies hydrogen bonding",
+"1 mark - explains hydrogen bonds require extra energy to break",
+"1 mark - compares alcohols with alkanes"
 ]
 
-Mechanism:
+Mechanism example:
+
 [
-"1 mark - correct reactant structure drawn",
+"1 mark - correct reactant drawn",
 "1 mark - curly arrow starts from the lone pair",
-"1 mark - curly arrow points towards the carbon atom",
-"1 mark - correct product formed"
+"1 mark - curly arrow points to the carbon atom",
+"1 mark - correct carbocation shown",
+"1 mark - correct product drawn"
 ]
 
-Biology:
+Calculation example:
+
 [
-"1 mark - DNA is replicated by semi-conservative replication",
-"1 mark - hydrogen bonds break between bases",
-"1 mark - each strand acts as a template"
+"1 mark - correct equation used",
+"1 mark - substitutes correct values",
+"1 mark - correct answer with units"
 ]
 
-Psychology:
+Displayed formula example:
+
+[
+"1 mark - correct carbon chain",
+"1 mark - correct functional group position",
+"1 mark - all bonds shown correctly",
+"1 mark - correct number of hydrogen atoms"
+]
+
+Biology example:
+
+[
+"1 mark - DNA helicase breaks hydrogen bonds",
+"1 mark - each strand acts as a template",
+"1 mark - complementary base pairing occurs",
+"1 mark - DNA polymerase joins nucleotides"
+]
+
+Psychology example:
+
 [
 "1 mark - identifies the independent variable",
-"1 mark - explains how the variable is measured",
-"1 mark - gives a valid strength of the method"
+"1 mark - explains why it was manipulated",
+"1 mark - identifies the dependent variable",
+"1 mark - explains how it was measured"
 ]
+
+DO NOT write:
+
+"Correct answer (3 marks)"
+"Good explanation (2 marks)"
+"Detailed answer (4 marks)"
+
+Every mark must stand alone.
+
+MODEL ANSWER RULES
+
+Every question must include a modelAnswer.
+
+The modelAnswer must be a genuine full-mark answer.
+
+The model answer should:
+- Include every marking point.
+- Use AQA scientific terminology.
+- Be written exactly as a student could write in the exam.
+- Be concise but complete.
+- Include calculations where required.
+- Include equations where required.
+- Include mechanisms where required.
+- Include units where required.
+
+If requiresDiagram is true:
+- modelAnswer should describe exactly what the finished diagram should contain.
+- Do NOT leave it blank.
+- Describe every important label and feature that should appear.
+
+Return ONLY this JSON format:
+Every mark must stand alone.
 {
  "questions":[
   {
@@ -284,11 +335,13 @@ Psychology:
    "marks":5,
    "requiresDiagram":false,
 
-   "markScheme":[
-     "1 mark - ..."
-   ],
+  "markScheme":[
+  "1 mark - ..."
+],
 
-   "modelAnswer":""
+"modelAnswer":"",
+
+"modelDiagram":""
   }
  ]
 }
@@ -796,8 +849,9 @@ async function generateModelAnswer(question, marks, markScheme) {
 
 app.post("/mark-answer", async (req, res) => {
   console.log("MARK ANSWER RECEIVED:", req.body);
+const { question, marks, answer, markScheme } = req.body;
   try {
-    const { question, marks, answer, markScheme } = req.body;
+    
 
     const markingPrompt = `You are an AQA A-Level examiner marking a student's response.
 
@@ -808,6 +862,7 @@ Mark scheme: ${markScheme}
 
 IMPORTANT MARKING RULES:
 You must mark the complete student response.
+
 
 Return ONLY valid JSON:
 {
