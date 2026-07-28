@@ -335,6 +335,7 @@ Every mark must stand alone.
    "question":"",
    "marks":5,
    "requiresDiagram":false,
+  
 
   "markScheme":[
  "1 mark - first marking point",
@@ -346,6 +347,14 @@ Every mark must stand alone.
   }
  ]
 }
+IMPORTANT:
+requiresDiagram MUST ONLY be true or false.
+
+true:
+Only when the student must physically draw something.
+
+false:
+For all written answers.
 IMPORTANT
 
 modelAnswer MUST NEVER be empty.
@@ -907,7 +916,7 @@ Return ONLY valid JSON:
   "score": 0,
   "strengths": "Direct feedback using you/your",
   "improvements": "Direct feedback using you/your",
-  "modelAnswer": "Correct answer"
+  "modelAnswer": "A full-mark AQA exam answer that would achieve maximum marks"
 }
 
 Rules:
@@ -961,7 +970,33 @@ if (!openRouterRes.ok) {
     let result;
     try {
   console.log("Starting mark-answer route");
-  const { question, marks, answer, diagram, markScheme } = req.body;
+  const { 
+  question, 
+  marks, 
+  answer, 
+  markScheme,
+  requiresDiagram,
+  modelAnswer
+} = req.body;
+if(requiresDiagram){
+
+  return res.json({
+
+    score:null,
+
+    strengths:"",
+
+    improvements:"",
+
+    modelAnswer:modelAnswer || "Compare your diagram with the model answer.",
+
+    markScheme:markScheme,
+
+    automaticMarkingFailed:true
+
+  });
+
+}
   console.log("Variables destructured OK");
       result = JSON.parse(cleaned);
     } catch (e) {
@@ -979,12 +1014,13 @@ if (!openRouterRes.ok) {
       Number(marks)
     );
 
-    res.json({
-      score: safeScore,
-      strengths: result.strengths ?? "Not provided.",
-      improvements: result.improvements ?? "Not provided.",
-      modelAnswer: result.modelAnswer ?? ""
-    });
+   res.json({
+ score: safeScore,
+ strengths: result.strengths ?? "Not provided.",
+ improvements: result.improvements ?? "Not provided.",
+ modelAnswer: result.modelAnswer ?? "",
+ markScheme
+});
 
   } catch (error) {
     console.error("Automatic marking failed:", error);

@@ -18,7 +18,14 @@ const [diagram, setDiagram] = useState(null);
 const question = questions[currentQuestion];
 
 function selfMark(score) {
-  markAnswer(question, currentQuestion, diagram, score);
+
+  markAnswer(
+    question,
+    currentQuestion,
+    diagram,
+    score
+  );
+
 }
 if (!question || questions.length === 0) {
   return <p>Loading questions...</p>;
@@ -92,14 +99,29 @@ return (
 )}
 
 
-      <button
+    <button
   className="mark-button"
- onClick={() =>
-  markAnswer(
-    question,
-    currentQuestion
-  )
-}
+  onClick={() => {
+
+    if(question.requiresDiagram){
+
+      markAnswer(
+        question,
+        currentQuestion,
+        true
+      );
+
+    } else {
+
+      markAnswer(
+        question,
+        currentQuestion,
+        false
+      );
+
+    }
+
+  }}
 >
   Mark Answer →
 </button>
@@ -107,8 +129,7 @@ return (
       {results[currentQuestion] && (
         <>
          <div className="feedback-container">
-
-{!results[currentQuestion].automaticMarkingFailed && (
+{!question.requiresDiagram && (
   <>
     <div className="feedback-card mark-card">
       <div className="score-card">
@@ -145,7 +166,7 @@ return (
   </>
 )}
 
-{results[currentQuestion].automaticMarkingFailed && (
+{question.requiresDiagram && (
 <>
 <div className="feedback-container">
 

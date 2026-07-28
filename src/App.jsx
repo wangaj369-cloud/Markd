@@ -284,12 +284,21 @@ async function markAnswer(question, index, diagram, selfScore = null) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        question: question.question,
-        marks: question.marks,
-        answer: answers[index],
-        markScheme: question.markScheme
-      }),
+    body: JSON.stringify({
+
+  question: question.question,
+
+  marks: question.marks,
+
+  answer: answers[index],
+
+  markScheme: question.markScheme,
+
+  requiresDiagram: question.requiresDiagram,
+
+  modelAnswer: question.modelAnswer
+
+})
     });
 
     const data = await res.json();
