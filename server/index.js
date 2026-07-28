@@ -406,26 +406,58 @@ Never leave modelAnswer blank.
 ALSO IMPORTANT:
 - markScheme must always be an array of strings.
 - Never combine marks into one paragraph.
-- For diagram questions (requiresDiagram: true), you MUST provide a detailed modelAnswer describing what the correct diagram should show.For chemistry questions requiring displayed formulas, structural formulas, mechanisms, or curly arrow diagrams:
+- For diagram questions (requiresDiagram: true), you MUST provide a detailed modelAnswer describing what the correct diagram should show.
+CHEMISTRY MODEL ANSWER RULES
 
-The modelAnswer MUST show the actual chemical representation.
+If requiresDiagram = false
 
-Use plain text chemistry notation where possible.
+- Never draw displayed formulae.
+- Never use ASCII art.
+- Never use vertical or horizontal bonds.
+- Never include raw newline characters.
+- Never draw reaction mechanisms.
+- Never draw curly arrows.
+- Use condensed structural formulae only.
 
-Examples:
+Examples
 
-Displayed formula example:
+Correct:
+CH3CH2CH2Br
+
+Correct:
+CH3CH=C(CH3)2
+
+Correct:
+2-bromo-2-methylpropane
+
+Incorrect:
+
+    Br
+     |
+CH3-CH2
+
+Incorrect:
+
 CH3
  |
 CH3-C-Br
  |
 CH3
 
-Mechanism example:
-:OH⁻ → C⁺
-(show curly arrow directions using text arrows)
+Incorrect:
 
-Do not only describe the structure.
+:OH⁻ → C⁺
+
+------------------------------------------------
+
+If requiresDiagram = true
+
+The modelAnswer MUST contain the complete displayed formula, mechanism, curly-arrow mechanism, graph, or diagram.
+
+Displayed formulae and mechanisms may use ASCII formatting and escaped newline characters (\\n).
+
+Never leave modelAnswer blank.
+
 IMPORTANT JSON FORMATTING RULES:
 - Return ONLY valid JSON.
 - Escape all newline characters inside strings using \n.
@@ -464,6 +496,11 @@ Generate 5 exam questions.
   let parsed;
   try {
     parsed = JSON.parse(cleaned);
+    parsed.questions.forEach(q => {
+  if (!q.requiresDiagram && q.modelAnswer) {
+    q.modelAnswer = q.modelAnswer.replace(/\n/g, " ");
+  }
+});
   } catch (err) {
     console.log("JSON PARSE ERROR:", err.message);
     return res.status(500).json({
