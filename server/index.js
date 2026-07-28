@@ -877,8 +877,8 @@ async function generateModelAnswer(question, marks, markScheme) {
         "HTTP-Referer": "https://markdai.app",
         "X-Title": "Markd"
       },
-      body: JSON.stringify({
-        model: "meta-llama/llama-4-maverick:free",
+     body: JSON.stringify({
+  model: "meta-llama/llama-3.3-70b-instruct:free",
         messages: [
           {
             role: "user",
@@ -935,8 +935,8 @@ Rules:
         "HTTP-Referer": "https://markdai.app",
         "X-Title": "Markd"
       },
-      body: JSON.stringify({
-        model: "meta-llama/llama-4-maverick:free",
+     body: JSON.stringify({
+  model: "meta-llama/llama-3.3-70b-instruct:free",
         messages: [
           {
             role: "user",
