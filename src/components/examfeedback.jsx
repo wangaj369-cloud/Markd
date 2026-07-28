@@ -53,6 +53,12 @@ Exam Feedback
 Question {currentQuestion+1} / {examResults.feedback.length}
 </h2>
 
+{feedback.score !== null && (
+  <div className="score-display">
+    <strong>Score: {feedback.score} / {feedback.maxMarks || feedback.marks}</strong>
+  </div>
+)}
+
 <p>
 <strong>Question</strong>
 </p>
