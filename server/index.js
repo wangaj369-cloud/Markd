@@ -412,6 +412,11 @@ Mechanism example:
 (show curly arrow directions using text arrows)
 
 Do not only describe the structure.
+IMPORTANT JSON FORMATTING RULES:
+- Return ONLY valid JSON.
+- Escape all newline characters inside strings using \n.
+- Never put raw line breaks inside JSON string values.
+- Do not use markdown or code blocks.
 `
       },
       {
@@ -1011,6 +1016,11 @@ if(requiresDiagram){
 
 }
   console.log("Variables destructured OK");
+  cleaned = cleaned.replace(/[\u0000-\u001F]+/g, (match) => {
+  return match.replace(/\n/g, "\\n")
+              .replace(/\r/g, "\\r")
+              .replace(/\t/g, "\\t");
+});
       result = JSON.parse(cleaned);
     } catch (e) {
       console.log("BAD JSON FROM AI:", cleaned);
