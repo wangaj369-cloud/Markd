@@ -932,14 +932,15 @@ Rules:
         "X-Title": "Markd"
       },
      body: JSON.stringify({
- model:"nvidia/nemotron-3-nano-30b-a3b:free",
+ model: "openai/gpt-oss-20b:free",
         messages: [
           {
             role: "user",
             content: userContent
           }
         ],
-
+temperature:0.2,
+  max_tokens:500
       })
     });
 console.log("OpenRouter HTTP status:", openRouterRes.status);
