@@ -871,154 +871,354 @@ async function generateModelAnswer(question, marks, markScheme) {
 }
 
 app.post("/mark-answer", async (req, res) => {
+
   console.log("MARK ANSWER RECEIVED:", req.body);
-const { question, marks, answer, markScheme } = req.body;
+
+
+  const {
+    question,
+    marks,
+    answer,
+    markScheme,
+    requiresDiagram,
+    modelAnswer
+  } = req.body;
+
+
   try {
-    
 
-    const markingPrompt = `You are an AQA A-Level examiner marking a student's response.
 
-Question: ${question}
-Maximum marks: ${marks}
-Student written answer: ${answer || "No written answer provided."}
-Mark scheme: ${markScheme}
+    // Diagram questions should not be automatically marked
+    // because the AI cannot reliably judge drawings from text.
+    if (requiresDiagram === true) {
 
-IMPORTANT MARKING RULES:
-You must mark the complete student response.
+      return res.json({
+
+        score: null,
+
+        strengths:
+        "Your diagram should be compared against the required features in the model answer.",
+
+        improvements:
+        "Check each label, bond, arrow, and structural feature against the mark scheme.",
+
+        modelAnswer:
+        modelAnswer ||
+        "Compare your diagram with the required features.",
+
+        markScheme,
+
+        automaticMarkingFailed:true
+
+      });
+
+    }
+
+
+
+    const markingPrompt = `
+
+You are an AQA A-Level examiner.
+
+Mark the student's answer using the mark scheme.
+
+Question:
+${question}
+
+Maximum marks:
+${marks}
+
+Student answer:
+${answer || "No answer provided."}
+
+Mark scheme:
+${JSON.stringify(markScheme)}
 
 
 Return ONLY valid JSON:
+
 {
-  "score": 0,
-  "strengths": "Direct feedback using you/your",
-  "improvements": "Direct feedback using you/your",
-  "modelAnswer": "A full-mark AQA exam answer that would achieve maximum marks"
-}
-
-Rules:
-- Always try to produce a diagram for the model answer alongside text.
-- All fields must exist
-- No markdown, no code blocks, no text outside JSON
-- Address the student directly`;
-
-    // Always use string content to avoid OpenRouter API errors
-    const userContent = markingPrompt;
-
-    const openRouterRes = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENROUTER_KEY}`,
-        "HTTP-Referer": "https://markdai.app",
-        "X-Title": "Markd"
-      },
-     body: JSON.stringify({
- model: "openai/gpt-oss-20b:free",
-        messages: [
-          {
-            role: "user",
-            content: userContent
-          }
-        ],
-temperature:0.2,
-  max_tokens:500
-      })
-    });
-console.log("OpenRouter HTTP status:", openRouterRes.status);
-const openRouterData = await openRouterRes.json();
-console.log("OpenRouter response:", JSON.stringify(openRouterData, null, 2));
-
-if (!openRouterRes.ok) {
-  throw new Error(`OpenRouter failed: ${JSON.stringify(openRouterData)}`);
+ "score":0,
+ "strengths":"",
+ "improvements":"",
+ "modelAnswer":""
 }
 
 
+RULES:
 
-    let rawContent = openRouterData.choices[0].message.content;
+Score:
+- Award marks only for correct points.
+- Do not give credit for missing information.
+- Maximum score is ${marks}.
 
-    console.log("MARKING AI RESPONSE:", rawContent);
 
-    let cleaned = rawContent
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+Strengths:
+- Address the student directly using "you".
+- Mention what was done well.
 
-    console.log("CLEANED JSON:", cleaned);
 
-    let result;
-    try {
-  console.log("Starting mark-answer route");
-  const { 
-  question, 
-  marks, 
-  answer, 
-  markScheme,
-  requiresDiagram,
-  modelAnswer
-} = req.body;
-if(requiresDiagram){
+Improvements:
+- Address the student directly using "you".
+- Explain exactly what is missing.
 
-  return res.json({
 
-    score:null,
+Model answer:
+- Write a full-mark AQA answer.
+- Use correct scientific terminology.
+- Include every mark point.
+- Keep it suitable for an exam.
 
-    strengths:"",
 
-    improvements:"",
+DIAGRAM RULES:
 
-    modelAnswer:modelAnswer || "Compare your diagram with the model answer.",
+requiresDiagram is ${requiresDiagram}
 
-    markScheme:markScheme,
+If requiresDiagram is false:
+- Do not include diagrams.
+- Do not include ASCII structures.
+- Do not include reaction schemes.
 
-    automaticMarkingFailed:true
+If requiresDiagram is true:
+- Describe the diagram instead.
+- Do not use markdown.
+- Do not use code blocks.
 
-  });
 
-}
-  console.log("Variables destructured OK");
-  cleaned = cleaned.replace(/[\u0000-\u001F]+/g, (match) => {
-  return match.replace(/\n/g, "\\n")
-              .replace(/\r/g, "\\r")
-              .replace(/\t/g, "\\t");
-});
-      result = JSON.parse(cleaned);
-    } catch (e) {
-      console.log("BAD JSON FROM AI:", cleaned);
-      return res.json({
-        score: null,
-        strengths: "The examiner could not process this response.",
-        improvements: "Please retry marking this answer.",
-        modelAnswer: "",
-      });
+Never output:
+- markdown
+- backticks
+- explanations outside JSON
+
+`;
+
+
+
+    const openRouterRes = await fetch(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+
+        method:"POST",
+
+        headers:{
+
+          "Content-Type":"application/json",
+
+          "Authorization":
+          `Bearer ${process.env.OPENROUTER_KEY}`,
+
+          "HTTP-Referer":
+          "https://markdai.app",
+
+          "X-Title":
+          "Markd"
+
+        },
+
+
+        body:JSON.stringify({
+
+          model:
+          "openai/gpt-oss-20b:free",
+
+
+          temperature:0.1,
+
+
+          max_tokens:1500,
+
+
+          response_format:{
+            type:"json_object"
+          },
+
+
+          messages:[
+
+            {
+              role:"user",
+              content:markingPrompt
+            }
+
+          ]
+
+        })
+
+      }
+    );
+
+
+
+    console.log(
+      "OpenRouter status:",
+      openRouterRes.status
+    );
+
+
+    const data =
+    await openRouterRes.json();
+
+
+
+    if(!openRouterRes.ok){
+
+      throw new Error(
+        JSON.stringify(data)
+      );
+
     }
 
-    const safeScore = Math.min(
-      Number(result.score) || 0,
+
+
+    let raw =
+    data.choices?.[0]?.message?.content;
+
+
+
+    console.log(
+      "RAW MARK RESPONSE:",
+      raw
+    );
+
+
+
+    if(!raw){
+
+      throw new Error(
+        "Empty AI response"
+      );
+
+    }
+
+
+
+    let cleaned =
+    raw
+    .replace(/```json/g,"")
+    .replace(/```/g,"")
+    .trim();
+
+
+
+    // Extract JSON object
+
+    const start =
+    cleaned.indexOf("{");
+
+    const end =
+    cleaned.lastIndexOf("}");
+
+
+
+    if(start === -1 || end === -1){
+
+      throw new Error(
+        "No JSON object found"
+      );
+
+    }
+
+
+    cleaned =
+    cleaned.substring(
+      start,
+      end + 1
+    );
+
+
+
+    let result;
+
+
+
+    try{
+
+      result =
+      JSON.parse(cleaned);
+
+    }
+
+    catch(err){
+
+      console.log(
+        "FAILED JSON:",
+        cleaned
+      );
+
+      throw err;
+
+    }
+
+
+
+    const safeScore =
+    Math.min(
+      Math.max(
+        Number(result.score) || 0,
+        0
+      ),
       Number(marks)
     );
 
-   res.json({
- score: safeScore,
- strengths: result.strengths ?? "Not provided.",
- improvements: result.improvements ?? "Not provided.",
- modelAnswer: result.modelAnswer ?? "",
- markScheme
-});
 
-  } catch (error) {
-    console.error("Automatic marking failed:", error);
-
-    const fallbackModelAnswer = await generateModelAnswer(question, marks, markScheme);
 
     return res.json({
-      score: null,
-      strengths: "",
-      improvements: "Automatic marking is currently unavailable. Compare your work with the model answer below.",
-      modelAnswer: fallbackModelAnswer,
-      markScheme,
-      automaticMarkingFailed: true
+
+      score:safeScore,
+
+      strengths:
+      result.strengths ||
+      "No strengths identified.",
+
+      improvements:
+      result.improvements ||
+      "No improvements identified.",
+
+      modelAnswer:
+      result.modelAnswer ||
+      "",
+
+      markScheme
+
     });
+
+
+
   }
+
+
+  catch(error){
+
+
+    console.error(
+      "MARKING ERROR:",
+      error
+    );
+
+
+
+    return res.json({
+
+      score:null,
+
+      strengths:"",
+
+      improvements:
+      "Automatic marking failed. Compare your answer with the model answer.",
+
+      modelAnswer:
+      modelAnswer || "",
+
+      markScheme,
+
+      automaticMarkingFailed:true
+
+    });
+
+
+  }
+
+
 });
 app.post("/api/generate-summary", async (req, res) => {
   try {
