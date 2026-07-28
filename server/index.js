@@ -557,9 +557,6 @@ content:prompt
 }
 ],
 
-temperature:0.1,
-
-max_tokens:4000
 
 });
 
@@ -598,14 +595,14 @@ try {
 }
 catch(error){
 
-  console.log(
-    "BROKEN AI JSON:",
-    text
-  );
+console.log(
+"FULL EXAM ERROR:",
+JSON.stringify(error,null,2)
+);
 
-  return res.status(500).json({
-    error:"AI returned invalid JSON"
-  });
+res.status(500).json({
+error:"Exam generation failed"
+});
 
 }
 
@@ -656,7 +653,10 @@ exam.questions.forEach(q => {
 
 });
 
-
+console.log(
+"NEMOTRON EXAM RESPONSE:",
+JSON.stringify(completion,null,2)
+);
 console.log(
   "FINAL QUESTIONS WITH SUBTOPICS:",
   exam.questions
