@@ -1544,495 +1544,617 @@ box-shadow:
     margin-top:20px;
   }
 
+
+}
 /* =====================================================
-   EXAM PAGE SETUP STYLING
+   EXAM MODE - DARK SERIOUS UI
 ===================================================== */
 
-.exam-mode{
+.exam-setup-page,
+.exam-page {
+
     min-height:100vh;
+
+    width:100%;
+
     background:#050505;
-    padding:60px 20px;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
+
+    color:white;
+
+    padding:40px 20px;
+
 }
 
-.exam-shell{
-    width:100%;
-    max-width:950px;
-    background:#101010;
-    border:1px solid #27272a;
-    border-radius:30px;
-    padding:50px;
-    box-shadow:
-        0 40px 120px rgba(0,0,0,.65);
-}
 
 /* =====================================================
-   HEADER
+   SETUP CONTAINER
 ===================================================== */
 
-.exam-header{
+
+.exam-setup-page {
+
+    max-width:850px;
+
+    margin:auto;
+
     text-align:center;
-    margin-bottom:45px;
-}
 
-.exam-badge{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding:8px 18px;
-    border-radius:999px;
-    border:1px solid #8b5cf6;
-    background:#18181b;
-    color:#b794ff;
-    font-size:12px;
-    font-weight:700;
-    letter-spacing:3px;
-    text-transform:uppercase;
-}
+    background:
+    linear-gradient(
+        145deg,
+        #0a0a0a,
+        #111111
+    );
 
-.exam-header h1{
-    color:white;
-    font-size:44px;
-    margin-top:24px;
-    margin-bottom:12px;
-    font-weight:800;
-}
+    border:1px solid #27272a;
 
-.exam-header p{
-    color:#9ca3af;
-    font-size:18px;
-}
+    border-radius:30px;
 
-/* =====================================================
-   GRID
-===================================================== */
-
-.exam-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:28px;
-    margin-bottom:35px;
-}
-
-.exam-field{
-    display:flex;
-    flex-direction:column;
-}
-
-/* =====================================================
-   LABELS
-===================================================== */
-
-.exam-label{
-    color:#d4d4d8;
-    margin-bottom:10px;
-    font-weight:700;
-    font-size:15px;
-    letter-spacing:.3px;
-}
-
-/* =====================================================
-   DROPDOWNS
-===================================================== */
-
-.exam-select,
-.exam-shell select{
-
-    width:100%;
-    padding:18px 20px;
-
-    background:#18181b;
-
-    color:white;
-
-    border:1px solid #303036;
-
-    border-radius:16px;
-
-    font-size:16px;
-
-    transition:.25s;
-
-    outline:none;
-
-}
-
-.exam-select:hover,
-.exam-select:focus,
-.exam-shell select:hover,
-.exam-shell select:focus{
-
-    border-color:#8b5cf6;
+    padding:45px;
 
     box-shadow:
-        0 0 0 4px rgba(139,92,246,.12);
+    0 30px 100px rgba(0,0,0,.7);
 
 }
+
 
 /* =====================================================
-   INPUT
+   HEADERS
 ===================================================== */
 
-.exam-shell input{
 
-    width:100%;
-
-    padding:18px;
-
-    border-radius:16px;
-
-    border:1px solid #303036;
-
-    background:#18181b;
-
-    color:white;
-
-    font-size:16px;
-
-    transition:.25s;
-
-}
-
-.exam-shell input:focus{
-
-    outline:none;
-
-    border-color:#8b5cf6;
-
-    box-shadow:
-        0 0 0 4px rgba(139,92,246,.12);
-
-}
-
-/* =====================================================
-   PAPER TYPE BUTTONS
-===================================================== */
-
-.paper-type-buttons{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:15px;
-
-    margin-top:10px;
-
-}
-
-.paper-button{
-
-    padding:18px;
-
-    background:#18181b;
-
-    color:white;
-
-    border:1px solid #303036;
-
-    border-radius:16px;
-
-    cursor:pointer;
-
-    font-weight:700;
-
-    transition:.25s;
-
-}
-
-.paper-button:hover{
-
-    border-color:#8b5cf6;
-
-    transform:translateY(-2px);
-
-}
-
-.paper-button.active{
-
-    background:#231942;
-
-    border-color:#8b5cf6;
-
-    color:white;
-
-    box-shadow:
-        0 0 25px rgba(139,92,246,.2);
-
-}
-
-/* =====================================================
-   SUBTOPIC LIST
-===================================================== */
-
-.exam-shell select[multiple]{
-
-    min-height:220px;
-
-}
-
-.done-button{
-
-    margin-top:16px;
-
-    width:100%;
-
-    padding:15px;
-
-    border:none;
-
-    border-radius:16px;
-
-    background:#8b5cf6;
-
-    color:white;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-}
-
-.done-button:hover{
-
-    background:#9f75ff;
-
-}
-
-/* =====================================================
-   SUMMARY
-===================================================== */
-
-.exam-preview{
-
-    margin-top:45px;
-
-    background:#171717;
-
-    border:1px solid #2d2d32;
-
-    border-radius:22px;
-
-    padding:30px;
-
-}
-
-.exam-preview h3{
-
-    color:white;
-
-    font-size:24px;
-
-    margin-bottom:25px;
-
-    border-bottom:1px solid #2d2d32;
-
-    padding-bottom:15px;
-
-}
-
-.exam-preview p{
-
-    color:#d4d4d8;
-
-    margin:14px 0;
+.exam-header {
 
     display:flex;
 
     justify-content:space-between;
 
+    align-items:center;
+
+    margin-bottom:35px;
+
 }
 
-.exam-preview strong{
 
-    color:#8b5cf6;
+.exam-setup-page h1,
+.exam-page h1 {
+
+    color:white;
+
+    font-size:42px;
+
+    font-weight:800;
+
+}
+
+
+.exam-setup-page h2,
+.exam-page h2 {
+
+    color:white;
+
+}
+
+
+.exam-setup-page p,
+.exam-page p {
+
+    color:#94a3b8;
+
+}
+
+
+
+/* =====================================================
+   OPTIONS BUTTONS
+===================================================== */
+
+
+.exam-options,
+.question-options {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin:25px 0;
+
+}
+
+
+
+.exam-options button,
+.question-options button {
+
+
+    padding:16px 25px;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-size:17px;
 
     font-weight:700;
 
-}
+    background:#18181b;
 
-.exam-preview ul{
+    color:#e5e7eb;
 
-    margin-top:12px;
+    border:1px solid #303036;
 
-    padding-left:22px;
-
-}
-
-.exam-preview li{
-
-    margin:8px 0;
-
-    color:#d4d4d8;
+    transition:.25s;
 
 }
+
+
+
+.exam-options button:hover,
+.question-options button:hover {
+
+
+    border-color:#8b5cf6;
+
+    transform:translateY(-3px);
+
+}
+
+
+
+/* ACTIVE */
+
+.exam-options button.active,
+.question-options button.active {
+
+
+    background:#231942;
+
+    color:white;
+
+    border-color:#8b5cf6;
+
+    box-shadow:
+
+    0 0 25px rgba(139,92,246,.35);
+
+}
+
+
+
+/* =====================================================
+   DROPDOWNS
+===================================================== */
+
+
+.exam-setup-page select,
+.exam-setup-page input {
+
+
+    width:100%;
+
+    padding:17px 20px;
+
+    margin:12px 0;
+
+    background:#18181b;
+
+    color:white;
+
+    border:1px solid #303036;
+
+    border-radius:16px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+
+
+.exam-setup-page select:hover,
+.exam-setup-page select:focus,
+.exam-setup-page input:focus {
+
+
+    border-color:#8b5cf6;
+
+    box-shadow:
+
+    0 0 0 4px rgba(139,92,246,.15);
+
+}
+
+
+
+/* =====================================================
+   SUMMARY CARD
+===================================================== */
+
+
+.exam-summary {
+
+
+    background:
+
+    linear-gradient(
+    145deg,
+    #171717,
+    #0f172a
+    );
+
+
+    color:white;
+
+    border:
+
+    1px solid #8b5cf6;
+
+
+    padding:25px;
+
+    border-radius:24px;
+
+    margin:35px auto;
+
+    max-width:500px;
+
+
+    box-shadow:
+
+    0 0 35px rgba(139,92,246,.15);
+
+
+}
+
+
+.exam-summary strong {
+
+    color:#a78bfa;
+
+}
+
+
 
 /* =====================================================
    START BUTTON
 ===================================================== */
 
-.start-button{
+
+.exam-setup-page .start-button {
+
 
     width:100%;
 
-    margin-top:40px;
-
     padding:22px;
+
+    margin-top:30px;
 
     border:none;
 
-    border-radius:18px;
+    border-radius:20px;
 
-    background:#8b5cf6;
+    background:
+
+    linear-gradient(
+    145deg,
+    #8b5cf6,
+    #6d28d9
+    );
+
 
     color:white;
 
-    font-size:20px;
+    font-size:22px;
 
-    font-weight:700;
+    font-weight:800;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:.25s;
+
+
+}
+
+
+
+.exam-setup-page .start-button:hover {
+
+
+    transform:translateY(-5px);
 
     box-shadow:
-        0 20px 40px rgba(139,92,246,.22);
+
+    0 20px 45px rgba(139,92,246,.4);
+
 
 }
 
-.start-button:hover{
 
-    transform:translateY(-3px);
 
-    background:#9f75ff;
-
-}
-
-.start-button:disabled{
-
-    opacity:.6;
-
-    cursor:not-allowed;
-
-    transform:none;
-
-}
 
 /* =====================================================
-   DIVIDERS
+   EXAM PAPER PAGE
 ===================================================== */
 
-.exam-divider{
 
-    height:1px;
+.exam-page {
 
-    background:#27272a;
 
-    margin:40px 0;
+    max-width:1000px;
+
+    margin:auto;
 
 }
+
+
+
+.exam-timer {
+
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:#f87171;
+
+    background:#450a0a;
+
+    padding:12px 20px;
+
+    border-radius:15px;
+
+}
+
+
+
+
+.exam-question {
+
+
+    margin-top:40px;
+
+    background:#111111;
+
+    color:white;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    border:1px solid #27272a;
+
+
+}
+
+
+
+.exam-question textarea {
+
+
+    width:100%;
+
+    min-height:250px;
+
+    margin-top:20px;
+
+    padding:18px;
+
+    font-size:18px;
+
+    resize:vertical;
+
+    background:#18181b;
+
+    color:white;
+
+    border:
+
+    1px solid #303036;
+
+    border-radius:18px;
+
+
+}
+
+
+
+.exam-question textarea:focus {
+
+
+    outline:none;
+
+    border-color:#8b5cf6;
+
+
+}
+
+
 
 /* =====================================================
-   SCROLLBAR
+   NAVIGATION
 ===================================================== */
 
-.exam-shell ::-webkit-scrollbar{
 
-    width:10px;
+.exam-navigation {
 
-}
 
-.exam-shell ::-webkit-scrollbar-track{
+    display:flex;
 
-    background:#111;
+    justify-content:space-between;
 
-}
+    gap:20px;
 
-.exam-shell ::-webkit-scrollbar-thumb{
+    margin-top:30px;
 
-    background:#444;
-
-    border-radius:10px;
 
 }
 
-.exam-shell ::-webkit-scrollbar-thumb:hover{
 
-    background:#666;
+.exam-navigation button {
+
+
+    flex:1;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:#18181b;
+
+    color:white;
+
+    border:1px solid #303036;
+
+    cursor:pointer;
 
 }
+
+
+.exam-navigation button:hover {
+
+
+    border-color:#8b5cf6;
+
+
+}
+
+
 
 /* =====================================================
    MOBILE
 ===================================================== */
 
-@media(max-width:850px){
 
-.exam-shell{
+@media(max-width:700px){
 
-    padding:30px;
 
-}
+.exam-setup-page,
+.exam-page {
 
-.exam-grid{
 
-    grid-template-columns:1fr;
+    padding:20px 15px;
 
-}
-
-.paper-type-buttons{
-
-    grid-template-columns:1fr;
 
 }
 
-.exam-header h1{
 
-    font-size:34px;
 
-}
+.exam-setup-page {
 
-}
 
-@media(max-width:600px){
-
-.exam-mode{
-
-    padding:25px 15px;
-
-}
-
-.exam-shell{
-
-    padding:22px;
+    padding:25px 20px;
 
     border-radius:22px;
 
-}
-
-.exam-header h1{
-
-    font-size:28px;
 
 }
 
-.exam-header p{
+
+
+.exam-header {
+
+
+    flex-direction:column;
+
+    gap:20px;
+
+
+}
+
+
+
+.exam-setup-page h1,
+.exam-page h1 {
+
+
+    font-size:30px;
+
+
+}
+
+
+
+.exam-options,
+.question-options {
+
+
+    flex-direction:column;
+
+
+}
+
+
+
+.exam-options button,
+.question-options button {
+
+
+    width:100%;
+
+
+}
+
+
+
+.exam-summary {
+
+
+    padding:20px;
+
+
+}
+
+
+
+.exam-question {
+
+
+    padding:22px;
+
+    margin-top:25px;
+
+
+}
+
+
+
+.exam-question textarea {
+
+
+    min-height:180px;
 
     font-size:16px;
 
-}
-
-.start-button{
-
-    font-size:18px;
-
-    padding:18px;
 
 }
 
+
+
+.exam-navigation {
+
+
+    flex-direction:column;
+
+
 }
+
+
+
+.exam-navigation button {
+
+
+    width:100%;
+
+
+}
+
+
+
 }
