@@ -214,34 +214,23 @@ Compare your diagram with the mark scheme and award yourself.
 
 
 <div className="self-mark-buttons">
-
-<button 
-onClick={()=>selfMark(0)}
->
-❌ 0/{question.marks}
-</button>
-
-
-<button
-onClick={()=>selfMark(Math.floor(question.marks/2))}
->
-🟡 Partial credit ({Math.floor(question.marks/2)}/{question.marks})
-</button>
-
-
-<button
-onClick={()=>selfMark(question.marks)}
->
-✅ Full marks ({question.marks}/{question.marks})
-</button>
+  {Array.from(
+    { length: question.marks + 1 },
+    (_, index) => (
+      <button
+        key={index}
+        onClick={() => selfMark(index)}
+      >
+        {index} mark{index !== 1 ? "s" : ""}
+      </button>
+    )
+  )}
+</div>
 
 </div>
 
-
 </div>
 
-
-</div>
 </>
 )}
 </div>
