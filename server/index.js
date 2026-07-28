@@ -434,12 +434,10 @@ Generate 5 exam questions.
 
   let parsed;
   try {
-    const fixed = cleaned.replace(/\r?\n/g, "\\n");
-
-parsed = JSON.parse(fixed);
-    parsed.questions.forEach(q => {
+parsed = JSON.parse(cleaned);
+  parsed.questions.forEach(q => {
   if (!q.requiresDiagram && q.modelAnswer) {
-    q.modelAnswer = q.modelAnswer.replace(/\n/g, " ");
+    q.modelAnswer = q.modelAnswer.replace(/\r?\n/g, " ");
   }
 });
   } catch (err) {
