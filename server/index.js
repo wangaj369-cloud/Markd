@@ -878,7 +878,7 @@ async function generateModelAnswer(question, marks, markScheme) {
         "X-Title": "Markd"
       },
      body: JSON.stringify({
-  model: "meta-llama/llama-3.3-70b-instruct:free",
+  model: "nvidia/nemotron-3-ultra-550b-a55b:free",
         messages: [
           {
             role: "user",
@@ -936,7 +936,7 @@ Rules:
         "X-Title": "Markd"
       },
      body: JSON.stringify({
-  model: "meta-llama/llama-3.3-70b-instruct:free",
+  model:"nvidia/nemotron-3-ultra-550b-a55b:free",
         messages: [
           {
             role: "user",
