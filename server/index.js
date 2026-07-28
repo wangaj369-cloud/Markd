@@ -336,17 +336,54 @@ Every mark must stand alone.
    "requiresDiagram":false,
 
   "markScheme":[
-  "1 mark - ..."
+ "1 mark - first marking point",
+ "1 mark - second marking point",
+ "1 mark - third marking point"
 ],
 
-"modelAnswer":"",
-
-"modelDiagram":""
+"modelAnswer":"A complete full-mark answer."
   }
  ]
 }
+IMPORTANT
 
-IMPORTANT:
+modelAnswer MUST NEVER be empty.
+
+markScheme MUST NEVER be empty.
+
+For every question generate BOTH.
+
+If requiresDiagram=true:
+
+modelAnswer must describe exactly what the correct finished diagram looks like.
+
+Example:
+
+Question:
+Draw the displayed formula of 2-bromo-2-methylpropane.
+
+modelAnswer:
+"The correct displayed formula is a central carbon atom bonded to Br, three CH3 groups and no hydrogen atoms."
+
+markScheme:
+[
+"1 mark - correct central carbon",
+"1 mark - three methyl groups attached",
+"1 mark - bromine attached to the central carbon",
+"1 mark - all bonds shown correctly"
+]
+
+Never return:
+
+"Displayed formula (3 marks)"
+
+Never combine marks together.
+
+Every available mark must have its own line.
+
+Never leave modelAnswer blank.
+
+ALSO IMPORTANT:
 - markScheme must always be an array of strings.
 - Never combine marks into one paragraph.
 - For diagram questions (requiresDiagram: true), you MUST provide a detailed modelAnswer describing what the correct diagram should show.
