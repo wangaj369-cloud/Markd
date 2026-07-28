@@ -97,8 +97,7 @@ return (
  onClick={() =>
   markAnswer(
     question,
-    currentQuestion,
-    diagram
+    currentQuestion
   )
 }
 >

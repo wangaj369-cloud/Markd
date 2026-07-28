@@ -796,41 +796,7 @@ async function generateModelAnswer(question, marks, markScheme) {
 app.post("/mark-answer", async (req, res) => {
   console.log("MARK ANSWER RECEIVED:", req.body);
   try {
-   const { 
-  question, 
-  marks, 
-  answer, 
-  diagram, 
-  markScheme,
-  requiresDiagram,
-  modelAnswer
-} = req.body;
-    console.log("DIAGRAM RECEIVED:", diagram ? "YES" : "NO");
-    // Diagram questions use student self-assessment
-if (requiresDiagram) {
-
-  return res.json({
-
-    automaticMarkingFailed: true,
-
-    score: null,
-
-    strengths: "",
-
-    improvements:
-      "Automatic marking is unavailable for diagram questions. Compare your answer with the model answer and mark scheme, then award yourself marks.",
-
-    modelAnswer: modelAnswer,
-
-    markScheme: markScheme
-
-  });
-
-}
-
-    const diagramInstructions = diagram
-      ? `The student has also submitted a diagram. Analyse it carefully. Check labels, structures, accuracy and completeness. Only flag genuine errors.`
-      : "";
+    const { question, marks, answer, markScheme } = req.body;
 
     const markingPrompt = `You are an AQA A-Level examiner marking a student's response.
 
@@ -839,31 +805,8 @@ Maximum marks: ${marks}
 Student written answer: ${answer || "No written answer provided."}
 Mark scheme: ${markScheme}
 
-${diagramInstructions}
-
 IMPORTANT MARKING RULES:
 You must mark the complete student response.
-
-If an image is provided:
-- The image is part of the student's answer
-- Analyse it carefully
-- Do not ignore the diagram
-- Do not penalise a blank written answer if the diagram answers the question
-
-For diagrams check:
-- Are the correct structures shown?
-- Are labels scientifically accurate?
-- Are arrows pointing to correct structures?
-- Are important mark scheme features present?
-- Are there any visible scientific errors?
-
-Only deduct marks for genuine visible errors.
-
-Do NOT:
-- Give generic advice
-- Say add more detail unless a required feature is missing
-- Ask for explanations if the question only requires a diagram
-- Ask for labels unless the question specifically requires labels
 
 Return ONLY valid JSON:
 {

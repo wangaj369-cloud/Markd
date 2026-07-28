@@ -248,8 +248,6 @@ return {
 setLoading(false);
   }
 async function markAnswer(question, index, diagram, selfScore = null) {
-  console.log("Diagram sent:", diagram);
-  
   if (selfScore !== null) {
     setResults({
       ...results,
@@ -263,34 +261,48 @@ async function markAnswer(question, index, diagram, selfScore = null) {
     });
     return;
   }
-  
-    try {
-      const res = await fetch("https://markd-ltw1.onrender.com/mark-answer", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            question: question.question,
-            marks: question.marks,
-            answer: answers[index],
-            diagram: diagram,
-             markScheme: question.markScheme
-          }),
-        }
-      );
 
-      const data = await res.json();
-
-      setResults({
-        ...results,
-        [index]: data,
-      });
-
-    } catch (error) {
-      console.error(error);
-    }
+  // For diagram questions, skip API call and show self-assessment immediately
+  if (question.requiresDiagram) {
+    setResults({
+      ...results,
+      [index]: {
+        automaticMarkingFailed: true,
+        score: null,
+        strengths: "",
+        improvements: "Automatic marking is unavailable for diagram questions. Compare your answer with the model answer and mark scheme, then award yourself marks.",
+        modelAnswer: question.modelAnswer,
+        markScheme: question.markScheme
+      }
+    });
+    return;
   }
+
+  try {
+    const res = await fetch("https://markd-ltw1.onrender.com/mark-answer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question: question.question,
+        marks: question.marks,
+        answer: answers[index],
+        markScheme: question.markScheme
+      }),
+    });
+
+    const data = await res.json();
+
+    setResults({
+      ...results,
+      [index]: data,
+    });
+
+  } catch (error) {
+    console.error(error);
+  }
+}
 
   async function generateSummary() {
     try {
