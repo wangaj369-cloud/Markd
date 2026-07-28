@@ -180,6 +180,7 @@ Return ONLY valid JSON.
 No markdown.
 No code blocks.
 No explanations outside JSON.
+Do not ask the student to show working out
 
 Your output must exactly follow this structure:
 
@@ -469,6 +470,7 @@ Rules( ALWAYS FOLLOW)
 
 - Create exactly ${questions} questions.
 - Difficulty: ${difficulty}
+- Do not ask the student to show working out
 
 Easy:
 Only give 1–3 mark questions.
