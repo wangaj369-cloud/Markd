@@ -2,7 +2,9 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
+
 console.log("🔥 THIS IS THE CORRECT INDEX.JS RUNNING 🔥");
+
 import cors from "cors";
 import Groq from "groq-sdk";
 import OpenAI from "openai";
@@ -15,6 +17,7 @@ const videoLibraries = {
   Chemistry: chemistryVideos,
   Psychology: psychologyVideos,
 };
+
 console.log(Object.keys(videoLibraries.Chemistry));
 
 const groq = new Groq({
@@ -22,14 +25,9 @@ const groq = new Groq({
 });
 
 const openrouter = new OpenAI({
- apiKey: process.env.OPENROUTER_KEY,
- baseURL:"https://openrouter.ai/api/v1"
+  apiKey: process.env.OPENROUTER_KEY,
+  baseURL: "https://openrouter.ai/api/v1"
 });
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
-
 const app = express();
 
 app.get("/", (req, res) => {
