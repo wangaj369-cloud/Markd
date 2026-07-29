@@ -2969,4 +2969,35 @@ box-shadow:
 
 
 
+}/* =====================================================
+   FIX LOADING SCREEN CENTERING
+===================================================== */
+
+.exam-loading{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+    box-sizing:border-box;
+
+}
+
+
+.exam-loading-card{
+
+    width:100%;
+
+    max-width:900px;
+
+    margin:0 auto;
+
 }
