@@ -2078,6 +2078,11 @@ box-shadow:
 
     color:white;
 
+}
+
+.exam-mode,
+.exam-page {
+
     padding:40px 20px;
 
 }
@@ -2291,6 +2296,8 @@ box-shadow:
     width:100%;
 
     max-width:900px;
+
+    margin: 0 auto;
 
 
     background:
