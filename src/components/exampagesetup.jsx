@@ -227,32 +227,26 @@ value={topic}
 Subtopics
 </label>
 
+<select
+className="exam-select"
 
-<select className="exam-select"
-
-multiple
-
-value={examSubtopics}
+value={examSubtopics[0] || ""}
 
 onChange={(e)=>{
 
-const selected =
-Array.from(
-e.target.selectedOptions,
-(option)=>option.value
+setExamSubtopics(
+e.target.value ? [e.target.value] : []
 );
 
-
-setExamSubtopics(selected);
+setShowSubtopicDropdown(false);
 
 }}
-
-onKeyDown={(e)=>{
-if(e.key === "Enter") setShowSubtopicDropdown(false);
-}}
-
 
 >
+
+<option value="">
+Select Subtopic
+</option>
 
 {
 (subjectTopics[examSubject]?.[examTopic] || [])
@@ -279,12 +273,7 @@ value={subtopic}
 </select>
 
 
-<button
-className="done-button"
-onClick={()=>setShowSubtopicDropdown(false)}
->
-Done
-</button>
+
 
 
 </div>
