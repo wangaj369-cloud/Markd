@@ -301,6 +301,8 @@ Subtopic: ${subtopic}
 
 Generate 5 exam questions.
 
+Do not ask the student to show working out in any question.
+
 `
 
         }
@@ -470,7 +472,7 @@ Rules( ALWAYS FOLLOW)
 
 - Create exactly ${questions} questions.
 - Difficulty: ${difficulty}
-- Do not ask the student to show working out
+- Do not ask the student to show working out in any question.
 
 Easy:
 Only give 1–3 mark questions.
