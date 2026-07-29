@@ -391,24 +391,9 @@ return (
 
 
 
-<div className="exam-paper-animation">
-
-📄
-
-</div>
 
 
-
-
-
-<h1>AQA Practice Paper</h1>
-
-
-
-
-<p>Personalise Your Exam Paper</p>
-
-
+<h1>CREATING YOUR EXAM PAPER</h1>
 
 
 
@@ -702,7 +687,7 @@ return (
 <div>
 
 <span className="exam-paper-badge">
-AQA PRACTICE PAPER
+AQA EXAM PAPER
 </span>
 
 
