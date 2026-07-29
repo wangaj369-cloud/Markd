@@ -761,11 +761,6 @@ Question {currentQuestion + 1} / {examQuestions.length}
 
 
 
-<h2>
-
-Question {currentQuestion + 1}
-
-</h2>
 
 
 
