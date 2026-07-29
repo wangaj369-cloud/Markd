@@ -448,6 +448,26 @@ examSubtopics.map((subtopic)=>(
 <strong>Questions:</strong> {examQuestionCount === "custom" ? customQuestionCount : examQuestionCount}
 </p>
 
+<p>
+<strong>Estimated Time:</strong> {(() => {
+  const count = examQuestionCount === "custom" ? customQuestionCount : examQuestionCount;
+  const avgMarksPerQuestion = {
+    'Easy': 2,
+    'Medium': 4,
+    'Hard': 15,
+    'Mixed': 5
+  }[examDifficulty] || 5;
+  const totalMarks = count * avgMarksPerQuestion;
+  const totalSeconds = totalMarks * 77;
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  if (hours > 0) {
+    return `${hours} hour${hours !== 1 ? 's' : ''} ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+  }
+  return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+})()}
+</p>
+
 
 
 
