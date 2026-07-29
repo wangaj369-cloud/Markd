@@ -1875,6 +1875,18 @@ box-shadow:
 
 
 
+.exam-select option,
+.exam-shell select option{
+
+
+    background:#0d0d0f;
+
+    color:#a1a1aa;
+
+}
+
+
+
 
 
 /* multiple subtopic box */
