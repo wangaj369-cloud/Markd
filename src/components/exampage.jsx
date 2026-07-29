@@ -228,22 +228,112 @@ if(loadingExam){
 
 return (
 
-<div className="exam-page">
+<div className="exam-loading">
 
-<h1>
-Generating your exam...
-</h1>
+    <div className="exam-loading-card">
 
-<p>
-AI is creating your questions. This may take a moment.
-</p>
+        <span className="exam-loading-badge">
+            EXAM MODE
+        </span>
+
+        <div className="paper-icon">
+            📄
+        </div>
+
+        <h1>
+            Preparing your exam paper...
+        </h1>
+
+        <p className="loading-description">
+            Creating an AQA-style paper based on your selected options.
+        </p>
+
+        <div className="loading-progress">
+
+            <div
+                className="loading-progress-fill"
+                style={{
+                    width: `${progress}%`
+                }}
+            />
+
+        </div>
+
+        <div className="loading-percent">
+            {progress}%
+        </div>
+
+        <div className="loading-checklist">
+
+            <div className={progress >= 20 ? "complete" : ""}>
+                {progress >= 20 ? "✓" : "○"} Loading specification
+            </div>
+
+            <div className={progress >= 45 ? "complete" : ""}>
+                {progress >= 45 ? "✓" : "○"} Selecting questions
+            </div>
+
+            <div className={progress >= 75 ? "complete" : ""}>
+                {progress >= 75 ? "✓" : "○"} Preparing mark schemes
+            </div>
+
+            <div className={progress >= 100 ? "complete" : ""}>
+                {progress >= 100 ? "✓" : "○"} Finalising paper
+            </div>
+
+        </div>
+
+        <div className="loading-summary">
+
+            <h3>Paper Summary</h3>
+
+            <div className="summary-row">
+                <span>Subject</span>
+                <strong>{examSubject}</strong>
+            </div>
+
+            <div className="summary-row">
+                <span>Paper Type</span>
+                <strong>{examPaperType}</strong>
+            </div>
+
+            {examTopic && (
+                <div className="summary-row">
+                    <span>Topic</span>
+                    <strong>{examTopic}</strong>
+                </div>
+            )}
+
+            {examSubtopics.length > 0 && (
+                <div className="summary-row">
+                    <span>Subtopic</span>
+                    <strong>{examSubtopics.join(", ")}</strong>
+                </div>
+            )}
+
+            <div className="summary-row">
+                <span>Questions</span>
+                <strong>{examQuestionCount}</strong>
+            </div>
+
+            <div className="summary-row">
+                <span>Difficulty</span>
+                <strong>{examDifficulty}</strong>
+            </div>
+
+            <div className="summary-row">
+                <span>Time Allowed</span>
+                <strong>{examTime}</strong>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-);
-
+)
 }
-
 
 if(!examQuestions || examQuestions.length===0){
 
