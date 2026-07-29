@@ -454,9 +454,9 @@ examSubtopics.map((subtopic)=>(
   const avgMarksPerQuestion = {
     'Easy': 2,
     'Medium': 4,
-    'Hard': 15,
-    'Mixed': 5
-  }[examDifficulty] || 5;
+    'Hard': 13,
+    'Mixed': 7
+  }[examDifficulty] || 7;
   const totalMarks = count * avgMarksPerQuestion;
   const totalSeconds = totalMarks * 77;
   const hours = Math.floor(totalSeconds / 3600);
