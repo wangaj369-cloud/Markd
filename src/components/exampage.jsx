@@ -386,9 +386,7 @@ return (
 <div className="exam-loading-card">
 
 
-<span className="exam-loading-badge">
-EXAM MODE
-</span>
+<span className="exam-badge">EXAM MODE</span>
 
 
 
@@ -403,18 +401,12 @@ EXAM MODE
 
 
 
-<h1>
-Preparing your exam paper...
-</h1>
+<h1>AQA Practice Paper</h1>
 
 
 
 
-<p className="exam-loading-text">
-
-AI is creating your AQA-style paper based on your selected options.
-
-</p>
+<p>Personalise Your Exam Paper</p>
 
 
 
@@ -932,3 +924,4 @@ currentQuestion === examQuestions.length - 1
 
 
 }
+
