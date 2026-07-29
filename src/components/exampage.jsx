@@ -742,27 +742,11 @@ AQA PRACTICE PAPER
 
 
 
-
 <div className="exam-paper-info">
 
-
 <span>
-
-Question {currentQuestion + 1}
-
-/
-
-{examQuestions.length}
-
+Question {currentQuestion + 1} / {examQuestions.length}
 </span>
-
-
-<span>
-
-{question.marks} marks
-
-</span>
-
 
 </div>
 
@@ -789,6 +773,10 @@ Question {currentQuestion + 1}
 <p className="question-text">
 
 {question.question}
+
+<span className="question-marks">
+ ({question.marks} marks)
+</span>
 
 </p>
 
