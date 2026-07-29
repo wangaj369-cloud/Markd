@@ -2063,7 +2063,8 @@ box-shadow:
 
 .exam-mode,
 .exam-page,
-.exam-loading {
+.exam-loading,
+.exam-loading-page {
 
     min-height:100vh;
     width:100%;
