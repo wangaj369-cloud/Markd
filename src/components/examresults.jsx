@@ -89,11 +89,15 @@ if (!data.score && data.feedback) {
   data.total = data.feedback.reduce((sum, item) => sum + (item.maxMark || 0), 0);
 }
 
+if(data.feedback){
+
 data.feedback = data.feedback.map((item, index) => ({
   ...item,
-  subtopic: completedExam.questions[index].subtopic
+  subtopic: completedExam.questions[index]?.subtopic || "General"
 }));
-const weakTopics = data.feedback
+
+}
+const weakTopics = (data.feedback || [])
 .filter(item => {
   const percent = (item.mark / item.maxMark) * 100;
   return percent < 60;
@@ -158,22 +162,84 @@ if(marking){
 
 return(
 
-<div>
+<div className="exam-marking-page">
+
+
+<div className="exam-marking-card">
+
+
+<span className="exam-paper-badge">
+EXAM MODE
+</span>
+
+
+
+<div className="ai-icon">
+🤖
+</div>
+
+
 
 <h1>
-🤖 Marking your exam...
+AI is marking your exam...
 </h1>
 
+
+
 <p>
-Your answers are being checked by an A-Level examiner AI.
+Your answers are being analysed against the mark scheme.
 </p>
+
+
+
+
+<div className="marking-loader">
+
+<div className="loader-circle">
+
+</div>
+
+</div>
+
+
+
+
+<div className="marking-status">
+
+
+<div className="complete">
+✓ Checking answers
+</div>
+
+
+<div className="complete">
+✓ Comparing mark scheme
+</div>
+
+
+<div>
+○ Creating feedback
+</div>
+
+
+<div>
+○ Finding improvement areas
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
 
 </div>
 
 );
 
 }
-
 return (
 
 

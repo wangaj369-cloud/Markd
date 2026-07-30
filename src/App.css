@@ -3277,4 +3277,187 @@ box-shadow:
 }
 
 
+}/* =====================================================
+   AI MARKING SCREEN
+===================================================== */
+
+
+.exam-marking-page{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:30px;
+
+background:
+radial-gradient(
+circle at top,
+#24104f,
+#050505 55%
+);
+
+}
+
+
+
+.exam-marking-card{
+
+
+width:100%;
+
+max-width:700px;
+
+
+padding:45px;
+
+
+text-align:center;
+
+
+background:
+
+linear-gradient(
+145deg,
+#111111,
+#080808
+);
+
+
+border:
+
+1px solid #292929;
+
+
+border-radius:30px;
+
+
+box-shadow:
+
+0 40px 100px rgba(0,0,0,.8);
+
+
+}
+
+
+
+.ai-icon{
+
+font-size:70px;
+
+margin:30px 0;
+
+}
+
+
+
+.exam-marking-card h1{
+
+color:white;
+
+font-size:36px;
+
+font-weight:900;
+
+}
+
+
+
+.exam-marking-card p{
+
+color:#a1a1aa;
+
+font-size:18px;
+
+}
+
+
+
+
+.marking-loader{
+
+
+width:70px;
+
+height:70px;
+
+border-radius:50%;
+
+border:
+
+6px solid #27272a;
+
+
+border-top-color:#8b5cf6;
+
+
+margin:35px auto;
+
+
+animation:spin 1s linear infinite;
+
+
+}
+
+
+
+@keyframes spin{
+
+to{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+
+
+
+.marking-status{
+
+
+margin-top:30px;
+
+text-align:left;
+
+background:#09090b;
+
+padding:25px;
+
+border-radius:20px;
+
+border:1px solid #27272a;
+
+
+}
+
+
+
+.marking-status div{
+
+
+padding:12px 0;
+
+color:#71717a;
+
+
+}
+
+
+
+.marking-status .complete{
+
+
+color:#c4b5fd;
+
+text-shadow:
+
+0 0 15px rgba(139,92,246,.7);
+
+
 }
