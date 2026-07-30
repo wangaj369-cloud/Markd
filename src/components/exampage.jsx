@@ -557,34 +557,6 @@ Topic
 
 
 
-
-
-
-{examSettings.subtopics?.length > 0 && (
-
-<div className="summary-row">
-
-<span>
-Subtopics
-</span>
-
-
-<strong>
-
-{examSettings.subtopics.join(", ")}
-
-</strong>
-
-
-</div>
-
-)}
-
-
-
-
-
-
 <div className="summary-row">
 
 <span>
