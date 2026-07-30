@@ -274,7 +274,7 @@ EXAM RESULTS
 
 
 <h1>
-{completedExam.subject} {completedExam.level}
+{completedExam.level}{completedExam.subject} 
 </h1>
 
 
@@ -292,67 +292,69 @@ examResults && (
 <>
 
 
-<div className="score-card">
+<div className="results-stats">
 
+<div className="result-stat">
 
-<div className="score-number">
+<div className="stat-value">
 
-{
-examResults.score
-}
+{examResults.score} / {examResults.total || examResults.totalMarks}
 
-<span>
-/
-{
-examResults.total || examResults.totalMarks
-}
-</span>
+</div>
 
+<div className="stat-label">
+
+Score
+
+</div>
 
 </div>
 
 
 
-<div className="percentage">
+<div className="result-stat">
 
-{
-Math.round(
-(examResults.score /
-(examResults.total || examResults.totalMarks))
-*100
-)
-}%
+<div className="stat-value">
+
+{percentage}%
+
+</div>
+
+<div className="stat-label">
+
+Percentage
+
+</div>
 
 </div>
 
 
-</div>
 
+<div className="result-stat">
 
+<div className="stat-value">
 
-
-
-
-<div className="grade-badge">
-
-Grade {getGrade(percentage)}
-
+{getGrade(percentage)}
 
 </div>
 
-<div className="grade-badge">
+<div className="stat-label">
 
-Grade {getGrade(percentage)}
+Grade
 
 </div>
+
+</div>
+
+</div>
+
+
 
 <p className="performance-message">
 
 {getPerformanceMessage(percentage)}
 
 </p>
-
-
 
 <div className="results-actions">
 
