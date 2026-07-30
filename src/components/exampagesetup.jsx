@@ -102,11 +102,15 @@ examPaperType==="Full Subject"
 : "paper-button"
 }
 
-onClick={()=>{
+onClick={() => {
 
-setExamPaperType("Full Subject");
+    setExamPaperType("Full Subject");
 
-setExamTopic("");
+    setExamTopic("");
+    setExamSubtopics([]);
+
+    setShowTopicDropdown(false);
+    setShowSubtopicDropdown(false);
 
 }}
 
@@ -119,31 +123,50 @@ Full Subject
 
 <button
 className={
-examPaperType==="By Topic"
+examPaperType==="Topic"
 ? "paper-button active"
 : "paper-button"
 }
 
-onClick={()=>{setExamPaperType("By Topic"); setShowTopicDropdown(true);}}
+onClick={() => {
 
+    setExamPaperType("Topic");
+
+    setExamTopic("");
+    setExamSubtopics([]);
+
+    setShowSubtopicDropdown(false);
+    setShowTopicDropdown(true);
+
+}}
 >
 
-By Topic
+Topic
 
 </button>
 
 <button
 className={
-examPaperType==="By Subtopic"
+examPaperType==="Subtopic"
 ? "paper-button active"
 : "paper-button"
 }
 
-onClick={()=>{setExamPaperType("By Subtopic"); setShowTopicDropdown(true);}}
+onClick={() => {
+
+    setExamPaperType("Subtopic");
+
+    setExamTopic("");
+    setExamSubtopics([]);
+
+    setShowTopicDropdown(true);
+    setShowSubtopicDropdown(false);
+
+}}
 
 >
 
-By Subtopic
+Subtopic
 
 </button>
 
@@ -185,12 +208,12 @@ console.log(
 examSubtopics
 );
 
-if(selectedTopic && examPaperType === "By Subtopic"){
+if(selectedTopic && examPaperType === "Subtopic"){
   setShowSubtopicDropdown(true);
 }
 
 
-if(selectedTopic && examPaperType === "By Topic"){
+if(selectedTopic && examPaperType === "Topic"){
   setShowTopicDropdown(false);
 }
 
