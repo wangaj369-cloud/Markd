@@ -494,111 +494,29 @@ width:`${progress}%`
 
 
 
-<div className="exam-summary-card">
+<div className="loading-summary">
 
+    <h3>Exam Details</h3>
 
-<h3>
-Paper Summary
-</h3>
+    <div className="summary-row">
+        <span>Subject</span>
+        <strong>{examSettings.subject}</strong>
+    </div>
 
+    <div className="summary-row">
+        <span>Coverage</span>
+        <strong>{examSettings.paperType}</strong>
+    </div>
 
+    <div className="summary-row">
+        <span>Questions</span>
+        <strong>{examSettings.questions}</strong>
+    </div>
 
-
-<div className="summary-row">
-
-<span>
-Subject
-</span>
-
-<strong>
-{examSettings.subject}
-</strong>
-
-</div>
-
-
-
-
-
-
-<div className="summary-row">
-
-<span>
-Paper Type
-</span>
-
-<strong>
-{examSettings.paperType}
-</strong>
-
-</div>
-
-
-
-
-
-
-{examSettings.topic && (
-
-<div className="summary-row">
-
-<span>
-Topic
-</span>
-
-<strong>
-{examSettings.topic}
-</strong>
-
-</div>
-
-)}
-
-
-
-
-<div className="summary-row">
-
-<span>
-Questions
-</span>
-
-
-<strong>
-
-{examSettings.questions}
-
-</strong>
-
-
-</div>
-
-
-
-
-
-
-
-<div className="summary-row">
-
-<span>
-Difficulty
-</span>
-
-
-<strong>
-
-{examSettings.difficulty}
-
-</strong>
-
-
-</div>
-
-
-
-
-
+    <div className="summary-row">
+        <span>Difficulty</span>
+        <strong>{examSettings.difficulty}</strong>
+    </div>
 
 </div>
 
