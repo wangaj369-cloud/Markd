@@ -174,9 +174,7 @@ EXAM MODE
 
 
 
-<div className="ai-icon">
-🤖
-</div>
+
 
 
 
@@ -260,7 +258,7 @@ EXAM RESULTS
 
 
 <p className="results-subtitle">
-A-Level Practice Examination
+A-Level Mock Exam
 </p>
 
 
