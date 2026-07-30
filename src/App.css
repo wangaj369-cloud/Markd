@@ -4276,3 +4276,476 @@ text-shadow:
 
 
 }
+/* =====================================================
+   PRACTICE MY MISTAKES
+===================================================== */
+
+
+.practice-mistakes-page{
+
+    min-height:100vh;
+
+    padding:40px 20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    background:
+    radial-gradient(
+        circle at top,
+        #24104f 0%,
+        #050505 55%
+    );
+
+}
+
+
+
+.practice-mistakes-shell{
+
+    width:100%;
+
+    max-width:850px;
+
+    padding:45px;
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #141414,
+        #080808
+    );
+
+
+    border:1px solid #2e2e2e;
+
+
+    border-radius:32px;
+
+
+    box-shadow:
+
+    0 0 45px rgba(139,92,246,.15),
+    0 40px 100px rgba(0,0,0,.8);
+
+}
+
+
+
+
+/* HEADER */
+
+
+.practice-mistakes-shell h1{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:40px;
+
+    font-weight:900;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.practice-mistakes-shell h2{
+
+    text-align:center;
+
+    color:#c4b5fd;
+
+    font-size:24px;
+
+    margin-top:20px;
+
+}
+
+
+
+.practice-mistakes-shell > p{
+
+    text-align:center;
+
+    color:#a1a1aa;
+
+    margin-bottom:35px;
+
+}
+
+
+
+
+/* =====================================================
+   MISTAKE CARDS
+===================================================== */
+
+
+.mistake-card{
+
+
+    margin-bottom:18px;
+
+
+    padding:22px;
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #18181b,
+        #0d0d0d
+    );
+
+
+    border:
+
+    1px solid #27272a;
+
+
+    border-radius:22px;
+
+
+    transition:.25s;
+
+
+}
+
+
+
+.mistake-card:hover{
+
+
+    transform:translateY(-3px);
+
+
+    border-color:#8b5cf6;
+
+
+    box-shadow:
+
+    0 0 25px rgba(139,92,246,.2);
+
+}
+
+
+
+.mistake-card label{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:20px;
+
+
+    cursor:pointer;
+
+
+}
+
+
+
+.mistake-card input{
+
+
+    width:22px;
+
+    height:22px;
+
+    accent-color:#8b5cf6;
+
+
+}
+
+
+
+
+.mistake-info{
+
+
+    flex:1;
+
+
+}
+
+
+
+.mistake-info h3{
+
+
+    color:white;
+
+    margin:0 0 8px;
+
+    font-size:20px;
+
+}
+
+
+
+.mistake-info p{
+
+
+    color:#a1a1aa;
+
+    margin:0;
+
+}
+
+
+
+.mistake-info strong{
+
+
+    color:#ffffff;
+
+}
+
+
+
+.mistake-info span{
+
+
+    display:inline-block;
+
+
+    margin-top:8px;
+
+
+    padding:6px 14px;
+
+
+    border-radius:999px;
+
+
+    font-weight:800;
+
+
+}
+
+
+
+/* =====================================================
+   SCORE STATES
+===================================================== */
+
+
+/* Needs improvement */
+
+.mistake-card.weak{
+
+
+    border-color:#ef4444;
+
+}
+
+
+.mistake-card.weak span{
+
+
+    background:#2b0b0b;
+
+    color:#f87171;
+
+}
+
+
+
+/* Partial */
+
+.mistake-card.warning{
+
+
+    border-color:#fb923c;
+
+}
+
+
+
+.mistake-card.warning span{
+
+
+    background:#321805;
+
+    color:#fb923c;
+
+}
+
+
+
+/* Better */
+
+.mistake-card.okay{
+
+
+    border-color:#22c55e;
+
+}
+
+
+
+.mistake-card.okay span{
+
+
+    background:#082414;
+
+    color:#4ade80;
+
+}
+
+
+
+
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+
+.practice-mistakes-page button{
+
+
+    width:100%;
+
+
+    margin-top:30px;
+
+
+    padding:20px;
+
+
+    border:none;
+
+
+    border-radius:20px;
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #8b5cf6,
+        #5b21b6
+    );
+
+
+    color:white;
+
+
+    font-size:20px;
+
+
+    font-weight:900;
+
+
+    cursor:pointer;
+
+
+    transition:.25s;
+
+
+}
+
+
+
+.practice-mistakes-page button:hover{
+
+
+    transform:translateY(-4px);
+
+
+    box-shadow:
+
+    0 20px 45px rgba(139,92,246,.4);
+
+}
+
+
+
+.practice-mistakes-page button:disabled{
+
+
+    opacity:.4;
+
+
+    cursor:not-allowed;
+
+
+    transform:none;
+
+
+}
+
+
+
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+
+@media(max-width:700px){
+
+
+.practice-mistakes-shell{
+
+
+    padding:25px 20px;
+
+
+}
+
+
+
+.practice-mistakes-shell h1{
+
+
+    font-size:30px;
+
+
+}
+
+
+
+.mistake-card label{
+
+
+    gap:12px;
+
+
+}
+
+
+
+.mistake-info h3{
+
+
+    font-size:17px;
+
+
+}
+
+
+
+.practice-mistakes-page button{
+
+
+    font-size:17px;
+
+
+}
+
+
+}

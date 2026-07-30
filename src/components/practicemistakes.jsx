@@ -21,11 +21,27 @@ findTopicFromSubtopic
 
 
 const [selectedTopics,setSelectedTopics] = useState([]);
+function getMistakeClass(percentage){
 
+if(percentage >= 60){
 
+return "okay";
+
+}
+
+if(percentage >= 30){
+
+return "warning";
+
+}
+
+return "weak";
+
+}
 if(!examResults || !examResults.weakTopics){
 
 return(
+  
 
 <div>
 
@@ -107,14 +123,20 @@ These are topics where you scored below 60%.
 </p>
 
 
-
 {
 weakTopics.map((item,index)=>(
 
-<div key={index}>
+<div
+
+key={index}
+
+className={`mistake-card ${getMistakeClass(item.percentage)}`}
+
+>
 
 
 <label>
+
 
 <input
 
@@ -131,22 +153,34 @@ toggleTopic(item.subtopic)
 />
 
 
-<strong>
+
+<div className="mistake-info">
+
+
+<h3>
 {item.subtopic}
-</strong>
+</h3>
 
 
-<br/>
+<p>
 
 Score:
 
+<strong>
 {item.mark}/{item.maxMark}
+</strong>
 
-(
+</p>
+
+
+<span>
 
 {item.percentage}%
 
-)
+</span>
+
+
+</div>
 
 
 </label>
@@ -158,7 +192,6 @@ Score:
 ))
 
 }
-
 
 
 <br/>
@@ -187,6 +220,13 @@ setCurrentRevisionIndex(0);
 
 
 const firstTopic = queue[0];
+
+
+if(!firstTopic){
+
+return;
+
+}
 
 
 generateQuestions({
