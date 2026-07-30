@@ -36,6 +36,7 @@ const [showCustomQuestionsInput, setShowCustomQuestionsInput] = useState(false);
 const [showTopicDropdown, setShowTopicDropdown] = useState(false);
 const [showSubtopicDropdown, setShowSubtopicDropdown] = useState(false);
 const [startingExam, setStartingExam] = useState(false);
+const [setupError, setSetupError] = useState("");
 
 
 return (
@@ -508,14 +509,49 @@ disabled={startingExam}
 
 onClick={() => {
 
-    setStartingExam(true);
 
-    setRevisionStage("exam");
+if(examPaperType === "Topic" && !examTopic){
+
+    setSetupError(
+        "Please select a topic to continue."
+    );
+
+    return;
+
+}
+
+
+
+if(examPaperType === "Subtopic" && examSubtopics.length === 0){
+
+    setSetupError(
+        "Please select a subtopic to continue."
+    );
+
+    return;
+
+}
+
+
+
+setSetupError("");
+
+setStartingExam(true);
+
+setRevisionStage("exam");
+
 
 }}
-
 >
+{setupError && (
 
+<div className="setup-error">
+
+{setupError}
+
+</div>
+
+)}
 {startingExam ? "Generating Exam..." : "Start Exam →"}
 
 </button>

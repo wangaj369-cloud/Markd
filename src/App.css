@@ -2212,7 +2212,30 @@ box-shadow:
     color:#c4b5fd;
 
 
-}/* =====================================================
+}
+.setup-error{
+
+    margin-top:25px;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    background:#2b0b0b;
+
+    border:1px solid #ef4444;
+
+    color:#fca5a5;
+
+    text-align:center;
+
+    font-weight:700;
+
+    box-shadow:
+    0 0 20px rgba(239,68,68,.2);
+
+}
+/* =====================================================
    START EXAM BUTTON
 ===================================================== */
 
