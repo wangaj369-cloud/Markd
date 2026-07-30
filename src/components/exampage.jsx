@@ -570,7 +570,6 @@ return (
 <div className="exam-paper-page">
 
 
-
 <div className="exam-paper-header">
 
 
@@ -582,21 +581,26 @@ AQA EXAM PAPER
 
 
 <h1>
-
 {examSettings.subject} {examSettings.level}
-
 </h1>
 
 
+<p className="exam-paper-subtitle">
+Mock Exam
+</p>
+
+
 </div>
-
-
 
 
 
 <div className="exam-timer">
 
-⏱ {formatTime()}
+<span>
+⏱
+</span>
+
+{formatTime()}
 
 </div>
 
@@ -608,16 +612,13 @@ AQA EXAM PAPER
 
 
 
-
-<div className="exam-paper-info">
+<div className="exam-question-info">
 
 <span>
-Question {currentQuestion + 1} / {examQuestions.length}
+QUESTION {currentQuestion + 1} OF {examQuestions.length}
 </span>
 
 </div>
-
-
 
 
 
@@ -628,48 +629,40 @@ Question {currentQuestion + 1} / {examQuestions.length}
 
 
 
-
-
-
-
-<p className="question-text">
+<div className="question-text">
 
 {question.question}
 
-<span className="question-marks">
- ({question.marks} marks)
-</span>
-
-</p>
+</div>
 
 
 
+<div className="question-marks">
 
+({question.marks} marks)
+
+</div>
+
+
+
+
+<div className="answer-container">
 
 <textarea
 
-
 value={
-
 answers[currentQuestion] || ""
-
 }
-
 
 onChange={(e)=>
-
 saveAnswer(e.target.value)
-
 }
-
 
 placeholder="Write your answer here..."
 
+ />
 
-
-/>
-
-
+</div>
 
 
 
@@ -680,90 +673,50 @@ placeholder="Write your answer here..."
 
 
 
-
-
-
 <div className="exam-navigation">
-
-
-
 
 
 <button
 
+className="exam-nav-button"
 
 disabled={currentQuestion === 0}
 
-
-onClick={()=>
-
-
-setCurrentQuestion(
-
-currentQuestion - 1
-
-)
-
-
-}
-
-
+onClick={()=>setCurrentQuestion(currentQuestion - 1)}
 
 >
 
-
 ← Previous
-
 
 </button>
 
 
 
 
-
-
-
 <button
 
+className="exam-nav-button primary"
 
 onClick={()=>{
 
-
-if(
-
-currentQuestion === examQuestions.length - 1
-
-){
-
+if(currentQuestion === examQuestions.length - 1){
 
 submitExam();
-
 
 }
 
 else{
 
-
-setCurrentQuestion(
-
-currentQuestion + 1
-
-);
-
+setCurrentQuestion(currentQuestion + 1);
 
 }
 
-
-
 }}
-
-
 
 >
 
 
 {
-
 
 currentQuestion === examQuestions.length - 1
 
@@ -775,28 +728,19 @@ currentQuestion === examQuestions.length - 1
 
 "Next →"
 
-
 }
-
 
 
 </button>
 
 
 
-
-
 </div>
 
 
 
 
-
 </div>
-
 
 );
-
-
 }
-
