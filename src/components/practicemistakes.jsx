@@ -132,7 +132,11 @@ weakTopics.map((item,index)=>(
 
 key={index}
 
-className={`mistake-card ${getMistakeClass(item.percentage)}`}
+className={`mistake-card ${getMistakeClass(item.percentage)} ${
+selectedTopics.includes(item.subtopic)
+? "selected"
+: ""
+}`}
 
 >
 
