@@ -242,81 +242,149 @@ Your answers are being analysed against the mark scheme.
 }
 return (
 
+<div className="exam-results-page">
 
-<div className="exam-results">
+
+<div className="exam-results-card">
+
+
+<span className="exam-paper-badge">
+EXAM RESULTS
+</span>
+
+
 
 <h1>
-📝 Exam Results
+{completedExam.subject} {completedExam.level}
 </h1>
 
 
+<p className="results-subtitle">
+A-Level Practice Examination
+</p>
 
-<h2>
-{completedExam.subject} {completedExam.level}
-</h2>
+
 
 
 
 {
 examResults && (
 
-<div>
+<>
 
-<h2>
-Score:
+
+<div className="score-card">
+
+
+<div className="score-number">
+
 {
 examResults.score
 }
+
+<span>
 /
 {
 examResults.total || examResults.totalMarks
 }
-(
-{Math.round(
-(examResults.score / examResults.total) * 100
-)}%
-)
-</h2>
+</span>
 
-<h2>
-Grade: {getGrade(percentage)}
-</h2>
+
+</div>
+
+
+
+<div className="percentage">
+
+{
+Math.round(
+(examResults.score /
+(examResults.total || examResults.totalMarks))
+*100
+)
+}%
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div className="grade-badge">
+
+Grade {getGrade(percentage)}
+
+</div>
+
+
+
+
+
+<div className="results-actions">
+
 
 <button
-onClick={() => setShowFeedback(!showFeedback)}
+
+className="results-button"
+
+onClick={()=>setShowFeedback(!showFeedback)}
+
 >
 
 {
+
 showFeedback
 ? "Hide Feedback"
 : "View Feedback"
+
 }
 
 </button>
+
+
+
 {
 showFeedback && (
 
-<div>
-
 <button
-onClick={()=>{
 
-setRevisionStage("examFeedback");
+className="results-button primary"
 
-}}
+onClick={()=>setRevisionStage("examFeedback")}
+
 >
-View Feedback
+
+Open AI Feedback →
+
 </button>
-</div>
 
 )
+
 }
+
+
+
 </div>
+
+
+
+</>
 
 )
+
 }
 
+
+
 </div>
+
+
+</div>
+
 
 );
 
