@@ -552,6 +552,8 @@ setRevisionStage("exam");
 </div>
 
 )}
+
+
 {startingExam ? "Generating Exam..." : "Start Exam →"}
 
 </button>
