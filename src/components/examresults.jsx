@@ -31,6 +31,27 @@ return (
 );
 
 }
+function getPerformanceMessage(percent){
+
+if(percent >= 80){
+    return "🌟 Excellent performance";
+}
+
+if(percent >= 70){
+    return "✅ Strong understanding";
+}
+
+if(percent >= 60){
+    return "📚 Good progress";
+}
+
+if(percent >= 50){
+    return "⚠️ Developing understanding";
+}
+
+return "📖 More revision recommended";
+
+}
 
 
 const totalMarks = completedExam.questions.reduce(
@@ -316,9 +337,20 @@ Math.round(
 
 Grade {getGrade(percentage)}
 
+
 </div>
 
+<div className="grade-badge">
 
+Grade {getGrade(percentage)}
+
+</div>
+
+<p className="performance-message">
+
+{getPerformanceMessage(percentage)}
+
+</p>
 
 
 

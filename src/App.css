@@ -3567,25 +3567,23 @@ text-shadow:
 
 }
 
-
 .score-number{
 
     color:white;
 
-    font-size:60px;
+    font-size:56px;
 
     font-weight:900;
 
 }
 
-
 .score-number span{
 
-    font-size:28px;
+    font-size:56px;
 
-    color:#9ca3af;
+    color:white;
 
-    margin-left:8px;
+    margin-left:6px;
 
 }
 
@@ -3750,5 +3748,18 @@ text-shadow:
     width:100%;
 
 }
+
+}
+.performance-message{
+
+    margin-top:18px;
+
+    margin-bottom:40px;
+
+    color:#d4d4d8;
+
+    font-size:20px;
+
+    font-weight:700;
 
 }
