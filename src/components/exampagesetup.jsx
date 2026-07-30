@@ -113,8 +113,9 @@ onClick={() => {
     setShowTopicDropdown(false);
     setShowSubtopicDropdown(false);
 
-}}
+    setSetupError("");
 
+}}
 >
 
 Full Subject
@@ -194,7 +195,7 @@ onChange={(e)=>{
 const selectedTopic = e.target.value;
 
 setExamTopic(selectedTopic);
-
+setSetupError("");
 
 // Load subtopics for this topic
 const foundSubtopics =
@@ -261,7 +262,7 @@ onChange={(e)=>{
 setExamSubtopics(
 e.target.value ? [e.target.value] : []
 );
-
+setSetupError("");
 setShowSubtopicDropdown(false);
 
 }}
@@ -499,7 +500,15 @@ examSubtopics.map((subtopic)=>(
 
 </div>
 
+{setupError && (
 
+<div className="setup-error">
+
+{setupError}
+
+</div>
+
+)}
 
 <button
 
@@ -543,15 +552,7 @@ setRevisionStage("exam");
 
 }}
 >
-{setupError && (
 
-<div className="setup-error">
-
-{setupError}
-
-</div>
-
-)}
 
 
 {startingExam ? "Generating Exam..." : "Start Exam →"}
