@@ -7,145 +7,401 @@ setRevisionStage
 
 }){
 
+
 const [currentQuestion,setCurrentQuestion] = useState(0);
+
+
+
+function getScoreClass(mark,maxMark){
+
+
+if(mark === maxMark){
+
+    return "perfect";
+
+}
+
+
+const percentage = (mark / maxMark) * 100;
+
+
+if(percentage >= 75){
+
+    return "good";
+
+}
+
+
+if(mark > 0){
+
+    return "partial";
+
+}
+
+
+return "poor";
+
+
+}
+
+
 
 if(!examResults){
 
 return(
-<div>
-<h1>No feedback available</h1>
+
+<div className="exam-feedback-page">
+
+<h1>
+No feedback available
+</h1>
+
 </div>
+
 );
 
 }
+
+
 
 if(!examResults.feedback || examResults.feedback.length === 0){
 
 return(
-<div>
-<h1>No feedback array found</h1>
+
+<div className="exam-feedback-page">
+
+<h1>
+No feedback found
+</h1>
+
 </div>
+
 );
 
 }
+
+
 
 const feedback =
 examResults.feedback[currentQuestion];
 
+
+
 if(!feedback){
 
 return(
-<div>
-<h1>No feedback for this question</h1>
+
+<div className="exam-feedback-page">
+
+<h1>
+No feedback for this question
+</h1>
+
 </div>
+
 );
 
 }
+
+
+
 return(
 
-<div>
+<div className="exam-feedback-page">
+
+
+<div className="exam-feedback-shell">
+
+
+<div className="feedback-header">
+
+
+<span className="exam-paper-badge">
+
+AI EXAM FEEDBACK
+
+</span>
+
 
 <h1>
-Exam Feedback
+
+{examResults.subject} {examResults.level}
+
 </h1>
 
-<h2>
-Question {currentQuestion+1} / {examResults.feedback.length}
-</h2>
 
-{feedback.mark !== null && feedback.mark !== undefined && (
-  <div className="score-display">
-    <strong>Score: {feedback.mark} / {feedback.maxMark}</strong>
-  </div>
+{feedback.subtopic && (
+
+<p className="feedback-topic">
+
+{feedback.subtopic}
+
+</p>
+
 )}
 
-<p>
-<strong>Question</strong>
-</p>
+
+<div className="feedback-question-number">
+
+Question {currentQuestion + 1} / {examResults.feedback.length}
+
+</div>
+
+
+<div
+
+className={
+`feedback-score ${getScoreClass(
+feedback.mark,
+feedback.maxMark
+)}`
+}
+
+>
+
+{feedback.mark} / {feedback.maxMark} Marks
+
+</div>
+
+
+</div>
+
+<div className="feedback-card">
+
+
+<h3>
+Question
+</h3>
+
 
 <p>
 {feedback.questionText}
 </p>
 
-<p>
-<strong>Your Answer</strong>
-</p>
+
+</div>
+
+
+
+
+
+<div className="feedback-card">
+
+
+<h3>
+Your Answer
+</h3>
+
 
 <p>
-{feedback.studentAnswer}
+
+{feedback.studentAnswer || "No answer provided."}
+
 </p>
 
-<p>
-<strong>Strengths</strong>
-</p>
+
+</div>
+
+
+
+
+
+<div className="feedback-card strengths-card">
+
+
+<h3>
+✅ Strengths
+</h3>
+
 
 <p>
+
 {
-feedback.strengths || "No strengths identified."
+feedback.strengths || 
+"No strengths identified."
 }
+
 </p>
 
-<p>
-<strong>Improvements</strong>
-</p>
+
+</div>
+
+
+
+
+
+<div className="feedback-card improvements-card">
+
+
+<h3>
+📈 Improvements
+</h3>
+
 
 <p>
+
 {
-feedback.improvements || "No improvements needed."
+feedback.improvements ||
+"No improvements needed."
 }
+
 </p>
 
-<p>
-<strong>Model Answer</strong>
-</p>
+
+</div>
+
+
+
+
+
+<div className="feedback-card model-answer-card">
+
+
+<h3>
+⭐ Model Answer
+</h3>
+
 
 <p>
-{feedback.modelAnswer}
+
+{
+feedback.modelAnswer ||
+"No model answer available."
+}
+
 </p>
-<div>
+
+
+</div>
+
+
+
+
+
+
+<div className="feedback-navigation">
+
 
 <button
-disabled={currentQuestion===0}
-onClick={() => setCurrentQuestion(currentQuestion-1)}
+
+className="feedback-button"
+
+disabled={currentQuestion === 0}
+
+onClick={()=>{
+
+setCurrentQuestion(
+currentQuestion - 1
+)
+
+}}
+
 >
-Previous
+
+← Previous
+
 </button>
 
-{currentQuestion < examResults.feedback.length - 1 ? (
+
+
+
+
+{
+
+currentQuestion < examResults.feedback.length - 1 ?
+
+
+(
 
 <button
-onClick={() => setCurrentQuestion(currentQuestion+1)}
+
+className="feedback-button primary"
+
+onClick={()=>{
+
+setCurrentQuestion(
+currentQuestion + 1
+)
+
+}}
+
 >
-Next
+
+Next →
+
 </button>
 
-) : (
-<>
+
+)
+
+
+:
+
+(
+
+<div className="feedback-actions">
+
+
 <button
-onClick={() => setRevisionStage("practiceMistakes")}
+
+className="feedback-button primary"
+
+onClick={()=>setRevisionStage("practiceMistakes")}
+
 >
+
 Practice My Mistakes
+
 </button>
 
+
+
 <button
-onClick={() => setRevisionStage("examSetup")}
+
+className="feedback-button"
+
+onClick={()=>setRevisionStage("examSetup")}
+
 >
+
 New Exam
+
 </button>
+
+
 
 <button
-onClick={() => setRevisionStage("setup")}
+
+className="feedback-button"
+
+onClick={()=>setRevisionStage("setup")}
+
 >
+
 Home
+
 </button>
-</>
 
-)}
 
 </div>
 
+)
+
+}
+
+
+
 </div>
+
+
+
+</div>
+
+
+</div>
+
 
 );
+
 
 }

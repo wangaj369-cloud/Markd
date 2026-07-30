@@ -3754,4 +3754,502 @@ text-shadow:
 
     font-weight:700;
 
+}/* =====================================================
+   EXAM FEEDBACK PAGE
+===================================================== */
+
+
+.exam-feedback-page{
+
+    min-height:100vh;
+
+    padding:40px 20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    background:
+    radial-gradient(
+        circle at top,
+        #24104f 0%,
+        #050505 55%
+    );
+
+}
+
+
+
+.exam-feedback-shell{
+
+    width:100%;
+
+    max-width:850px;
+
+    padding:45px;
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #141414,
+        #080808
+    );
+
+
+    border:1px solid #2e2e2e;
+
+
+    border-radius:32px;
+
+
+    box-shadow:
+
+    0 0 45px rgba(139,92,246,.15),
+    0 40px 100px rgba(0,0,0,.8);
+
+}
+
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+
+.feedback-header{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+
+
+.feedback-header h1{
+
+    color:white;
+
+    font-size:38px;
+
+    font-weight:900;
+
+    margin:20px 0 10px;
+
+}
+
+
+
+.feedback-topic{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    margin-top:10px;
+
+
+    border-radius:999px;
+
+
+    background:#18181b;
+
+
+    border:1px solid #8b5cf6;
+
+
+    color:#c4b5fd;
+
+
+    font-weight:700;
+
+}
+
+
+
+.feedback-question-number{
+
+    margin-top:25px;
+
+    color:#a1a1aa;
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+
+
+/* =====================================================
+   SCORE BADGE
+===================================================== */
+
+
+.feedback-score{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:14px 30px;
+
+    border-radius:999px;
+
+    font-size:22px;
+
+    font-weight:900;
+
+    border:1px solid;
+
+}
+
+
+
+/* FULL MARKS */
+
+.feedback-score.perfect{
+
+    background:#3b2f00;
+
+    color:#facc15;
+
+    border-color:#facc15;
+
+
+    box-shadow:
+
+    0 0 30px rgba(250,204,21,.4);
+
+}
+
+
+
+/* STRONG */
+
+.feedback-score.good{
+
+    background:#082414;
+
+    color:#4ade80;
+
+    border-color:#22c55e;
+
+
+    box-shadow:
+
+    0 0 30px rgba(34,197,94,.35);
+
+}
+
+
+
+/* PARTIAL */
+
+.feedback-score.partial{
+
+    background:#321805;
+
+    color:#fb923c;
+
+    border-color:#fb923c;
+
+
+    box-shadow:
+
+    0 0 30px rgba(251,146,60,.35);
+
+}
+
+
+
+/* ZERO */
+
+.feedback-score.poor{
+
+    background:#2b0b0b;
+
+    color:#f87171;
+
+    border-color:#ef4444;
+
+
+    box-shadow:
+
+    0 0 30px rgba(239,68,68,.35);
+
+}/* =====================================================
+   FEEDBACK CARDS
+===================================================== */
+
+
+.feedback-card{
+
+    margin-top:25px;
+
+    padding:28px;
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #18181b,
+        #0d0d0d
+    );
+
+
+    border:
+
+    1px solid #27272a;
+
+
+    border-radius:24px;
+
+
+    box-shadow:
+
+    0 15px 35px rgba(0,0,0,.35);
+
+
+    text-align:left;
+
+}
+
+
+
+.feedback-card h3{
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:800;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.feedback-card p{
+
+    color:#d4d4d8;
+
+    line-height:1.7;
+
+    font-size:16px;
+
+}
+
+
+
+/* Special cards */
+
+
+.strengths-card{
+
+    border-color:#22c55e;
+
+    box-shadow:
+
+    0 0 25px rgba(34,197,94,.12);
+
+}
+
+
+
+.improvements-card{
+
+    border-color:#fb923c;
+
+    box-shadow:
+
+    0 0 25px rgba(251,146,60,.12);
+
+}
+
+
+
+.model-answer-card{
+
+    border-color:#8b5cf6;
+
+    box-shadow:
+
+    0 0 25px rgba(139,92,246,.15);
+
+}
+
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+
+.feedback-navigation{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-top:40px;
+
+}
+
+
+
+.feedback-button{
+
+    padding:16px 28px;
+
+    border-radius:18px;
+
+
+    background:#18181b;
+
+
+    color:white;
+
+
+    border:1px solid #333;
+
+
+    font-size:16px;
+
+    font-weight:800;
+
+
+    cursor:pointer;
+
+
+    transition:.25s;
+
+}
+
+
+
+.feedback-button:hover{
+
+    transform:translateY(-3px);
+
+
+    border-color:#8b5cf6;
+
+
+    box-shadow:
+
+    0 0 25px rgba(139,92,246,.25);
+
+}
+
+
+
+.feedback-button:disabled{
+
+    opacity:.4;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+
+.feedback-button.primary{
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #8b5cf6,
+        #5b21b6
+    );
+
+
+    border:none;
+
+}
+
+
+
+.feedback-actions{
+
+    display:flex;
+
+    gap:15px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    width:100%;
+
+}
+
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+
+@media(max-width:700px){
+
+
+.exam-feedback-shell{
+
+    padding:25px 20px;
+
+}
+
+
+
+.feedback-header h1{
+
+    font-size:30px;
+
+}
+
+
+
+.feedback-card{
+
+    padding:22px;
+
+}
+
+
+
+.feedback-navigation{
+
+    flex-direction:column;
+
+}
+
+
+
+.feedback-button{
+
+    width:100%;
+
+}
+
+
+
+.feedback-actions{
+
+    flex-direction:column;
+
+}
+
+
 }
