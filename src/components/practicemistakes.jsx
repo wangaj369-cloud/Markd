@@ -105,13 +105,15 @@ topic
 
 return(
 
-<div>
+<div className="practice-mistakes-page">
+
+
+<div className="practice-mistakes-shell">
 
 
 <h1>
-🎯 Practice My Mistakes
+ Practice My Mistakes
 </h1>
-
 
 <h2>
 Your weak areas
@@ -119,7 +121,7 @@ Your weak areas
 
 
 <p>
-These are topics where you scored below 60%.
+These are topics you scored low on
 </p>
 
 
@@ -254,6 +256,8 @@ Revise Selected Topics
 
 
 
+
+</div>
 
 </div>
 
