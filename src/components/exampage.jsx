@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import DiagramCanvas from "./diagramcanvas";
 
 export default function Exampage({
 
@@ -523,22 +524,6 @@ width:`${progress}%`
 
 
 
-
-
-</div>
-
-
-</div>
-
-
-);
-
-}if(!examQuestions || examQuestions.length === 0){
-
-return (
-
-<div className="exam-page">
-
 <h1>
 No questions loaded
 </h1>
@@ -546,6 +531,10 @@ No questions loaded
 <p>
 Something went wrong generating your exam.
 </p>
+
+</div>
+
+
 
 </div>
 
@@ -648,6 +637,31 @@ QUESTION {currentQuestion + 1} OF {examQuestions.length}
 
 <div className="answer-container">
 
+{question.requiresDiagram ? (
+
+<DiagramCanvas
+savedImage={
+
+answers[currentQuestion]?.image
+
+}
+
+onSave={(image)=>
+
+saveAnswer({
+
+type:"diagram",
+
+image
+
+})
+
+}
+
+/>
+
+) : (
+
 <textarea
 
 value={
@@ -662,14 +676,9 @@ placeholder="Write your answer here..."
 
  />
 
-</div>
-
-
+)}
 
 </div>
-
-
-
 
 
 
@@ -742,5 +751,8 @@ currentQuestion === examQuestions.length - 1
 
 </div>
 
+</div>
+
 );
+
 }

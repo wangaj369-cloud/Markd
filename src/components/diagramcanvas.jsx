@@ -1,6 +1,12 @@
 import { useRef, useState, useEffect } from "react";
 
-export default function DiagramCanvas({ onSave }) {
+export default function DiagramCanvas({
+
+onSave,
+
+savedImage
+
+}) {
 
 
 
@@ -92,31 +98,44 @@ export default function DiagramCanvas({ onSave }) {
 
   }, []);
 
+useEffect(() => {
 
+  const canvas = canvasRef.current;
 
-  useEffect(() => {
+  if (!canvas) return;
 
-    const canvas = canvasRef.current;
+  const ctx = canvas.getContext("2d");
 
-    if (!canvas) return;
+  ctx.fillStyle = "#a9c3ec";
 
+  ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
 
-    const ctx = canvas.getContext("2d");
+  if(savedImage){
 
+    const img = new Image();
 
-    ctx.fillStyle = "#a9c3ec";
+    img.onload = () => {
 
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
 
-    ctx.fillRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
+    };
 
+    img.src = savedImage;
 
-  }, []);
+  }
 
+}, [savedImage]);
 
 
   function getPosition(e){
@@ -209,8 +228,9 @@ ctx.lineTo(
 
   ctx.globalCompositeOperation = "source-over";
 
-}
+  saveCanvas();
 
+}
 function clearCanvas() {
 
   const canvas = canvasRef.current;
@@ -234,7 +254,7 @@ function clearCanvas() {
     canvas.width,
     canvas.height
   );
-
+saveCanvas();
 }
   
 

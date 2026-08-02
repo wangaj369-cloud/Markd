@@ -463,7 +463,11 @@ Format:
    {
     "question":"",
     "marks":5,
-    "subtopicIndex":0
+    "requiresDiagram":false,
+    "answerType":"",
+    "subtopicIndex":0,
+    "markScheme":[],
+    "modelAnswer":""
    }
  ]
 }
@@ -511,6 +515,84 @@ RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DIFFICULTY:
 - No markdowns.
 - No explanations.
 - Only JSON.
+
+DIAGRAM RULES:
+
+requiresDiagram is ONLY true when the student must draw something.
+
+Chemistry:
+requiresDiagram:true for:
+- organic mechanisms
+- curly arrow mechanisms
+- displayed formula drawing
+- structural formula drawing
+- reaction diagrams
+
+requiresDiagram:false for:
+- explanations
+- calculations
+- definitions
+- descriptions
+
+
+MODEL ANSWER RULES:
+
+If requiresDiagram:false:
+
+modelAnswer:
+- plain text only
+- no diagrams
+- no ASCII structures
+- no curly arrows
+- no markdown
+
+
+If requiresDiagram:true:
+
+modelAnswer:
+- MUST describe the correct answer AND include the diagram.
+- The diagram must be inside the modelAnswer string.
+- Use \\n for line breaks.
+- Do not use markdown code blocks.
+- Do not use backticks.
+
+
+Example diagram answer:
+
+"The mechanism should show protonation of the alcohol followed by loss of water.\\n\\nCH3CH2OH + H+ -> CH3CH2OH2+\\n\\nCurly arrow from the C-O bond to oxygen showing water leaving."
+
+
+MARK SCHEME RULES:
+
+markScheme MUST be an array.
+
+Each item gives exactly ONE mark.
+
+Example:
+
+[
+"1 mark - correct reagent",
+"1 mark - correct condition",
+"1 mark - correct mechanism",
+"1 mark - correct product"
+]
+
+
+Never write:
+
+"Correct answer (4 marks)"
+
+Every mark must be separate.
+
+
+JSON RULES:
+
+- Escape all quotes inside strings.
+- Escape all newline characters using \\n.
+- Never output raw line breaks inside JSON strings.
+
+
+
 IMPORTANT:
 
 The subtopicIndex must correspond exactly to the numbered list.
@@ -530,6 +612,23 @@ Then:
 "marks":6,
 "subtopicIndex":1
 }
+
+MODEL ANSWER RULES:
+
+If requiresDiagram is false:
+
+- Write a full-mark written answer.
+
+If requiresDiagram is true:
+
+- Describe the correct diagram.
+- Include labels.
+- Include structures.
+- Include arrows if appropriate.
+- Include the diagram using plain text inside the string.
+- Use \\n for new lines.
+- Do not use markdown.
+- Do not use code blocks.
 
 `;
 const completion = await openrouter.chat.completions.create({
