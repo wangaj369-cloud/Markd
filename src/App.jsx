@@ -13,6 +13,7 @@ import ExamPage from "./components/exampage";
 import ExamResults from "./components/examresults";
 import ExamFeedback from "./components/examfeedback";
 import PracticeMistakes from "./components/practicemistakes";
+import ExamResultsFinal from "./components/ExamResultsFinal"; 
 
 
 
