@@ -443,21 +443,15 @@ const numberedSubtopics = subtopics
 const prompt = `
 Generate a realistic ${level} ${subject} exam paper.
 
-Paper type:
-${paperType}
-
-Topic:
-${topic || "Full Subject"}
+Paper type: ${paperType}
+Topic: ${topic || "Full Subject"}
 
 Available subtopics:
-
 ${numberedSubtopics}
-
 
 Return ONLY valid JSON.
 
 Format:
-
 {
  "questions":[
    {
@@ -472,164 +466,39 @@ Format:
  ]
 }
 
-Rules( ALWAYS FOLLOW)
-
-- Create exactly ${questions} questions.
+RULES:
+- Create exactly ${questions} questions
 - Difficulty: ${difficulty}
-- Do not ask the student to show working out in any question.
+- Do not ask the student to show working out
+- Use AQA A-Level exam wording
+- Include recall and application questions
+- No markdown, no explanations, only JSON
 
-Easy:
-Only give 1–3 mark questions.
+MARK LIMITS:
+Easy: 1-3 marks
+Medium: 3-5 marks (min 2)
+Hard: 5-25 marks (psych max 16, chem max 8, bio max 9 except essays 15-25)
+Mixed: Realistic mix based on subject
 
-Medium:
-Only give 3–5 mark questions.
+DIAGRAMS (Chemistry only):
+Set requiresDiagram:true for: mechanisms, curly arrows, displayed/structural formulas, reaction diagrams
+Set requiresDiagram:false for: explanations, calculations, definitions
 
-Hard:
-Only give 6–25 mark questions.
+MODEL ANSWER:
+If requiresDiagram:false: plain text written answer
+If requiresDiagram:true: describe the diagram with labels/structures, use \\n for line breaks, no markdown
 
-Mixed:
-use a realistic mix of marks dependent on the subject and difficulty level.
+MARK SCHEME:
+Array where each item = 1 mark
+Example: ["1 mark - correct reagent", "1 mark - correct condition"]
+Never write: "Correct answer (4 marks)"
 
-- Every question must include a marks value.
-- Use  AQA A-Level exam wording.
-EASY DIFFICULTY RULES:
-- Never give an exam question over 3 marks.
-MEDIUM DIFFICULTY RULES:
-- Never give an exam question over 5 marks.
--Never give an exam question under 2 marks
-HARD DIFFICULTY RULES:
-- Never give an exam question over 16 marks for psychology
-- Never give an exam question over 8 marks for chemistry
-- Never give an exam question over 9 marks for biology, except for AQA style critical analysis questions which have a max of 15 marks and for AQA style synoptic essays which must be 25 give marks.
-- Never give an exam question under 5 marks
+JSON FORMAT:
+Escape quotes with \\, escape newlines with \\n, no raw line breaks in strings
 
-MIXED DIFFICULTY RULES:
-- Never give an exam question over 16 marks for psychology
-- Never give an exam question over 8 marks for chemistry
-- Never give an exam question over 9 marks for biology, except for AQA style critical analysis questions which have a max of 15 marks and for AQA style synoptic essays which must be 25 give marks.
-
-RULES THAT MUST ALWAYS BE FOLLOWED NO MATTER THE DIFFICULTY:
-- Every question must have a marks value.
-- Use  AQA A-Level exam wording.
-- Include recall and application questions.
-- No markdowns.
-- No explanations.
-- Only JSON.
-
-DIAGRAM RULES:
-
-requiresDiagram is ONLY true when the student must draw something.
-
-Chemistry:
-requiresDiagram:true for:
-- organic mechanisms
-- curly arrow mechanisms
-- displayed formula drawing
-- structural formula drawing
-- reaction diagrams
-
-requiresDiagram:false for:
-- explanations
-- calculations
-- definitions
-- descriptions
-
-
-MODEL ANSWER RULES:
-
-If requiresDiagram:false:
-
-modelAnswer:
-- plain text only
-- no diagrams
-- no ASCII structures
-- no curly arrows
-- no markdown
-
-
-If requiresDiagram:true:
-
-modelAnswer:
-- MUST describe the correct answer AND include the diagram.
-- The diagram must be inside the modelAnswer string.
-- Use \\n for line breaks.
-- Do not use markdown code blocks.
-- Do not use backticks.
-
-
-Example diagram answer:
-
-"The mechanism should show protonation of the alcohol followed by loss of water.\\n\\nCH3CH2OH + H+ -> CH3CH2OH2+\\n\\nCurly arrow from the C-O bond to oxygen showing water leaving."
-
-
-MARK SCHEME RULES:
-
-markScheme MUST be an array.
-
-Each item gives exactly ONE mark.
-
-Example:
-
-[
-"1 mark - correct reagent",
-"1 mark - correct condition",
-"1 mark - correct mechanism",
-"1 mark - correct product"
-]
-
-
-Never write:
-
-"Correct answer (4 marks)"
-
-Every mark must be separate.
-
-
-JSON RULES:
-
-- Escape all quotes inside strings.
-- Escape all newline characters using \\n.
-- Never output raw line breaks inside JSON strings.
-
-
-
-IMPORTANT:
-
-The subtopicIndex must correspond exactly to the numbered list.
-
-Example:
-
-If the list is:
-
-0: Cell structure
-1: Photosynthesis
-2: Respiration
-
-Then:
-
-{
-"question":"Explain photosynthesis",
-"marks":6,
-"subtopicIndex":1
-}
-
-MODEL ANSWER RULES:
-
-If requiresDiagram is false:
-
-- Write a full-mark written answer.
-
-If requiresDiagram is true:
-
-- Describe the correct diagram.
-- Include labels.
-- Include structures.
-- Include arrows if appropriate.
-- Include the diagram using plain text inside the string.
-- Use \\n for new lines.
-- Do not use markdown.
-- Do not use code blocks.
-
+SUBTOPIC INDEX:
+Must match the numbered list above
+Example: if topic is "1: Photosynthesis", use subtopicIndex:1
 `;
 const completion = await openrouter.chat.completions.create({
  model: "nvidia/nemotron-3-nano-30b-a3b:free",

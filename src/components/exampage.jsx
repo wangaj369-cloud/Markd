@@ -252,6 +252,27 @@ useEffect(()=>{
 
 
 if(loadingExam) return;
+if (examQuestions.length === 0) {
+
+    return (
+
+        <div className="exam-loading-page">
+
+            <div className="exam-loading-card">
+
+                <h1>No questions loaded</h1>
+
+                <p>
+                    Something went wrong generating your exam.
+                </p>
+
+            </div>
+
+        </div>
+
+    );
+
+}
 
 
 if(timeLeft <= 0) return;
@@ -533,16 +554,6 @@ width:`${progress}%`
 
 </div>
 
-
-
-
-<h1>
-No questions loaded
-</h1>
-
-<p>
-Something went wrong generating your exam.
-</p>
 
 </div>
 
