@@ -271,126 +271,22 @@ Your answers are being analysed against the mark scheme.
 }
 return (
 
-<div className="exam-results-page">
-
-
-<div className="exam-results-card">
-
-
-<span className="exam-paper-badge">
-EXAM RESULTS
-</span>
-
-
+<div className="exam-results">
 
 <h1>
-{completedExam.level}{completedExam.subject} 
+🤖 Exam Marking Complete
 </h1>
 
 
-<p className="results-subtitle">
-A-Level Mock Exam
+<h2>
+Your AI examiner has finished marking your exam.
+</h2>
+
+
+<p>
+Review your question-by-question feedback before seeing your final score.
 </p>
 
-
-
-
-
-{
-examResults && (
-
-<>
-
-
-<div className="results-stats">
-
-<div className="result-stat">
-
-<div className="stat-value">
-
-{examResults.score} / {examResults.total || examResults.totalMarks}
-
-</div>
-
-<div className="stat-label">
-
-Score
-
-</div>
-
-</div>
-
-
-
-<div className="result-stat">
-
-<div className="stat-value">
-
-{percentage}%
-
-</div>
-
-<div className="stat-label">
-
-Percentage
-
-</div>
-
-</div>
-
-
-
-<div className="result-stat">
-
-<div className="stat-value">
-
-{getGrade(percentage)}
-
-</div>
-
-<div className="stat-label">
-
-Grade
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<p className="performance-message">
-
-{getPerformanceMessage(percentage)}
-
-</p>
-
-<div className="results-actions">
-
-
-<button
-
-className="results-button"
-
-onClick={()=>setShowFeedback(!showFeedback)}
-
->
-
-{
-
-showFeedback
-? "Hide Feedback"
-: "View Feedback"
-
-}
-
-</button>
-
-
-
-{
-showFeedback && (
 
 <button
 
@@ -404,29 +300,8 @@ Open AI Feedback →
 
 </button>
 
-)
-
-}
-
-
 
 </div>
-
-
-
-</>
-
-)
-
-}
-
-
-
-</div>
-
-
-</div>
-
 
 );
 
