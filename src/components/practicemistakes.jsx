@@ -57,6 +57,51 @@ No weak topics found
 
 
 const weakTopics = examResults.weakTopics;
+const groupedWeakTopics = Object.values(
+
+weakTopics.reduce((groups,item)=>{
+
+const key = item.subtopic;
+
+
+if(!groups[key]){
+
+groups[key] = {
+
+subtopic:key,
+
+questions:[],
+
+totalMark:0,
+
+totalMaxMark:0
+
+};
+
+}
+
+
+groups[key].questions.push(item);
+
+
+groups[key].totalMark += item.mark;
+
+groups[key].totalMaxMark += item.maxMark;
+
+
+return groups;
+
+
+},{})
+).map(item=>({
+
+...item,
+
+percentage: Math.round(
+(item.totalMark / item.totalMaxMark) * 100
+)
+
+}));
 const selectedTopicData = weakTopics.map(item => ({
 
   subject: examResults.subject,
@@ -126,8 +171,7 @@ These are topics you scored low on
 
 
 {
-weakTopics.map((item,index)=>(
-
+groupedWeakTopics.map((item,index)=>(
 <div
 
 key={index}
@@ -169,21 +213,17 @@ toggleTopic(item.subtopic)
 
 
 <p>
-
-Score:
-
-<strong>
-{item.mark}/{item.maxMark}
-</strong>
-
+Questions:
+{item.questions.length}
 </p>
 
 
-<span>
-
+<p>
+Average score:
+<strong>
 {item.percentage}%
-
-</span>
+</strong>
+</p>
 
 
 </div>
@@ -209,9 +249,22 @@ disabled={selectedTopics.length===0}
 
 onClick={() => {
 
-const queue = selectedTopicData.filter(item =>
-  selectedTopics.includes(item.subtopic)
-);
+const queue = groupedWeakTopics
+.filter(item =>
+selectedTopics.includes(item.subtopic)
+)
+.map(item=>({
+
+subject:examResults.subject,
+
+topic:findTopicFromSubtopic(
+examResults.subject,
+item.subtopic
+),
+
+subtopic:item.subtopic
+
+}));
 
 
 console.log(
