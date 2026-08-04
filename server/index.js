@@ -790,6 +790,10 @@ IMPORTANT:
 - Never leave modelAnswer empty except if studdent got full marks
 - The modelAnswer must be a full-mark A-Level answer.
 - Even if the student gives no answer, still provide the correct model answer.
+VERY IMPORTANT:
+Before returning JSON, check every string value.
+No string may contain an actual line break.
+All line breaks must be written as \n.
 - Every feedback object MUST contain exactly these keys:
 question
 questionText
@@ -828,6 +832,15 @@ text=text
 .trim();
 
 
+// Fix AI raw line breaks inside JSON strings
+text = text.replace(
+  /"([^"]*)\n([^"]*)"/g,
+  (match, p1, p2) => {
+    return `"${p1}\\n${p2}"`;
+  }
+);
+
+
 let result;
 
 try {
@@ -838,11 +851,27 @@ result = JSON.parse(text);
 
 catch(error){
 
-console.log("========== RAW AI RESPONSE ==========");
-console.log(text);
-console.log("=====================================");
+console.log("JSON FAILED - attempting repair");
 
-throw error;
+
+const repaired = text
+.replace(/\n/g, "\\n");
+
+
+try{
+
+result = JSON.parse(repaired);
+
+}
+
+catch(secondError){
+
+console.log("REPAIR FAILED");
+console.log(text);
+
+throw secondError;
+
+}
 
 }
 console.log(
