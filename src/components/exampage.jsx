@@ -347,6 +347,17 @@ setAnswers({
 
 
 }
+function saveDiagram(image){
+
+    setDiagramAnswers({
+
+        ...diagramAnswers,
+
+        [currentQuestion]: image
+
+    });
+
+}
 
 
 
@@ -395,8 +406,10 @@ topic: examSettings.topic,
 subtopics: examSettings.subtopics,
 
 
-difficulty: examSettings.difficulty
+difficulty: examSettings.difficulty,
 
+
+diagramAnswers: diagramAnswers
 
 
 });

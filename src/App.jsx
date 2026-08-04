@@ -30,6 +30,7 @@ export default function App() {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [answers, setAnswers] = useState({});
+  const [diagramAnswers, setDiagramAnswers] = useState({});
   const [results, setResults] = useState({});
   const [revisionStage, setRevisionStage] = useState("setup");
 // ======================
