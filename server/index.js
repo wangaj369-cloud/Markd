@@ -680,8 +680,14 @@ console.log(
 JSON.stringify(error,null,2)
 );
 
+console.log(
+"RAW AI RESPONSE:",
+text
+);
+
 res.status(500).json({
-error:"Exam generation failed"
+error:"Exam generation failed",
+details:text
 });
 
 }
