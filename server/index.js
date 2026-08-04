@@ -495,6 +495,10 @@ Never write: "Correct answer (4 marks)"
 
 JSON FORMAT:
 Escape quotes with \\, escape newlines with \\n, no raw line breaks in strings
+VERY IMPORTANT:
+Before returning JSON, check every string value.
+No string may contain an actual line break.
+All line breaks must be written as \n.
 
 SUBTOPIC INDEX:
 Must match the numbered list above
@@ -1108,6 +1112,10 @@ Never output:
 - markdown
 - backticks
 - explanations outside JSON
+VERY IMPORTANT:
+Before returning JSON, check every string value.
+No string may contain an actual line break.
+All line breaks must be written as \n.
 
 `;
 
