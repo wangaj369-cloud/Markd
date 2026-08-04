@@ -34,7 +34,10 @@ savedImage
 
 
       // store current drawing
-      const image = canvas.toDataURL();
+      let image = "";
+      try {
+        image = canvas.toDataURL();
+      } catch(e) {}
 
 
       canvas.width = rect.width * ratio;
@@ -58,19 +61,19 @@ savedImage
 
 
       // restore drawing if exists
-      const img = new Image();
+      if(image && image.length > 100){
+        const img = new Image();
 
-      img.onload = () => {
-        ctx.drawImage(
-          img,
-          0,
-          0,
-          rect.width,
-          rect.height
-        );
-      };
+        img.onload = () => {
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            rect.width,
+            rect.height
+          );
+        };
 
-      if(image.length > 100){
         img.src = image;
       }
 
@@ -135,7 +138,7 @@ useEffect(() => {
 
   }
 
-}, [savedImage]);
+}, []);
 
 
   function getPosition(e){

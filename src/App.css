@@ -2213,6 +2213,98 @@ box-shadow:
 
 
 }
+.student-diagram{
+    max-width:100%;
+    border-radius:16px;
+    border:2px solid #8b5cf6;
+}
+/* =====================================================
+   SELF MARK BUTTONS
+===================================================== */
+
+
+.self-mark-buttons{
+
+
+    display:flex;
+
+
+    flex-wrap:wrap;
+
+
+    gap:10px;
+
+
+    margin-top:15px;
+
+
+}
+
+
+
+.self-mark-buttons button{
+
+
+    min-width:45px;
+
+
+    padding:10px 15px;
+
+
+    border-radius:10px;
+
+
+    background:#18181b;
+
+
+    border:1px solid #333;
+
+
+    color:white;
+
+
+    font-size:16px;
+
+
+    font-weight:700;
+
+
+    cursor:pointer;
+
+
+    transition:.25s;
+
+
+}
+
+
+
+.self-mark-buttons button:hover{
+
+
+    border-color:#8b5cf6;
+
+
+    transform:translateY(-2px);
+
+
+    box-shadow:
+
+
+    0 0 15px rgba(139,92,246,.3);
+
+
+}
+
+
+
+.self-mark-buttons button:active{
+
+
+    transform:translateY(0);
+
+
+}
 .setup-error{
 
     margin-top:25px;
