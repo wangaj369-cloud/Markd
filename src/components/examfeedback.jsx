@@ -375,10 +375,11 @@ updatedFeedback[currentQuestion] = {
 
 ...updatedFeedback[currentQuestion],
 
-mark:index
+mark:index,
+
+selfAssessed:true
 
 };
-
 
 console.log("Updated feedback:", updatedFeedback[currentQuestion]);
 

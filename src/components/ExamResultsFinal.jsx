@@ -71,15 +71,19 @@ No results available
 
 
 
+// Recalculate score from feedback to include self-assessed diagram marks
+const calculatedScore = examResults.feedback?.reduce(
+  (sum, item) => sum + (item.mark || 0),
+  0
+) || examResults.score;
+
+const calculatedTotal = examResults.feedback?.reduce(
+  (sum, item) => sum + (item.maxMark || 0),
+  0
+) || (examResults.total || examResults.totalMarks);
+
 const percentage = Math.round(
-
-(
-examResults.score /
-(examResults.total || examResults.totalMarks)
-
-)
-*100
-
+  (calculatedScore / calculatedTotal) * 100
 );
 
 
@@ -113,7 +117,7 @@ return(
 
 <div className="stat-value">
 
-{examResults.score} / {examResults.total || examResults.totalMarks}
+{calculatedScore} / {calculatedTotal}
 
 </div>
 
