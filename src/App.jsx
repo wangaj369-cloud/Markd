@@ -657,6 +657,7 @@ revisionStage==="examResults" && (
 revisionStage === "examFeedback" && (
     <ExamFeedback
         examResults={examResults}
+        setExamResults={setExamResults}
         setRevisionStage={setRevisionStage}
     />
 )

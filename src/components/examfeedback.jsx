@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function ExamFeedback({
 
 examResults,
+setExamResults,
 setRevisionStage
 
 }){
@@ -152,14 +153,24 @@ Question {currentQuestion + 1} / {examResults.feedback.length}
 
 className={
 `feedback-score ${getScoreClass(
-feedback.mark,
+feedback.mark || 0,
 feedback.maxMark
 )}`
 }
 
 >
 
-{feedback.mark} / {feedback.maxMark} Marks
+{feedback.requiresDiagram
+
+?
+
+`Self Assessment: ${feedback.mark || 0} / ${feedback.maxMark}`
+
+:
+
+`${feedback.mark} / ${feedback.maxMark} Marks`
+
+}
 
 </div>
 
@@ -206,6 +217,9 @@ Your Answer
 
 
 
+{
+!feedback.requiresDiagram && (
+
 <div className="feedback-card strengths-card">
 
 
@@ -225,10 +239,15 @@ feedback.strengths ||
 
 
 </div>
+)
+}
 
 
 
 
+
+{
+!feedback.requiresDiagram && (
 
 <div className="feedback-card improvements-card">
 
@@ -249,9 +268,112 @@ feedback.improvements ||
 
 
 </div>
+)
+}
 
 
+{
+feedback.requiresDiagram && (
 
+<div className="feedback-card">
+
+<h3>
+📋 Mark Scheme
+</h3>
+
+
+<ul>
+
+{
+feedback.markScheme?.map((mark,index)=>(
+
+<li key={index}>
+{mark}
+</li>
+
+))
+
+}
+
+</ul>
+
+
+</div>
+
+)
+}
+{
+feedback.requiresDiagram && (
+
+<div className="feedback-card">
+
+
+<h3>
+⭐ Award yourself marks
+</h3>
+
+
+<div className="self-mark-buttons">
+
+{
+
+Array.from(
+
+{length: feedback.maxMark + 1},
+
+(_,index)=>(
+
+
+<button
+
+key={index}
+
+onClick={()=>{
+
+const updatedFeedback =
+[...examResults.feedback];
+
+
+updatedFeedback[currentQuestion] = {
+
+...updatedFeedback[currentQuestion],
+
+mark:index
+
+};
+
+
+setExamResults({
+
+...examResults,
+
+feedback:updatedFeedback
+
+});
+
+
+}}
+
+>
+
+{index}
+
+</button>
+
+
+)
+
+)
+
+}
+
+</div>
+
+
+</div>
+
+)
+}
 
 
 <div className="feedback-card model-answer-card">
