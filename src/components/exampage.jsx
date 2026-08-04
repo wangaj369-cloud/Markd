@@ -115,6 +115,18 @@ difficulty: examSettings.difficulty
 
 
 
+if(!response.ok){
+
+const errorData = await response.json();
+
+console.error("EXAM GENERATION ERROR:", errorData);
+
+throw new Error(errorData.error || "Failed to generate exam");
+
+}
+
+
+
 const data = await response.json();
 
 console.log("GENERATED EXAM:", data);
