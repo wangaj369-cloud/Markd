@@ -693,6 +693,8 @@ if(q.requiresDiagram === true){
         markScheme:
         q.markScheme,
 
+        requiresDiagram: true,
+
         originalIndex:index
 
     });

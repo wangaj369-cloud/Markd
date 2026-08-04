@@ -666,6 +666,7 @@ QUESTION {currentQuestion + 1} OF {examQuestions.length}
 {question.requiresDiagram ? (
 
 <DiagramCanvas
+key={currentQuestion}
 savedImage={
 
 answers[currentQuestion]?.image

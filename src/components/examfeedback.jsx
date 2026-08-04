@@ -232,6 +232,12 @@ className="student-diagram"
 
 alt="Student diagram"
 
+onError={(e) => {
+console.error("Failed to load diagram image:", e);
+console.log("currentQuestion:", currentQuestion);
+console.log("answers:", examResults.answers);
+console.log("feedback:", feedback);
+}}
 />
 
 
@@ -357,6 +363,10 @@ key={index}
 
 onClick={()=>{
 
+console.log("Self-mark clicked - currentQuestion:", currentQuestion, "mark:", index);
+console.log("Feedback array length:", examResults.feedback?.length);
+console.log("Current feedback item:", examResults.feedback[currentQuestion]);
+
 const updatedFeedback =
 [...examResults.feedback];
 
@@ -369,6 +379,8 @@ mark:index
 
 };
 
+
+console.log("Updated feedback:", updatedFeedback[currentQuestion]);
 
 setExamResults({
 
