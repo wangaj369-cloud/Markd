@@ -89,7 +89,9 @@ body:JSON.stringify({
 
 questions: completedExam.questions,
 
-answers: completedExam.answers
+answers: completedExam.answers,
+
+diagramAnswers: completedExam.diagramAnswers
 
 })
 

@@ -653,8 +653,66 @@ try{
 
 const {
 questions,
-answers
+answers,
+diagramAnswers
+
 } = req.body;
+const questionsToMark = [];
+
+const diagramFeedback = [];
+
+questions.forEach((question, index) => {
+
+    if (question.requiresDiagram) {
+
+        diagramFeedback.push({
+
+            question: index + 1,
+
+            questionText: question.question,
+
+            studentAnswer:
+                diagramAnswers?.[index] || "",
+
+            mark: null,
+
+            maxMark: question.marks,
+
+            strengths: "",
+
+            improvements:
+                "Compare your diagram with the model answer and mark scheme.",
+
+            modelAnswer:
+                question.modelAnswer,
+
+            markScheme:
+                question.markScheme,
+
+            requiresDiagram: true,
+
+            originalIndex: index
+
+        });
+
+    }
+
+    else {
+
+        questionsToMark.push({
+
+            ...question,
+
+            studentAnswer:
+                answers[index] || "",
+
+            originalIndex: index
+
+        });
+
+    }
+
+});
 
 
 const prompt = `
@@ -665,7 +723,7 @@ Mark the student's answers.
 
 Questions:
 
-${questions.map((q,index)=>`
+${questionsToMark.map((q,index)=>`
 
 Question ${index+1}:
 ${q.question}
@@ -674,10 +732,9 @@ Available marks:
 ${q.marks}
 
 Student answer:
-${answers[index] || "No answer"}
+${q.studentAnswer || "No answer"}
 
 `).join("\n")}
-
 
 Rules:
 - Award partial marks where appropriate.
