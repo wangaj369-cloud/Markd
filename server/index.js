@@ -834,6 +834,10 @@ text=text
 .replace(/```json/g,"")
 .replace(/```/g,"")
 .trim();
+text=text
+.replace(/```json/g,"")
+.replace(/```/g,"")
+.trim();
 
 
 // Fix AI raw line breaks inside JSON strings
@@ -858,8 +862,18 @@ catch(error){
 console.log("JSON FAILED - attempting repair");
 
 
-const repaired = text
-.replace(/\n/g, "\\n");
+let repaired = text;
+
+
+// Remove escaped newlines outside strings
+repaired = repaired.replace(/\\n\s*/g, "");
+
+
+// Remove accidental markdown
+repaired = repaired
+.replace(/```json/g,"")
+.replace(/```/g,"")
+.trim();
 
 
 try{
@@ -871,7 +885,7 @@ result = JSON.parse(repaired);
 catch(secondError){
 
 console.log("REPAIR FAILED");
-console.log(text);
+console.log(repaired);
 
 throw secondError;
 
