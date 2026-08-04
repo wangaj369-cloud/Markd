@@ -91,7 +91,7 @@ questions: completedExam.questions,
 
 answers: completedExam.answers,
 
-diagramAnswers: completedExam.diagramAnswers
+
 
 })
 
@@ -164,9 +164,17 @@ console.log(
 data.weakTopics
 );
 setExamResults({
-  ...data,
-  subject: completedExam.subject,
-  level: completedExam.level
+
+...data,
+
+subject: completedExam.subject,
+
+level: completedExam.level,
+
+answers: completedExam.answers,
+
+questions: completedExam.questions
+
 });
 
 setMarking(false);

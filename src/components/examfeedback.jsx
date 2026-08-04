@@ -212,6 +212,33 @@ Your Answer
 
 
 </div>
+{
+feedback.requiresDiagram && (
+
+<div className="feedback-card">
+
+<h3>
+Your Diagram
+</h3>
+
+
+<img
+
+src={
+examResults.answers?.[currentQuestion]?.image
+}
+
+className="student-diagram"
+
+alt="Student diagram"
+
+/>
+
+
+</div>
+
+)
+}
 
 
 

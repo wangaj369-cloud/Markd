@@ -654,7 +654,6 @@ try{
 const {
 questions,
 answers,
-diagramAnswers
 
 } = req.body;
 // Separate written questions from diagram questions
@@ -735,7 +734,18 @@ Available marks:
 ${q.marks}
 
 Student answer:
-${q.studentAnswer || "No answer"}
+${
+answers[index]?.type === "diagram"
+
+?
+
+"Student submitted a diagram."
+
+:
+
+answers[index] || "No answer"
+
+}
 
 `).join("\n")}
 
