@@ -507,6 +507,20 @@ Next →
 
 className="feedback-button primary"
 
+onClick={()=>setRevisionStage("finalExamResults")}
+
+>
+
+View Final Results →
+
+</button>
+
+
+
+<button
+
+className="feedback-button"
+
 onClick={()=>setRevisionStage("practiceMistakes")}
 
 >

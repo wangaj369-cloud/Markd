@@ -652,6 +652,19 @@ revisionStage==="examResults" && (
 
 )
 }
+{revisionStage === "finalExamResults" && (
+
+<ExamResultsFinal
+
+examResults={examResults}
+
+completedExam={completedExam}
+
+setRevisionStage={setRevisionStage}
+
+/>
+
+)}
 {
 revisionStage === "examFeedback" && (
     <ExamFeedback
