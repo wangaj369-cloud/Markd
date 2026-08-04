@@ -657,63 +657,66 @@ answers,
 diagramAnswers
 
 } = req.body;
+// Separate written questions from diagram questions
+
 const questionsToMark = [];
 
 const diagramFeedback = [];
 
-questions.forEach((question, index) => {
 
-    if (question.requiresDiagram) {
+questions.forEach((q,index)=>{
 
-        diagramFeedback.push({
 
-            question: index + 1,
+if(q.requiresDiagram === true){
 
-            questionText: question.question,
+    diagramFeedback.push({
 
-            studentAnswer:
-                diagramAnswers?.[index] || "",
+        question:index + 1,
 
-            mark: null,
+        questionText:q.question,
 
-            maxMark: question.marks,
+        studentAnswer:
+        "Diagram submitted by student",
 
-            strengths: "",
+        mark:null,
 
-            improvements:
-                "Compare your diagram with the model answer and mark scheme.",
+        maxMark:q.marks,
 
-            modelAnswer:
-                question.modelAnswer,
+        strengths:
+        "Compare your diagram with the model answer and mark scheme.",
 
-            markScheme:
-                question.markScheme,
+        improvements:
+        "Check labels, structures, arrows and required features.",
 
-            requiresDiagram: true,
+        modelAnswer:
+        q.modelAnswer,
 
-            originalIndex: index
+        markScheme:
+        q.markScheme,
 
-        });
+        originalIndex:index
 
-    }
+    });
 
-    else {
 
-        questionsToMark.push({
+}
 
-            ...question,
+else{
 
-            studentAnswer:
-                answers[index] || "",
 
-            originalIndex: index
+    questionsToMark.push({
 
-        });
+        ...q,
 
-    }
+        originalIndex:index
+
+    });
+
+
+}
+
 
 });
-
 
 const prompt = `
 
@@ -851,7 +854,47 @@ throw new Error(
 );
 
 }
+// Restore original question numbers
+result.feedback = result.feedback.map((item, index) => {
 
+    return {
+
+        ...item,
+
+        question:
+            questionsToMark[index].originalIndex + 1,
+
+        originalIndex:
+            questionsToMark[index].originalIndex
+
+    };
+
+});
+const mergedFeedback = [
+
+    ...result.feedback,
+
+    ...diagramFeedback
+
+];
+
+mergedFeedback.sort(
+
+    (a,b)=>
+
+    a.originalIndex -
+
+    b.originalIndex
+
+);
+
+mergedFeedback.forEach(item=>{
+
+    delete item.originalIndex;
+
+});
+
+result.feedback = mergedFeedback;
 res.json(result);
 
 
