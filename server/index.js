@@ -1040,22 +1040,39 @@ async function generateModelAnswer(question, marks, markScheme) {
         messages: [
           {
             role: "user",
-            content: `You are an AQA examiner. Give a full mark model answer.\nQuestion: ${question}\nMarks: ${marks}\nMark scheme: ${markScheme}ModelAnswer must be a single paragraph.
-Do not use line breaks.
-Do not use HTML.
-Do not use markdown.
-CHEMISTRY RULES:
+           content: `
+You are an AQA examiner.
 
-- Only use AQA A-Level Chemistry reactions and mechanisms.
-- Do not invent reagents.
-- Do not use university-level chemistry.
-- Synthetic routes must use reactions from the AQA specification.
-- If unsure, choose a simpler valid AQA route.
-Never output HTML tags such as <sub>, <sup>, <br>, etc.
-Write formulas as plain text, for example:
+Give a full-mark model answer.
+
+Question:
+${question}
+
+Marks:
+${marks}
+
+Mark scheme:
+${markScheme}
+
+Rules:
+- Single paragraph only.
+- No line breaks.
+- No HTML.
+- No markdown.
+- Maximum 150 words.
+- Use AQA A-Level terminology.
+
+${subject === "Chemistry" ? `
+Chemistry rules:
+- Only use AQA A-Level Chemistry knowledge.
+- Do not invent reactions.
+- Do not use university chemistry.
+- Use plain formulas:
 CH3CH2OH
 MnO4-
-H2SO4` 
+H2SO4
+` : ""}
+` 
           
          }
         
