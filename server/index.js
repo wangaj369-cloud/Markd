@@ -1155,19 +1155,27 @@ Score:
 Strengths:
 - Address the student directly using "you".
 - Mention what was done well.
-
+-Maximum 1 sentence.
 
 Improvements:
 - Address the student directly using "you".
-- Explain exactly what is missing.
+- Explain what is missing.
+-Maximum 2 sentences.
 
 
 Model answer:
 - Write a full-mark AQA answer.
 - Use correct scientific terminology.
-- Include every mark point.
-- Keep it suitable for an exam.
 
+MODEL ANSWER RULES:
+
+- If requiresDiagram is true:
+  - ALWAYS provide modelAnswer.
+  - Include the correct diagram description.
+
+- If requiresDiagram is false:
+  - Only provide modelAnswer when the student has lost marks.
+  - If the student achieved full marks, return an empty string.
 
 DIAGRAM RULES:
 
