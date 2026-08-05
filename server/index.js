@@ -459,9 +459,7 @@ Format:
     "marks":5,
     "requiresDiagram":false,
     "answerType":"",
-    "subtopicIndex":0,
-    "markScheme":[],
-    "modelAnswer":""
+    "subtopicIndex":0
    }
  ]
 }
@@ -473,6 +471,7 @@ RULES:
 - Use AQA A-Level exam wording
 - Include recall and application questions
 - No markdown, no explanations, only JSON
+- Only use AQA A level terminology 
 
 MARK LIMITS:
 Easy: 1-3 marks
@@ -480,18 +479,31 @@ Medium: 3-5 marks (min 2)
 Hard: 5-25 marks (psych max 16, chem max 8, bio max 9 except essays 15-25)
 Mixed: Realistic mix based on subject
 
-DIAGRAMS (Chemistry only):
-Set requiresDiagram:true for: mechanisms, curly arrows, displayed/structural formulas, reaction diagrams
-Set requiresDiagram:false for: explanations, calculations, definitions
 
-MODEL ANSWER:
-If requiresDiagram:false: plain text written answer
-If requiresDiagram:true: describe the diagram with labels/structures, use \\n for line breaks, no markdown
+SUBJECT DIAGRAM RESTRICTIONS:
 
-MARK SCHEME:
-Array where each item = 1 mark
-Example: ["1 mark - correct reagent", "1 mark - correct condition"]
-Never write: "Correct answer (4 marks)"
+Biology:
+- requiresDiagram MUST always be false.
+- Never ask students to draw diagrams.
+- Do not include biological drawings as required answers.
+
+Psychology:
+- requiresDiagram MUST always be false.
+- Never ask students to draw diagrams.
+- Do not require flowcharts, models, diagrams or annotated drawings.
+
+Chemistry:
+- Diagram questions are allowed ONLY for:
+  - organic mechanisms
+  - displayed formula drawing
+  - structural formula drawing
+  - curly arrow mechanisms
+  - reaction pathways
+
+For all other subjects:
+- requiresDiagram MUST always be false.
+
+
 
 JSON FORMAT:
 Escape quotes with \\, escape newlines with \\n, no raw line breaks in strings
@@ -505,7 +517,7 @@ Must match the numbered list above
 Example: if topic is "1: Photosynthesis", use subtopicIndex:1
 `;
 const completion = await openrouter.chat.completions.create({
- model: "nvidia/nemotron-3-nano-30b-a3b:free",
+ model:"google/gemma-4-26b-a4b-it:free",
 messages:[
 {
 role:"user",
@@ -755,11 +767,27 @@ answers[index] || "No answer"
 
 `).join("\n")}
 
-Rules:
-- Award partial marks where appropriate.
-- Accept alternative wording.
-- Do not require exact textbook phrases.
-- Mark based on understanding, not keyword matching.
+MARKING PRINCIPLES:
+
+- Do NOT require exact wording from the mark scheme.
+- Award marks when the student demonstrates the correct scientific idea.
+- Accept synonyms and alternative explanations.
+- Do not give 0 marks simply because a keyword is missing.
+- Judge the meaning of the answer, not the exact words used.
+
+For example:
+
+Student:
+"energy needed to remove an electron"
+
+Should receive credit if the question asks for ionisation energy, even if they did not write:
+"minimum energy required to remove one electron from a gaseous atom."
+
+Only remove marks if the scientific meaning is incorrect.
+
+Partial marks:
+- Award partial credit when some correct understanding is shown.
+- Do not mark answers as completely wrong if part of the concept is correct.
 - Use the question and mark value to decide.
 - Be fair but follow A-Level standards.
 
@@ -1008,7 +1036,7 @@ async function generateModelAnswer(question, marks, markScheme) {
         "X-Title": "Markd"
       },
      body: JSON.stringify({
- model:"nvidia/nemotron-3-super-120b-a12b:free",
+ model:"google/gemma-4-26b-a4b-it:free",
         messages: [
           {
             role: "user",
@@ -1016,6 +1044,13 @@ async function generateModelAnswer(question, marks, markScheme) {
 Do not use line breaks.
 Do not use HTML.
 Do not use markdown.
+CHEMISTRY RULES:
+
+- Only use AQA A-Level Chemistry reactions and mechanisms.
+- Do not invent reagents.
+- Do not use university-level chemistry.
+- Synthetic routes must use reactions from the AQA specification.
+- If unsure, choose a simpler valid AQA route.
 Never output HTML tags such as <sub>, <sup>, <br>, etc.
 Write formulas as plain text, for example:
 CH3CH2OH
@@ -1187,13 +1222,8 @@ All line breaks must be written as \n.
         body:JSON.stringify({
 
           model:
-          "openai/gpt-oss-20b:free",
+        "google/gemma-4-26b-a4b-it:free",
 
-
-          temperature:0.1,
-
-
-          max_tokens:1500,
 
 
           response_format:{
