@@ -4867,6 +4867,283 @@ text-shadow:
 
 
 }
+/* ================================
+   MARKING COMPLETE PAGE
+================================ */
 
+
+.marking-complete-page {
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+}
+
+
+
+.marking-complete-card {
+
+    width:100%;
+
+    max-width:650px;
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:40px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.12);
+
+    text-align:center;
+
+}
+
+
+
+/* Badge */
+
+.marking-complete-badge {
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* Title */
+
+.marking-complete-card h1 {
+
+    font-size:36px;
+
+    margin-bottom:15px;
+
+    font-weight:800;
+
+}
+
+
+
+/* Description */
+
+.marking-complete-message {
+
+    font-size:18px;
+
+    line-height:1.6;
+
+    margin:0 auto 35px;
+
+    max-width:500px;
+
+    opacity:0.8;
+
+}
+
+
+
+/* Checklist */
+
+.marking-complete-checklist {
+
+    text-align:left;
+
+    margin-bottom:35px;
+
+}
+
+
+
+.marking-check-item {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:16px 20px;
+
+    margin-bottom:12px;
+
+    border-radius:14px;
+
+    background:#f5f7fb;
+
+    font-size:16px;
+
+    font-weight:600;
+
+}
+
+
+
+/* Tick circle */
+
+.marking-check-icon {
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:bold;
+
+}
+
+
+
+/* Button */
+
+.marking-complete-button {
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+}
+
+
+
+.marking-complete-button:hover {
+
+    transform:translateY(-2px);
+
+}
+
+
+
+/* Animation */
+
+.marking-check-item {
+
+    animation:markingAppear 0.5s ease forwards;
+
+    opacity:0;
+
+}
+
+
+
+.marking-check-item:nth-child(1){
+
+    animation-delay:0.1s;
+
+}
+
+
+.marking-check-item:nth-child(2){
+
+    animation-delay:0.2s;
+
+}
+
+
+.marking-check-item:nth-child(3){
+
+    animation-delay:0.3s;
+
+}
+
+
+.marking-check-item:nth-child(4){
+
+    animation-delay:0.4s;
+
+}
+
+
+
+@keyframes markingAppear {
+
+
+from {
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+}
+
+
+to {
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:600px){
+
+
+.marking-complete-card {
+
+    padding:25px;
+
+}
+
+
+.marking-complete-card h1 {
+
+    font-size:28px;
+
+}
+
+
+.marking-complete-message {
+
+    font-size:16px;
+
+}
+
+
+}
 
 }

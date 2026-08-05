@@ -227,38 +227,90 @@ Your answers are being analysed against the mark scheme.
 
 }
 return (
+<div className="marking-complete-page">
 
-<div className="exam-results">
+<div className="marking-complete-card">
+
+
+<span className="marking-complete-badge">
+EXAM MODE
+</span>
+
 
 <h1>
-🤖 Exam Marking Complete
+MARKING COMPLETE
 </h1>
 
 
-<h2>
-Your AI examiner has finished marking your exam.
-</h2>
-
-
-<p>
-Review your question-by-question feedback before seeing your final score.
+<p className="marking-complete-message">
+Your personalised feedback is ready.
 </p>
 
 
-<button
 
-className="results-button primary"
+<div className="marking-complete-checklist">
 
-onClick={()=>setRevisionStage("examFeedback")}
 
->
+<div className="marking-check-item">
 
-Open AI Feedback →
+<span className="marking-check-icon">
+✓
+</span>
+
+Answers marked
+
+</div>
+
+
+<div className="marking-check-item">
+
+<span className="marking-check-icon">
+✓
+</span>
+
+Improvements generated
+
+</div>
+
+
+<div className="marking-check-item">
+
+<span className="marking-check-icon">
+✓
+</span>
+
+Model answers prepared
+
+</div>
+
+
+<div className="marking-check-item">
+
+<span className="marking-check-icon">
+✓
+</span>
+
+Diagram self-assessment ready
+
+</div>
+
+
+</div>
+
+
+
+<button className="marking-complete-button">
+
+View Feedback →
 
 </button>
 
 
 </div>
+
+</div>
+
+
 
 );
 
