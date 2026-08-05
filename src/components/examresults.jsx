@@ -299,7 +299,10 @@ Diagram self-assessment ready
 
 
 
-<button className="marking-complete-button">
+<button 
+className="marking-complete-button"
+onClick={()=>setRevisionStage("examFeedback")}
+>
 
 View Feedback →
 
