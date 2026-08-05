@@ -503,7 +503,6 @@ Next →
 
 <div className="feedback-actions">
 
-
 <button
 
 className="feedback-button primary"
@@ -516,68 +515,18 @@ View Final Results →
 
 </button>
 
-
-
-<button
-
-className="feedback-button"
-
-onClick={()=>setRevisionStage("practiceMistakes")}
-
->
-
-Practice My Mistakes
-
-</button>
-
-
-
-<button
-
-className="feedback-button"
-
-onClick={()=>setRevisionStage("examSetup")}
-
->
-
-New Exam
-
-</button>
-
-
-
-<button
-
-className="feedback-button"
-
-onClick={()=>setRevisionStage("setup")}
-
->
-
-Home
-
-</button>
-
-
 </div>
 
 )
 
 }
 
-
+</div>
 
 </div>
 
-
-
 </div>
-
-
-</div>
-
 
 );
-
 
 }
