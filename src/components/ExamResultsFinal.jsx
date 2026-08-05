@@ -2,7 +2,8 @@ export default function ExamResultsFinal({
 
 completedExam,
 examResults,
-setRevisionStage
+setRevisionStage,
+setExamResults
 
 }){
 
@@ -85,6 +86,33 @@ const calculatedTotal = examResults.feedback?.reduce(
 const percentage = Math.round(
   (calculatedScore / calculatedTotal) * 100
 );
+
+// Calculate weakTopics from feedback (includes both AI and self-assessed marks)
+const weakTopics = (examResults.feedback || [])
+.filter(item => {
+  const percent = (item.mark / item.maxMark) * 100;
+  return percent < 60;
+})
+.map(item => {
+  const question = completedExam.questions[item.question - 1];
+  return {
+    topic: question?.topic || "General",
+    subtopic: question?.subtopic || "General",
+    mark: item.mark,
+    maxMark: item.maxMark,
+    percentage: Math.round(
+      (item.mark / item.maxMark) * 100
+    )
+  };
+});
+
+// Update examResults with weakTopics if not already set
+if (!examResults.weakTopics && setExamResults) {
+  setExamResults({
+    ...examResults,
+    weakTopics
+  });
+}
 
 
 

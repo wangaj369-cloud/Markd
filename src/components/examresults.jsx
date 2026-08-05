@@ -120,49 +120,6 @@ data.feedback = data.feedback.map((item, index) => ({
 }));
 
 }
-const weakTopics = (data.feedback || [])
-.filter(item => {
-  const percent = (item.mark / item.maxMark) * 100;
-  return percent < 60;
-})
-.map(item => {
-
-  const question = completedExam.questions[item.question - 1];
-
-  return {
-    topic: question.topic,
-    subtopic: question.subtopic,
-    mark: item.mark,
-    maxMark: item.maxMark,
-    percentage: Math.round(
-      (item.mark / item.maxMark) * 100
-    )
-  };
-
-});
-console.log(
-  "QUESTION WITH TOPIC:",
-  completedExam.questions[0]
-);
-data.weakTopics = weakTopics.map(item => ({
-
-  subtopic: item.subtopic,
-
-  mark: item.mark,
-
-  maxMark: item.maxMark,
-
-  percentage: Math.round(
-    (item.mark / item.maxMark) * 100
-  )
-
-}));
-
-
-console.log(
-"WEAK TOPICS:",
-data.weakTopics
-);
 setExamResults({
 
 ...data,

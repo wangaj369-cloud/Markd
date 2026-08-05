@@ -663,6 +663,8 @@ completedExam={completedExam}
 
 setRevisionStage={setRevisionStage}
 
+setExamResults={setExamResults}
+
 />
 
 )}
