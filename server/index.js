@@ -798,6 +798,23 @@ VERY IMPORTANT:
 Before returning JSON, check every string value.
 No string may contain an actual line break.
 All line breaks must be written as \n.
+IMPORTANT JSON RULES
+
+- Return valid JSON only.
+- Every string must be on ONE LINE.
+- Never press Enter inside a JSON string.
+- Use plain sentences only.
+- Do not use HTML.
+- Do not use markdown.
+- Do not use bullet points.
+- Do not use numbered lists.
+- Do not use code blocks.
+- If you need multiple ideas, separate them with commas or semicolons.
+Never output HTML tags such as <sub>, <sup>, <br>, etc.
+Write formulas as plain text, for example:
+CH3CH2OH
+MnO4-
+H2SO4
 - Every feedback object MUST contain exactly these keys:
 question
 questionText
@@ -995,8 +1012,18 @@ async function generateModelAnswer(question, marks, markScheme) {
         messages: [
           {
             role: "user",
-            content: `You are an AQA examiner. Give a full mark model answer.\nQuestion: ${question}\nMarks: ${marks}\nMark scheme: ${markScheme}` 
+            content: `You are an AQA examiner. Give a full mark model answer.\nQuestion: ${question}\nMarks: ${marks}\nMark scheme: ${markScheme}ModelAnswer must be a single paragraph.
+Do not use line breaks.
+Do not use HTML.
+Do not use markdown.
+Never output HTML tags such as <sub>, <sup>, <br>, etc.
+Write formulas as plain text, for example:
+CH3CH2OH
+MnO4-
+H2SO4` 
+          
          }
+        
         ]
       })
     });
