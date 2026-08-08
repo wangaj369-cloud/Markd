@@ -745,23 +745,32 @@ Partial marks:
 - Use the question and mark value to decide.
 - Be fair but follow A-Level standards.
 
-Return ONLY valid JSON in this format:
+Return exactly ONE JSON object.
+
+The JSON object MUST have this structure:
 
 {
-  "feedback":[
-   {
-    "question":1,
-    "questionText":"",
-    "studentAnswer":"",
-    "mark":0,
-    "maxMark":0,
-    "strengths":"",
-    "improvements":"",
-    "modelAnswer":""
-   }
+  "feedback": [
+    {
+      "question": 1,
+      "questionText": "",
+      "studentAnswer": "",
+      "mark": 0,
+      "maxMark": 0,
+      "strengths": "",
+      "improvements": "",
+      "modelAnswer": ""
+    }
   ]
 }
 
+Put ALL questions inside the single feedback array.
+
+Do NOT create multiple JSON objects.
+
+Do NOT output one JSON object per question.
+
+Return nothing except the single JSON object.
 Rules:
 - Award marks like a real A-Level examiner.
 - Strengths should explain what the student did well. You dont have to give a strength if the student has genuinely done nothing good.
@@ -813,7 +822,9 @@ modelAnswer
 const completion = await groq.chat.completions.create({
 
 model:"llama-3.1-8b-instant",
-
+  response_format:{
+        type:"json_object"
+    },
 
 messages:[
 {
