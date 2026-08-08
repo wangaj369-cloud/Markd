@@ -674,64 +674,25 @@ answers,
 } = req.body;
 // Separate written questions from diagram questions
 
-const questionsToMark = [];
-
-const diagramFeedback = [];
-
-
-questions.forEach((q,index)=>{
-
-
-if(q.requiresDiagram === true){
-
-    diagramFeedback.push({
-
-        question:index + 1,
-
-        questionText:q.question,
-
-        studentAnswer:
-        "Diagram submitted by student",
-
-        mark:null,
-
-        maxMark:q.marks,
-
-        strengths:
-        "Compare your diagram with the model answer and mark scheme.",
-
-        improvements:
-        "Check labels, structures, arrows and required features.",
-
-        modelAnswer:
-        q.modelAnswer,
-
-        markScheme:
-        q.markScheme,
-
-        requiresDiagram: true,
-
-        originalIndex:index
-
-    });
-
-
-}
-
-else{
-
-
-    questionsToMark.push({
-
+const questionsToMark = questions
+    .map((q,index)=>({
         ...q,
-
         originalIndex:index
+    }))
+    .filter(q => q.requiresDiagram !== true);
 
-    });
+const diagramQuestions = [];
 
+questions.forEach((q, index) => {
 
-}
+    if(q.requiresDiagram === true){
 
+        diagramQuestions.push({
+            ...q,
+            originalIndex:index
+        });
+
+    }
 
 });
 
@@ -743,9 +704,9 @@ Mark the student's answers.
 
 Questions:
 
-${questionsToMark.map((q,index)=>`
+${questionsToMark.map(q=>`
 
-Question ${index+1}:
+Question ${q.originalIndex + 1}:
 ${q.question}
 
 Available marks:
@@ -753,16 +714,9 @@ ${q.marks}
 
 Student answer:
 ${
-answers[index]?.type === "diagram"
-
-?
-
-"Student submitted a diagram."
-
-:
-
-answers[index] || "No answer"
-
+answers[q.originalIndex]?.type === "diagram"
+  ? "Student submitted a diagram."
+  : answers[q.originalIndex] || "No answer"
 }
 
 `).join("\n")}
@@ -958,6 +912,65 @@ throw new Error(
 );
 
 }
+const diagramFeedback = await Promise.all(
+
+    diagramQuestions.map(async q => {
+
+        const modelAnswer =
+            await generateModelAnswer(
+                q.question,
+                q.marks,
+                q.markScheme || [],
+                req.body.subject
+            );
+
+        const markScheme =
+            await generateDiagramMarkScheme(
+                q.question,
+                q.marks
+            );
+
+        return {
+
+            question:
+                q.originalIndex + 1,
+
+            questionText:
+                q.question,
+
+            studentAnswer:
+                answers[q.originalIndex]?.type === "diagram"
+                    ? "Student submitted a diagram."
+                    : "No diagram submitted.",
+
+            mark:null,
+
+            maxMark:q.marks,
+
+            strengths:
+                "Compare your diagram with the model answer and mark scheme.",
+
+            improvements:
+                "Check your structures, labels, arrows and required features against the mark scheme.",
+
+            modelAnswer:
+
+                modelAnswer,
+
+            markScheme:
+
+                markScheme,
+
+            requiresDiagram:true,
+
+            originalIndex:
+                q.originalIndex
+
+        };
+
+    })
+
+);
 // Restore original question numbers
 result.feedback = result.feedback.map((item, index) => {
 
@@ -1023,9 +1036,8 @@ error:"Exam marking failed"
 
 }
 
-
 });
-async function generateModelAnswer(question, marks, markScheme) {
+async function generateModelAnswer(question, marks, markScheme, Subject) {
   try {
     const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -1062,7 +1074,7 @@ Rules:
 - Maximum 150 words.
 - Use AQA A-Level terminology.
 
-${subject === "Chemistry" ? `
+${Subject === "Chemistry" ? `
 Chemistry rules:
 - Only use AQA A-Level Chemistry knowledge.
 - Do not invent reactions.
@@ -1084,6 +1096,94 @@ H2SO4
   } catch {
     return "";
   }
+}
+async function generateDiagramMarkScheme(question, marks) {
+
+    try {
+
+        const res = await fetch(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${process.env.OPENROUTER_KEY}`,
+                    "HTTP-Referer":"https://markdai.app",
+                    "X-Title":"Markd"
+                },
+
+                body:JSON.stringify({
+
+                    model:"google/gemma-4-26b-a4b-it:free",
+
+                    messages:[{
+
+                        role:"user",
+
+                        content:`
+You are an AQA A-Level examiner.
+
+Create a mark scheme for this diagram question.
+
+Question:
+${question}
+
+Maximum marks:
+${marks}
+
+Return ONLY valid JSON:
+
+{
+  "markScheme":[
+    "1 mark - ...",
+    "1 mark - ..."
+  ]
+}
+
+Rules:
+- Exactly ${marks} marks.
+- Each item is exactly ONE mark.
+- Focus on what must appear in the student's diagram.
+- Include structures, labels, arrows, bonds, products or other required features where relevant.
+- Use AQA A-Level terminology.
+- Chemistry only where appropriate.
+- No markdown.
+- No explanations.
+`
+                    }]
+
+                })
+
+            }
+        );
+
+        const data = await res.json();
+
+        let text = data.choices[0].message.content;
+
+        text = text
+            .replace(/```json/g,"")
+            .replace(/```/g,"")
+            .trim();
+
+        const parsed = JSON.parse(text);
+
+        return parsed.markScheme || [];
+
+    }
+
+    catch(error){
+
+        console.log(
+            "DIAGRAM MARK SCHEME ERROR:",
+            error
+        );
+
+        return [];
+
+    }
+
 }
 
 app.post("/mark-answer", async (req, res) => {

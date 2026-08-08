@@ -91,6 +91,8 @@ questions: completedExam.questions,
 
 answers: completedExam.answers,
 
+subject: completedExam.subject
+
 
 
 })
