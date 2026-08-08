@@ -1,4 +1,6 @@
 import "./App.css";
+import { supabase } from "./supabase";
+import LoginPage from "./components/LoginPage";
 import { useState, useEffect } from "react";
 import SetupPage from "./components/setuppage";
 import DashboardPage from "./components/dashboardpage";
@@ -96,6 +98,52 @@ examSubtopics,
     const history = JSON.parse(localStorage.getItem("revisionHistory")) || [];
     setRevisionHistory(history);
  }, []);
+
+ const [user, setUser] = useState(null);
+const [authLoading, setAuthLoading] = useState(true);
+
+useEffect(() => {
+
+  async function getUser() {
+
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
+
+    setUser(user);
+    setAuthLoading(false);
+
+  }
+
+  getUser();
+
+  const {
+    data: { subscription }
+  } = supabase.auth.onAuthStateChange(
+    (_event, session) => {
+
+      setUser(session?.user || null);
+
+    }
+  );
+if (authLoading) {
+  return <LoadingScreen />;
+}
+
+if (!user) {
+  return (
+    <LoginPage
+      onLogin={(loggedInUser) => {
+        setUser(loggedInUser);
+      }}
+    />
+  );
+}
+  return () => {
+    subscription.unsubscribe();
+  };
+
+}, []);
 
  async function generateExplanation(customData = null) {
 
