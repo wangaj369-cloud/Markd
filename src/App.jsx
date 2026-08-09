@@ -24,7 +24,8 @@ import ExamResultsFinal from "./components/ExamResultsFinal";
 
 export default function App() {
   const [subject, setSubject] = useState("Biology");
-
+const [user, setUser] = useState(null);
+const [authLoading, setAuthLoading] = useState(true);
 
   const [topic, setTopic] = useState("");
   const [subtopic, setSubtopic] = useState("");
@@ -98,9 +99,6 @@ examSubtopics,
     const history = JSON.parse(localStorage.getItem("revisionHistory")) || [];
     setRevisionHistory(history);
  }, []);
-
- const [user, setUser] = useState(null);
-const [authLoading, setAuthLoading] = useState(true);
 
 useEffect(() => {
 
