@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { supabase } from "../supabase";
 
 export default function SummaryPage({
     subject,
@@ -19,7 +20,8 @@ export default function SummaryPage({
 currentRevisionIndex,
 setCurrentRevisionIndex,
 generateQuestions,
-examSubject,   
+examSubject,  
+ user,
 }) {
     
 
@@ -140,78 +142,152 @@ const chooseNewTopic = () => {
 };
 useEffect(() => {
 
-  const alreadySaved =
-    sessionStorage.getItem("lastSavedRevision");
+  async function saveRevision() {
 
-  const currentRevision =
-    `${subject}-${subtopic}-${percentage}`;
+    if (!user) {
+      console.log("No logged-in user, revision not saved.");
+      return;
+    }
 
-  if (alreadySaved === currentRevision) {
-    return;
+    const alreadySaved =
+      sessionStorage.getItem("lastSavedRevision");
+
+    const currentRevision =
+      `${subject}-${subtopic}-${percentage}`;
+
+    if (alreadySaved === currentRevision) {
+      return;
+    }
+
+    sessionStorage.setItem(
+      "lastSavedRevision",
+      currentRevision
+    );
+
+    const status =
+      percentage >= 70
+        ? "completed"
+        : "attempted";
+
+    const record = {
+      subject,
+      topic,
+      subtopic,
+      score: marksAwarded,
+      totalMarks,
+      percentage,
+      grade,
+      status,
+      date: new Date().toISOString()
+    };
+
+    // Keep existing localStorage behaviour for now
+    const history =
+      JSON.parse(
+        localStorage.getItem("revisionHistory")
+      ) || [];
+
+    const existingIndex = history.findIndex(
+      item =>
+        item.subject === subject &&
+        item.subtopic === subtopic
+    );
+
+    if (existingIndex !== -1) {
+      history[existingIndex] = record;
+    } else {
+      history.push(record);
+    }
+
+    localStorage.setItem(
+      "revisionHistory",
+      JSON.stringify(history)
+    );
+
+
+    // Check whether this topic already exists
+    // for this student in Supabase
+    const { data: existingRecord, error: findError } =
+      await supabase
+        .from("revision_history")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("subject", subject)
+        .eq("subtopic", subtopic)
+        .maybeSingle();
+
+    if (findError) {
+      console.error(
+        "Failed to check revision history:",
+        findError
+      );
+      return;
+    }
+
+
+    const supabaseRecord = {
+      user_id: user.id,
+      subject,
+      topic,
+      subtopic,
+      score: marksAwarded,
+      max_score: totalMarks
+    };
+
+
+    if (existingRecord) {
+
+      const { error } = await supabase
+        .from("revision_history")
+        .update(supabaseRecord)
+        .eq("id", existingRecord.id);
+
+      if (error) {
+        console.error(
+          "Failed to update revision history:",
+          error
+        );
+        return;
+      }
+
+      console.log(
+        "Revision history updated in Supabase."
+      );
+
+    } else {
+
+      const { error } = await supabase
+        .from("revision_history")
+        .insert(supabaseRecord);
+
+      if (error) {
+        console.error(
+          "Failed to save revision history:",
+          error
+        );
+        return;
+      }
+
+      console.log(
+        "Revision history saved to Supabase."
+      );
+    }
   }
 
-  sessionStorage.setItem(
-    "lastSavedRevision",
-    currentRevision
-  );
+  saveRevision();
+
+}, [
+  user,
+  subject,
+  topic,
+  subtopic,
+  percentage,
+  marksAwarded,
+  totalMarks,
+  grade
+]);
 
 
-  const history =
-    JSON.parse(localStorage.getItem("revisionHistory")) || [];
-
-
-  const status =
-    percentage >= 70
-      ? "completed"
-      : "attempted";
-
-
-  const record = {
-
-    subject,
-    topic,
-    subtopic,
-
-    score: marksAwarded,
-
-    totalMarks,
-
-    percentage,
-
-    grade,
-
-    status,
-
-    date: new Date().toISOString()
-
-  };
-
-
-  const existingIndex = history.findIndex(
-    item =>
-      item.subject === subject &&
-      item.subtopic === subtopic
-  );
-
-
-  if (existingIndex !== -1) {
-
-    history[existingIndex] = record;
-
-  } else {
-
-    history.push(record);
-
-  }
-
-
-  localStorage.setItem(
-    "revisionHistory",
-    JSON.stringify(history)
-  );
-
-
-}, [subject, subtopic, percentage]);
 return (
   <div className={`summary-page ${subject.toLowerCase()}`}>
 

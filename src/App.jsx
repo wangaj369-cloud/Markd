@@ -114,16 +114,20 @@ useEffect(() => {
     console.log("Loaded revision history from Supabase:", data);
 
     setRevisionHistory(
-      data.map(item => ({
-        id: item.id,
-        subject: item.subject,
-        topic: item.topic,
-        subtopic: item.subtopic,
-        score: item.score,
-        maxScore: item.max_score,
-        createdAt: item.created_at
-      }))
-    );
+  data.map(item => ({
+    id: item.id,
+    subject: item.subject,
+    topic: item.topic,
+    subtopic: item.subtopic,
+    score: item.score,
+    totalMarks: item.max_score,
+    percentage:
+      item.max_score > 0
+        ? Math.round((item.score / item.max_score) * 100)
+        : 0,
+    createdAt: item.created_at
+  }))
+);
   }
 
   loadRevisionHistory();
@@ -609,6 +613,7 @@ answerType: question.answerType
 currentRevisionIndex={currentRevisionIndex}
 setCurrentRevisionIndex={setCurrentRevisionIndex}
 generateQuestions={generateQuestions}
+user={user}
       />
     )}
     {
