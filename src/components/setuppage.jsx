@@ -11,7 +11,7 @@ export default function SetupPage({
   generateQuestions,
   setRevisionStage,
   revisionHistory,
-  
+   onLogout,
 }) {
    const countSubtopics = (subject) => {
 
@@ -34,6 +34,12 @@ export default function SetupPage({
       <p className="app-subtitle">
         AI-powered A-Level Revision
       </p>
+<button
+  className="logout-button"
+  onClick={onLogout}
+>
+  Log Out
+</button>
 
       <div className="subject-selector">
         <button

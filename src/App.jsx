@@ -177,6 +177,16 @@ if (!user) {
     />
   );
 }
+async function handleLogout() {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.error("Logout failed:", error);
+    return;
+  }
+
+  setUser(null);
+}
 
  async function generateExplanation(customData = null) {
 
@@ -436,6 +446,7 @@ answerType: question.answerType
     setRevisionStage={setRevisionStage}
     revisionHistory={revisionHistory}
     setRevisionHistory={setRevisionHistory}
+    onLogout={handleLogout}
   />
 )}
 
