@@ -4,45 +4,40 @@ import { supabase } from "../supabase";
 export default function LoginPage({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignup, setIsSignup] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    setLoading(true);
     setError("");
-    setMessage("");
+    setLoading(true);
 
     try {
-      let result;
-
-      if (isSignup) {
-        result = await supabase.auth.signUp({
+      if (isSignUp) {
+        const { data, error } = await supabase.auth.signUp({
           email,
-          password,
+          password
         });
+
+        if (error) throw error;
+
+        if (data.user) {
+          onLogin(data.user);
+        }
       } else {
-        result = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email,
-          password,
+          password
         });
-      }
 
-      if (result.error) {
-        throw result.error;
-      }
+        if (error) throw error;
 
-      if (isSignup && !result.data.session) {
-        setMessage(
-          "Account created. Check your email to confirm your account."
-        );
-      } else {
-        onLogin(result.data.user);
+        if (data.user) {
+          onLogin(data.user);
+        }
       }
-
     } catch (error) {
       setError(error.message);
     }
@@ -52,15 +47,18 @@ export default function LoginPage({ onLogin }) {
 
   return (
     <div className="login-page">
-
       <div className="login-card">
 
         <h1>Markd</h1>
 
+        <h2>
+          {isSignUp ? "Create your account" : "Welcome back"}
+        </h2>
+
         <p>
-          {isSignup
-            ? "Create your student account"
-            : "Log in to continue"}
+          {isSignUp
+            ? "Create an account to save your progress."
+            : "Log in to continue your revision."}
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -88,19 +86,13 @@ export default function LoginPage({ onLogin }) {
             </p>
           )}
 
-          {message && (
-            <p className="login-message">
-              {message}
-            </p>
-          )}
-
           <button
             type="submit"
             disabled={loading}
           >
             {loading
               ? "Please wait..."
-              : isSignup
+              : isSignUp
                 ? "Create Account"
                 : "Log In"}
           </button>
@@ -110,18 +102,16 @@ export default function LoginPage({ onLogin }) {
         <button
           className="login-switch"
           onClick={() => {
-            setIsSignup(!isSignup);
+            setIsSignUp(!isSignUp);
             setError("");
-            setMessage("");
           }}
         >
-          {isSignup
+          {isSignUp
             ? "Already have an account? Log in"
             : "Don't have an account? Sign up"}
         </button>
 
       </div>
-
     </div>
   );
 }
