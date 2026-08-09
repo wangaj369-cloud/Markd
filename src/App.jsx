@@ -124,6 +124,13 @@ useEffect(() => {
 
     }
   );
+
+  return () => {
+    subscription.unsubscribe();
+  };
+
+}, []);
+
 if (authLoading) {
   return <LoadingScreen />;
 }
@@ -137,11 +144,6 @@ if (!user) {
     />
   );
 }
-  return () => {
-    subscription.unsubscribe();
-  };
-
-}, []);
 
  async function generateExplanation(customData = null) {
 
