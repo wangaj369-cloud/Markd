@@ -1,9 +1,13 @@
+import { supabase } from "../supabase";
+import { useEffect, useRef } from "react";
+
 export default function ExamResultsFinal({
 
 completedExam,
 examResults,
 setRevisionStage,
-setExamResults
+setExamResults,
+ user
 
 }){
 
@@ -52,7 +56,69 @@ return "You need to revisit the core concepts from this exam.";
 
 }
 
+const savedExam = useRef(false);
 
+useEffect(() => {
+  async function saveExamResult() {
+    if (!user || !completedExam || !examResults) {
+      return;
+    }
+
+    if (savedExam.current) {
+      return;
+    }
+
+    savedExam.current = true;
+
+    const calculatedScore =
+      examResults.feedback?.reduce(
+        (sum, item) => sum + (item.mark || 0),
+        0
+      ) || examResults.score || 0;
+
+    const calculatedTotal =
+      examResults.feedback?.reduce(
+        (sum, item) => sum + (item.maxMark || 0),
+        0
+      ) || examResults.total || examResults.totalMarks || 0;
+
+    const percentage =
+      calculatedTotal > 0
+        ? Math.round((calculatedScore / calculatedTotal) * 100)
+        : 0;
+
+    const grade = getGrade(percentage);
+
+    const { error } = await supabase
+      .from("exam_results")
+      .insert({
+        user_id: user.id,
+        subject: completedExam.subject,
+        level: completedExam.level,
+        paper_type: completedExam.paperType,
+        topic: completedExam.topic,
+        difficulty: completedExam.difficulty,
+        score: calculatedScore,
+        total_marks: calculatedTotal,
+        percentage,
+        grade,
+        exam_data: {
+          completedExam,
+          examResults
+        }
+      });
+
+    if (error) {
+      console.error("Failed to save exam result:", error);
+      savedExam.current = false;
+      return;
+    }
+
+    console.log("Exam result saved to Supabase");
+  }
+
+  saveExamResult();
+}, [user, completedExam, examResults]);
 
 if(!examResults){
 

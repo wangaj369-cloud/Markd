@@ -94,11 +94,40 @@ examSubtopics,
 });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [summary, setSummary] = useState(null);
+useEffect(() => {
+  async function loadRevisionHistory() {
+    if (!user) {
+      return;
+    }
 
-  useEffect(() => {
-    const history = JSON.parse(localStorage.getItem("revisionHistory")) || [];
-    setRevisionHistory(history);
- }, []);
+    const { data, error } = await supabase
+      .from("revision_history")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Failed to load revision history:", error);
+      return;
+    }
+
+    console.log("Loaded revision history from Supabase:", data);
+
+    setRevisionHistory(
+      data.map(item => ({
+        id: item.id,
+        subject: item.subject,
+        topic: item.topic,
+        subtopic: item.subtopic,
+        score: item.score,
+        maxScore: item.max_score,
+        createdAt: item.created_at
+      }))
+    );
+  }
+
+  loadRevisionHistory();
+}, [user]);
 
 useEffect(() => {
 
@@ -712,6 +741,8 @@ completedExam={completedExam}
 setRevisionStage={setRevisionStage}
 
 setExamResults={setExamResults}
+
+user={user}
 
 />
 
