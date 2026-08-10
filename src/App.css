@@ -5213,6 +5213,8 @@ to {
     font-size:16px;
 
 }
+
+}
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -5300,6 +5302,3 @@ to {
     grid-template-columns: 1fr;
   }
 }
-
-}
-
