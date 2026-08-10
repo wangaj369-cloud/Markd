@@ -1,5 +1,9 @@
 import ProgressCard from "./progresscard";
 import { subjectTopics } from "./subject";
+import { supabase } from "./supabase";
+import LoginPage from "./components/LoginPage";
+import { useState } from "react";
+
 export default function SetupPage({
   subject,
   setSubject,
