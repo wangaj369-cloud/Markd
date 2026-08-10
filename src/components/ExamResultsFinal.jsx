@@ -95,7 +95,12 @@ useEffect(() => {
         user_id: user.id,
         subject: completedExam.subject,
         level: completedExam.level,
-        paper_type: completedExam.paperType,
+        paper_type:
+  completedExam.paperType === "Full Subject"
+    ? "Full Subject"
+    : completedExam.paperType === "Topic"
+      ? completedExam.topic
+      : completedExam.subtopics?.[0] || "Subtopic",
         topic: completedExam.topic,
         difficulty: completedExam.difficulty,
         score: calculatedScore,
