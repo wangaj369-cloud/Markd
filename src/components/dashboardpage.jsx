@@ -110,7 +110,7 @@ retryTopic(item,"explanation")
 
 
 <small>
-Go back through the notes
+  Go back through the notes
 </small>
 
 </button>
@@ -189,17 +189,27 @@ Start from the beginning
       className={`dashboard-card ${exam.subject.toLowerCase()}`}
     >
 
-      <div className="history-header">
+    <div className="history-header">
 
-        <h2>
-          {exam.subject}
-        </h2>
+  <div>
+    <h2>
+      {exam.subject}
+    </h2>
 
-        <span>
-          {exam.paper_type}
-        </span>
+    <div className="exam-details">
 
-      </div>
+      <span>
+        {exam.paper_type}
+      </span>
+
+      <span>
+        {exam.difficulty}
+      </span>
+
+    </div>
+  </div>
+
+</div>
 
       <div className="history-score">
 
