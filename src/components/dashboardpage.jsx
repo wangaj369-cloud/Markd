@@ -110,7 +110,7 @@ retryTopic(item,"explanation")
 
 
 <small>
-  Go back through the notes
+ Go through the notes
 </small>
 
 </button>
