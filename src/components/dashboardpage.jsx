@@ -86,7 +86,7 @@ item.status === "completed"
 
 Attempted:
 {" "}
-{new Date(item.date).toLocaleDateString()}
+ {new Date(item.createdAt).toLocaleDateString()}
 
 </p>
 <div className="dashboard-actions">

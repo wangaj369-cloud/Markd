@@ -5281,9 +5281,10 @@ to {
 }
 .dashboard-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 30px;
   align-items: start;
+  width: 100%;
 }
 
 .dashboard-column {
