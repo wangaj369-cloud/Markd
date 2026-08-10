@@ -386,6 +386,9 @@ answers: answers,
 
 subject: examSettings.subject,
 
+ paperType: examSettings.paperType,
+
+
 
 level: examSettings.level,
 
