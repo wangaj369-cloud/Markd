@@ -27,19 +27,27 @@ export default function SetupPage({
     <div className="home-layout">
 
  
-
-
   <main className="home-content">
+
+    <button
+  className="logout-button"
+  onClick={async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error("Logout failed:", error);
+    }
+  }}
+>
+  <span className="logout-icon">↪</span>
+  Log out
+</button>
+
       <h1 className="app-title">MARKD</h1>
       <p className="app-subtitle">
         AI-powered A-Level Revision
       </p>
-<button
-  className="logout-button"
-  onClick={onLogout}
->
-  Log Out
-</button>
+
 
       <div className="subject-selector">
         <button
