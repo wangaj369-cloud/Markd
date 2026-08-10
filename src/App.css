@@ -5279,5 +5279,26 @@ to {
   color: #d32f2f;
   font-size: 14px;
 }
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.dashboard-column {
+  min-width: 0;
+}
+
+.dashboard-section-title {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-columns {
+    grid-template-columns: 1fr;
+  }
+}
 
 }
+

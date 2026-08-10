@@ -60,6 +60,7 @@ const [examDifficulty, setExamDifficulty] = useState("Mixed");
 const [examResults,setExamResults] = useState(null);
 const [revisionQueue, setRevisionQueue] = useState([]);
 const [currentRevisionIndex, setCurrentRevisionIndex] = useState(0);
+const [examHistory, setExamHistory] = useState([]);
 const examSettings = {
 
   subject: examSubject,
@@ -131,6 +132,31 @@ useEffect(() => {
   }
 
   loadRevisionHistory();
+}, [user]);
+
+useEffect(() => {
+  async function loadExamHistory() {
+    if (!user) {
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("exam_results")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Failed to load exam history:", error);
+      return;
+    }
+
+    console.log("Loaded exam history from Supabase:", data);
+
+    setExamHistory(data || []);
+  }
+
+  loadExamHistory();
 }, [user]);
 
 useEffect(() => {
@@ -233,6 +259,20 @@ async function handleLogout() {
     console.error("Explanation error:", error);
   }
 }
+function retakeExam(exam) {
+  setExamSubject(exam.subject);
+  setExamLevel(exam.level);
+  setExamPaperType(exam.paper_type);
+  setExamTopic(exam.topic || "");
+  setExamDifficulty(exam.difficulty || "Mixed");
+
+  setExamSubtopics(
+    exam.exam_data?.completedExam?.subtopics || []
+  );
+
+  setRevisionStage("examSetup");
+}
+
 function findTopicFromSubtopic(subject, subtopic) {
 
   const topics = subjectTopics[subject];
@@ -466,6 +506,8 @@ answerType: question.answerType
 {revisionStage === "dashboard" && (
   <DashboardPage
     revisionHistory={revisionHistory}
+     examHistory={examHistory}
+  retakeExam={retakeExam}
   retryTopic={async (item, stage) => {
 
   console.log("RETRY CLICKED:", item, stage);

@@ -1,6 +1,8 @@
 export default function DashboardPage({
   revisionHistory,
+  examHistory,
   retryTopic,
+  retakeExam,
   setPage
 }) {
 
@@ -17,7 +19,12 @@ return (
 📊 Revision Dashboard
 </h1>
 
+<div className="dashboard-columns">
 
+  <div className="dashboard-column">
+    <h2 className="dashboard-section-title">
+      📚 Revision History
+    </h2>
 {revisionHistory.map((item,index)=>(
 
   <div 
@@ -165,6 +172,96 @@ Start from the beginning
 </div>
 
 ))}
+
+  </div>
+
+ <div className="dashboard-column">
+    <h2 className="dashboard-section-title">
+      📝 Exam History
+    </h2>
+
+{examHistory && examHistory.length > 0 ? (
+
+  examHistory.map((exam) => (
+
+    <div
+      key={exam.id}
+      className={`dashboard-card ${exam.subject.toLowerCase()}`}
+    >
+
+      <div className="history-header">
+
+        <h2>
+          {exam.subject}
+        </h2>
+
+        <span>
+          {exam.paper_type}
+        </span>
+
+      </div>
+
+      <div className="history-score">
+
+        <h3>
+          {exam.score} / {exam.total_marks}
+        </h3>
+
+        <div
+          className={`grade-pill ${exam.grade}`}
+        >
+          {exam.grade === "A" && "🥇 "}
+          {exam.grade === "B" && "🟢 "}
+          {exam.grade === "C" && "🟡 "}
+          {exam.grade === "D" && "🟠 "}
+          {exam.grade === "E" && "🔴 "}
+          {exam.grade === "U" && "🔴 "}
+
+          Grade {exam.grade} • {exam.percentage}%
+        </div>
+
+      </div>
+
+      <p className="history-date">
+        Taken:{" "}
+        {new Date(exam.created_at).toLocaleDateString()}
+      </p>
+
+      <div className="dashboard-actions">
+
+        <button
+          className="full-retry"
+          onClick={() => retakeExam(exam)}
+        >
+          <div>
+            🔄 Retake Exam
+          </div>
+
+          <small>
+            Use the same exam settings
+          </small>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  ))
+
+) : (
+
+  <div className="dashboard-empty">
+    <p>
+      You haven't completed any exams yet.
+    </p>
+  </div>
+
+)}
+
+</div>
+
+</div>
 
 </div>
 
