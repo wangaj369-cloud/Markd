@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { supabase } from "../supabase";
 
@@ -9,6 +8,7 @@ export default function LoginPage({ onLogin }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
 
   const passwordValid = password.length >= 6;
 
@@ -56,6 +56,27 @@ export default function LoginPage({ onLogin }) {
     setLoading(false);
   }
 
+  async function handleGuestLogin() {
+    setError("");
+    setGuestLoading(true);
+
+    try {
+      const { data, error } =
+        await supabase.auth.signInAnonymously();
+
+      if (error) throw error;
+
+      if (data.user) {
+        onLogin(data.user);
+      }
+    } catch (error) {
+      console.error("Guest login error:", error);
+      setError("Unable to continue as a guest. Please try again.");
+    }
+
+    setGuestLoading(false);
+  }
+
   function switchMode() {
     setIsSignUp(!isSignUp);
     setError("");
@@ -70,24 +91,24 @@ export default function LoginPage({ onLogin }) {
       <div className="login-card">
 
         <div className="login-brand">
+
           <div className="login-logo">
             M
           </div>
 
           <h1>Markd</h1>
+
         </div>
 
         <div className="login-heading">
 
           <h2>
-            {isSignUp
-              ? "Create your account"
-              : "Welcome back"}
+            AI-Powered A-Level Revision
           </h2>
 
           <p>
             {isSignUp
-              ? "Create an account and start saving your revision progress."
+              ? "Create an account to save your revision progress."
               : "Log in to continue your revision."}
           </p>
 
@@ -167,7 +188,7 @@ export default function LoginPage({ onLogin }) {
           <button
             type="submit"
             className="login-submit"
-            disabled={loading}
+            disabled={loading || guestLoading}
           >
 
             {loading
@@ -181,15 +202,41 @@ export default function LoginPage({ onLogin }) {
         </form>
 
         <div className="login-divider">
+
           <span></span>
+
           <p>or</p>
+
           <span></span>
+
         </div>
+
+        {!isSignUp && (
+
+          <button
+            type="button"
+            className="guest-login-button"
+            onClick={handleGuestLogin}
+            disabled={guestLoading || loading}
+          >
+
+            {guestLoading
+              ? "Starting guest session..."
+              : "Continue as Guest"}
+
+          </button>
+
+        )}
+
+        <p className="guest-login-note">
+          No account required
+        </p>
 
         <button
           type="button"
           className="login-switch"
           onClick={switchMode}
+          disabled={loading || guestLoading}
         >
 
           {isSignUp
@@ -203,4 +250,3 @@ export default function LoginPage({ onLogin }) {
     </div>
   );
 }
-
