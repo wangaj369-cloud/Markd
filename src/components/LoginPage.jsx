@@ -211,26 +211,22 @@ const [isSignUp, setIsSignUp] = useState(initialSignUp);
 
         </div>
 
-        {!isSignUp && (
-
-          <button
-            type="button"
-            className="guest-login-button"
-            onClick={handleGuestLogin}
-            disabled={guestLoading || loading}
-          >
-
-            {guestLoading
-              ? "Starting guest session..."
-              : "Continue as Guest"}
-
-          </button>
-
-        )}
-
         <p className="guest-login-note">
           No account required
         </p>
+
+        <button
+          type="button"
+          className="guest-login-button"
+          onClick={handleGuestLogin}
+          disabled={guestLoading || loading}
+        >
+
+          {guestLoading
+            ? "Starting guest session..."
+            : "Continue as Guest"}
+
+        </button>
 
         <button
           type="button"
