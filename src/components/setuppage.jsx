@@ -1,7 +1,7 @@
 import ProgressCard from "./progresscard";
 import { subjectTopics } from "./subject";
 import { supabase } from "../supabase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SetupPage({
   subject,
@@ -16,6 +16,25 @@ export default function SetupPage({
   revisionHistory,
    onLogout,
 }) {
+  const [user, setUser] = useState(null);
+
+useEffect(() => {
+  async function getUser() {
+    const { data } = await supabase.auth.getUser();
+    setUser(data.user);
+  }
+
+  getUser();
+
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange((_event, session) => {
+    setUser(session?.user ?? null);
+  });
+
+  return () => subscription.unsubscribe();
+}, []);
+
    const countSubtopics = (subject) => {
 
   return Object.values(subjectTopics[subject])
