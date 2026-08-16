@@ -95,7 +95,7 @@ Psychology: "You are an expert AQA A-Level Psychology teacher. You ONLY teach Ps
   examinerMap[subject?.trim()] ?? "You are an expert AQA examiner.";
 
   const completion = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
+    model: "openai/gpt-oss-120b",
     messages: [
       {
         role: "system",
@@ -159,11 +159,7 @@ app.post("/generate-questions", async (req, res) => {
 
     const completion = await groq.chat.completions.create({
 
-      model: "llama-3.3-70b-versatile",
-
-      temperature: 0.2,
-
-      max_tokens: 3000,
+      model: "openai/gpt-oss-120b",
 
       messages: [
 
@@ -517,7 +513,7 @@ Must match the numbered list above
 Example: if topic is "1: Photosynthesis", use subtopicIndex:1
 `;
 const completion = await openrouter.chat.completions.create({
- model:"google/gemma-4-26b-a4b-it:free",
+ model:"openrouter/free",
 messages:[
 {
 role:"user",
@@ -820,8 +816,7 @@ modelAnswer
 
 
 const completion = await groq.chat.completions.create({
-
-model:"llama-3.1-8b-instant",
+model: "openai/gpt-oss-120b",
   response_format:{
         type:"json_object"
     },
@@ -1059,7 +1054,7 @@ async function generateModelAnswer(question, marks, markScheme, Subject) {
         "X-Title": "Markd"
       },
      body: JSON.stringify({
- model:"google/gemma-4-26b-a4b-it:free",
+ model:"openrouter/free",
         messages: [
           {
             role: "user",
@@ -1126,7 +1121,7 @@ async function generateDiagramMarkScheme(question, marks) {
 
                 body:JSON.stringify({
 
-                    model:"google/gemma-4-26b-a4b-it:free",
+                    model:"openrouter/free",
 
                     messages:[{
 
@@ -1358,7 +1353,7 @@ All line breaks must be written as \n.
         body:JSON.stringify({
 
           model:
-        "google/gemma-4-26b-a4b-it:free",
+        "openrouter/free",
 
 
 
@@ -1567,7 +1562,7 @@ app.post("/api/generate-summary", async (req, res) => {
     } = req.body;
 
     const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-120b",
       messages: [
         {
           role: "system",
