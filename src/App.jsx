@@ -61,6 +61,10 @@ const [examResults,setExamResults] = useState(null);
 const [revisionQueue, setRevisionQueue] = useState([]);
 const [currentRevisionIndex, setCurrentRevisionIndex] = useState(0);
 const [examHistory, setExamHistory] = useState([]);
+const handleLogin = (user) => {
+  setUser(user);
+  setRevisionStage("setup");
+};
 const examSettings = {
 
   subject: examSubject,
@@ -203,8 +207,8 @@ if (authLoading) {
 
 if (!user) {
   return (
-   <LoginPage
-  onLogin={onLogin}
+  <LoginPage
+  onLogin={handleLogin}
   initialSignUp={loginMode === "signup"}
 />
   );
