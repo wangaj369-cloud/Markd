@@ -850,10 +850,6 @@ text=text
 .replace(/```json/g,"")
 .replace(/```/g,"")
 .trim();
-text=text
-.replace(/```json/g,"")
-.replace(/```/g,"")
-.trim();
 
 
 // Fix AI raw line breaks inside JSON strings
