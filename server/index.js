@@ -822,6 +822,10 @@ const completion = await groq.chat.completions.create({
 reasoning_effort: "low",
 include_reasoning: false,
 
+    temperature: 0.1,
+
+    max_completion_tokens: 3000,
+
   response_format: {
     type: "json_object"
   },
