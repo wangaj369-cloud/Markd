@@ -817,12 +817,10 @@ modelAnswer
 
 const completion = await groq.chat.completions.create({
 
-  model: "openai/gpt-oss-120b",
+  model: "openai/gpt-oss-20b",
   
-
-  reasoning_effort: "medium",
-
-  include_reasoning: false,
+reasoning_effort: "low",
+include_reasoning: false,
 
   response_format: {
     type: "json_object"
