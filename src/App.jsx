@@ -95,6 +95,11 @@ examSubtopics,
 });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [summary, setSummary] = useState(null);
+  const [loginMode, setLoginMode] = useState("login");
+  function handleCreateAccount() {
+  setLoginMode("signup");
+  setRevisionStage("login");
+}
 useEffect(() => {
   async function loadRevisionHistory() {
     if (!user) {
@@ -196,11 +201,10 @@ if (authLoading) {
 
 if (!user) {
   return (
-    <LoginPage
-      onLogin={(loggedInUser) => {
-        setUser(loggedInUser);
-      }}
-    />
+   <LoginPage
+  onLogin={onLogin}
+  initialSignUp={loginMode === "signup"}
+/>
   );
 }
 async function handleLogout() {
@@ -486,7 +490,8 @@ answerType: question.answerType
     setRevisionStage={setRevisionStage}
     revisionHistory={revisionHistory}
     setRevisionHistory={setRevisionHistory}
-    onLogout={handleLogout}
+     onLogout={handleLogout}
+     onCreateAccount={handleCreateAccount}
   />
 )}
 

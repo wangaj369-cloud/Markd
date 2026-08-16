@@ -15,6 +15,7 @@ export default function SetupPage({
   setRevisionStage,
   revisionHistory,
    onLogout,
+   onCreateAccount
 }) {
   const [user, setUser] = useState(null);
 
@@ -54,23 +55,14 @@ useEffect(() => {
     {user?.is_anonymous ? (
   <button
     className="create-account-button"
-    onClick={() => {
-      setIsSignUp(true);
-      setPage("login");
-    }}
+    onClick={onCreateAccount}
   >
     Create Account
   </button>
 ) : (
   <button
     className="logout-button"
-    onClick={async () => {
-      const { error } = await supabase.auth.signOut();
-
-      if (error) {
-        console.error("Logout failed:", error);
-      }
-    }}
+    onClick={onLogout}
   >
     <span className="logout-icon">↪</span>
     Log out

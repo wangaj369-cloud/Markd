@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { supabase } from "../supabase";
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage({ onLogin, initialSignUp = false }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignUp, setIsSignUp] = useState(false);
+const [isSignUp, setIsSignUp] = useState(initialSignUp);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
