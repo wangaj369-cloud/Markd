@@ -5530,4 +5530,59 @@ to {
   background: rgba(255,255,255,0.12);
   font-size: 11px;
 }
+.guest-login-button {
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  background: rgba(139, 92, 246, 0.08);
+  color: #c4b5fd;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.guest-login-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.12),
+    rgba(99, 102, 241, 0.04)
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.guest-login-button:hover::before {
+  opacity: 1;
+}
+
+.guest-login-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(167, 139, 250, 0.75);
+  background: rgba(139, 92, 246, 0.14);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.18);
+}
+
+.guest-login-button:active {
+  transform: translateY(0);
+}
+
+.guest-login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.guest-login-note {
+  text-align: center;
+  margin: 9px 0 18px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+}
 }

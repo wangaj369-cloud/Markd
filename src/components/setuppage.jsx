@@ -32,19 +32,31 @@ export default function SetupPage({
  
   <main className="home-content">
 
-    <button
-  className="logout-button"
-  onClick={async () => {
-    const { error } = await supabase.auth.signOut();
+    {user?.is_anonymous ? (
+  <button
+    className="create-account-button"
+    onClick={() => {
+      setIsSignUp(true);
+      setPage("login");
+    }}
+  >
+    Create Account
+  </button>
+) : (
+  <button
+    className="logout-button"
+    onClick={async () => {
+      const { error } = await supabase.auth.signOut();
 
-    if (error) {
-      console.error("Logout failed:", error);
-    }
-  }}
->
-  <span className="logout-icon">↪</span>
-  Log out
-</button>
+      if (error) {
+        console.error("Logout failed:", error);
+      }
+    }}
+  >
+    <span className="logout-icon">↪</span>
+    Log out
+  </button>
+)}
 
       <h1 className="app-title">MARKD</h1>
       <p className="app-subtitle">
