@@ -5585,4 +5585,102 @@ to {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.45);
 }
+/* =========================
+   LOGIN ACTION BUTTONS
+   ========================= */
+
+.login-submit {
+  width: 100%;
+  padding: 15px 18px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.22);
+}
+
+.login-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(124, 58, 237, 0.32);
+}
+
+.login-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* Continue as Guest */
+
+.guest-login-button {
+  width: 100%;
+  padding: 14px 18px;
+  margin-top: 4px;
+
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 12px;
+
+  background: rgba(124, 58, 237, 0.08);
+  color: #ddd6fe;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guest-login-button:hover:not(:disabled) {
+  background: rgba(124, 58, 237, 0.16);
+  border-color: rgba(139, 92, 246, 0.6);
+  transform: translateY(-1px);
+}
+
+.guest-login-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+/* Small text underneath */
+
+.guest-login-note {
+  margin: 9px 0 0;
+  text-align: center;
+
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+}
+.create-account-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  padding: 10px 17px;
+
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  border-radius: 10px;
+
+  background: rgba(124, 58, 237, 0.12);
+  color: #c4b5fd;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.create-account-button:hover {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  border-color: transparent;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+}
 }
