@@ -818,6 +818,7 @@ modelAnswer
 const completion = await groq.chat.completions.create({
 
   model: "openai/gpt-oss-120b",
+  
 
   reasoning_effort: "medium",
 
@@ -827,12 +828,16 @@ const completion = await groq.chat.completions.create({
     type: "json_object"
   },
 
-  messages: [
-{
-role:"user",
-content:prompt
-}
-]
+   messages: [
+    {
+      role: "system",
+      content: "You are an A-Level exam examiner. Return ONLY valid JSON."
+    },
+    {
+      role: "user",
+      content: prompt
+    }
+  ]
 
 });
 
