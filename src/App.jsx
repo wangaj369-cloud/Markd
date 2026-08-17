@@ -102,7 +102,13 @@ examSubtopics,
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [summary, setSummary] = useState(null);
   const [loginMode, setLoginMode] = useState("login");
-  const [showLandingPage, setShowLandingPage] = useState(true);
+ const [showLandingPage, setShowLandingPage] = useState(() => {
+  return localStorage.getItem("hasSeenLanding") !== "true";
+});
+function finishLanding() {
+  localStorage.setItem("hasSeenLanding", "true");
+  setShowLandingPage(false);
+}
   async function handleCreateAccount() {
   await supabase.auth.signOut();
   setUser(null);
@@ -214,15 +220,17 @@ if (!user) {
     return (
       <LandingPage
         onGetStarted={() => {
-          setShowLandingPage(false);
+          finishLanding();
           setLoginMode("signup");
         }}
+
         onLogin={() => {
-          setShowLandingPage(false);
+          finishLanding();
           setLoginMode("login");
         }}
+
         onGuest={() => {
-          setShowLandingPage(false);
+          finishLanding();
           setLoginMode("login");
         }}
       />
