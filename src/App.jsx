@@ -1,7 +1,7 @@
 import "./App.css";
 import { supabase } from "./supabase";
 import LoginPage from "./components/LoginPage";
-import LandingPage from "./components/Landingpage";
+import LandingPage from "./components/LandingPage.jsx";
 import { useState, useEffect } from "react";
 import SetupPage from "./components/setuppage";
 import DashboardPage from "./components/dashboardpage";
