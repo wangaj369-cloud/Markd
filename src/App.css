@@ -5588,10 +5588,6 @@ to {
   color: rgba(255, 255, 255, 0.45);
 }
 .create-account-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-
   padding: 10px 17px;
 
   border: 1px solid rgba(139, 92, 246, 0.45);
