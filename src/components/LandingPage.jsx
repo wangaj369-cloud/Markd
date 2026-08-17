@@ -1,5 +1,3 @@
-import "./LandingPage.css";
-
 export default function LandingPage({
   onGetStarted,
   onLogin,
