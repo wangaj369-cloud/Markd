@@ -1,6 +1,7 @@
 import "./App.css";
 import { supabase } from "./supabase";
 import LoginPage from "./components/LoginPage";
+import LandingPage from "./components/Landingpage.jsx";
 import { useState, useEffect } from "react";
 import SetupPage from "./components/setuppage";
 import DashboardPage from "./components/dashboardpage";
@@ -63,6 +64,7 @@ const [currentRevisionIndex, setCurrentRevisionIndex] = useState(0);
 const [examHistory, setExamHistory] = useState([]);
 const handleLogin = (user) => {
   setUser(user);
+  setShowLandingPage(false);
   setRevisionStage("setup");
 };
 const examSettings = {
@@ -100,6 +102,7 @@ examSubtopics,
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [summary, setSummary] = useState(null);
   const [loginMode, setLoginMode] = useState("login");
+  const [showLandingPage, setShowLandingPage] = useState(true);
   async function handleCreateAccount() {
   await supabase.auth.signOut();
   setUser(null);
@@ -206,11 +209,31 @@ if (authLoading) {
 }
 
 if (!user) {
+
+  if (showLandingPage) {
+    return (
+      <LandingPage
+        onGetStarted={() => {
+          setShowLandingPage(false);
+          setLoginMode("signup");
+        }}
+        onLogin={() => {
+          setShowLandingPage(false);
+          setLoginMode("login");
+        }}
+        onGuest={() => {
+          setShowLandingPage(false);
+          setLoginMode("login");
+        }}
+      />
+    );
+  }
+
   return (
-  <LoginPage
-  onLogin={handleLogin}
-  initialSignUp={loginMode === "signup"}
-/>
+    <LoginPage
+      onLogin={handleLogin}
+      initialSignUp={loginMode === "signup"}
+    />
   );
 }
 async function handleLogout() {
