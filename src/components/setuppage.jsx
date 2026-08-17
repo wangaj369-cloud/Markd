@@ -52,13 +52,19 @@ useEffect(() => {
  
   <main className="home-content">
 
-    {user?.is_anonymous ? (
-  <button
-    className="create-account-button"
-    onClick={onCreateAccount}
-  >
-    Create Account
-  </button>
+ {user?.is_anonymous ? (
+  <div className="create-account-wrapper">
+    <button
+      className="create-account-button"
+      onClick={onCreateAccount}
+    >
+      Create Account
+    </button>
+
+    <span className="create-account-note">
+      Create an account to track progress
+    </span>
+  </div>
 ) : (
   <button
     className="logout-button"
