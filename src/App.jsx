@@ -218,6 +218,7 @@ if (!user) {
 
   if (showLandingPage) {
     return (
+      
       <LandingPage
         onGetStarted={() => {
           finishLanding();
@@ -254,6 +255,7 @@ async function handleLogout() {
 
   setUser(null);
 }
+
 
  async function generateExplanation(customData = null) {
 
