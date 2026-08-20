@@ -49,6 +49,10 @@ app.use(cors({
       return callback(null, true);
     }
 
+    // Allow all origins for debugging
+    console.log("CORS origin:", origin);
+    return callback(null, true);
+
     if (
       allowedOrigins.includes(origin) ||
       origin.endsWith(".vercel.app")
