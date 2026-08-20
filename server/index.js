@@ -243,7 +243,7 @@ If requiresDiagram:true:
 modelAnswer:
 - MUST describe the correct answer AND include the diagram.
 - The diagram must be inside the modelAnswer string.
-- Use \\n for line breaks.
+- Use newline characters in the modelAnswer string where needed.
 - Do not use markdown code blocks.
 - Do not use backticks.
 
@@ -278,9 +278,10 @@ Every mark must be separate.
 
 JSON RULES:
 
-- Escape all quotes inside strings.
-- Escape all newline characters using \\n.
-- Never output raw line breaks inside JSON strings.
+- Return valid JSON.
+- Do not wrap the JSON in markdown or code fences.
+- Do not add any text before or after the JSON.
+- Strings must be valid JSON strings.
 
 `
 
@@ -320,11 +321,15 @@ Do not ask the student to show working out in any question.
     console.log(raw);
 
 
+let cleaned = raw.trim();
 
-    let cleaned = raw
-      .replace(/```json/g,"")
-      .replace(/```/g,"")
-      .trim();
+if (cleaned.startsWith("```")) {
+  cleaned = cleaned
+    .replace(/^```json\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/```\s*$/i, "")
+    .trim();
+}
 
 
 
@@ -377,22 +382,19 @@ Do not ask the student to show working out in any question.
 
 
     // Remove accidental line breaks from non-diagram answers
+if (!parsed || !Array.isArray(parsed.questions)) {
+  throw new Error("AI response did not contain a questions array");
+}
+   parsed.questions.forEach(q => {
+  if (
+    q.requiresDiagram === false &&
+    typeof q.modelAnswer === "string"
+  ) {
+    q.modelAnswer = q.modelAnswer.replace(/\r?\n/g, " ");
+  }
+});
 
-    parsed.questions.forEach(q=>{
-
-      if(
-        q.requiresDiagram === false &&
-        q.modelAnswer
-      ){
-
-        q.modelAnswer =
-        q.modelAnswer.replace(/\r?\n/g," ");
-
-      }
-
-
-    });
-
+    
 
 
     res.json(parsed);
