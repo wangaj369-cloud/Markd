@@ -22,6 +22,7 @@ console.log(Object.keys(videoLibraries.Chemistry));
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
+  maxRetries: 0, // Disable automatic retries
 });
 
 const openrouter = new OpenAI({
@@ -1221,6 +1222,9 @@ app.post("/mark-answer", async (req, res) => {
     modelAnswer
   } = req.body;
 
+  const startTime = Date.now();
+  const routeStart = Date.now();
+  console.log(`[TIMING] Route /mark-answer started at ${routeStart}`);
 
   try {
 
@@ -1228,6 +1232,9 @@ app.post("/mark-answer", async (req, res) => {
     // Diagram questions should not be automatically marked
     // because the AI cannot reliably judge drawings from text.
     if (requiresDiagram === true) {
+
+      const duration = Date.now() - startTime;
+      console.log(`[METRICS] Diagram marking - Duration: ${duration}ms, Model: skipped (diagram)`);
 
       return res.json({
 
@@ -1254,7 +1261,6 @@ app.post("/mark-answer", async (req, res) => {
 
 
     const markingPrompt = `
-
 You are an AQA A-Level examiner.
 
 Mark the student's answer using the mark scheme.
@@ -1282,6 +1288,31 @@ Return ONLY valid JSON:
 }
 
 
+MARKING PRINCIPLES:
+
+- Do NOT require exact wording from the mark scheme.
+- Award marks when the student demonstrates the correct scientific idea.
+- Accept synonyms and alternative explanations.
+- Do not give 0 marks simply because a keyword is missing.
+- Judge the meaning of the answer, not the exact words used.
+
+For example:
+
+Student:
+"energy needed to remove an electron"
+
+Should receive credit if the question asks for ionisation energy, even if they did not write:
+"minimum energy required to remove one electron from a gaseous atom."
+
+Only remove marks if the scientific meaning is incorrect.
+
+Partial marks:
+- Award partial credit when some correct understanding is shown.
+- Do not mark answers as completely wrong if part of the concept is correct.
+- Use the question and mark value to decide.
+- Be fair but follow A-Level standards.
+
+
 RULES:
 
 Score:
@@ -1293,17 +1324,20 @@ Score:
 Strengths:
 - Address the student directly using "you".
 - Mention what was done well.
--Maximum 1 sentence.
+- Maximum 1 sentence.
+- You don't have to give a strength if the student has genuinely done nothing good.
+
 
 Improvements:
 - Address the student directly using "you".
-- Explain what is missing.
--Maximum 2 sentences.
+- Explain exactly what was missing.
+- Maximum 2 sentences.
 
 
 Model answer:
 - Write a full-mark AQA answer.
 - Use correct scientific terminology.
+
 
 MODEL ANSWER RULES:
 
@@ -1314,6 +1348,7 @@ MODEL ANSWER RULES:
 - If requiresDiagram is false:
   - Only provide modelAnswer when the student has lost marks.
   - If the student achieved full marks, return an empty string.
+
 
 DIAGRAM RULES:
 
@@ -1334,88 +1369,80 @@ Never output:
 - markdown
 - backticks
 - explanations outside JSON
+
 VERY IMPORTANT:
 Before returning JSON, check every string value.
 No string may contain an actual line break.
-All line breaks must be written as \n.
+All line breaks must be written as \\n.
 
 `;
 
 
 
-    const openRouterRes = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
+    // Overall timeout for the entire marking operation
+    let completion = null;
+    const apiCallStart = Date.now();
+    console.log(`[TIMING] API call starting at ${apiCallStart} (route elapsed: ${apiCallStart - routeStart}ms)`);
 
-        method:"POST",
+    // Promise.race with timeout
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Marking operation timeout after 15s')), 15000);
+    });
 
-        headers:{
-
-          "Content-Type":"application/json",
-
-          "Authorization":
-          `Bearer ${process.env.OPENROUTER_KEY}`,
-
-          "HTTP-Referer":
-          "https://markdai.app",
-
-          "X-Title":
-          "Markd"
-
-        },
-
-
-        body:JSON.stringify({
-
-          model:
-        "openrouter/free",
-
-
-
-          response_format:{
-            type:"json_object"
+    try {
+      completion = await Promise.race([
+        groq.chat.completions.create({
+          model: "openai/gpt-oss-20b",
+          reasoning_effort: "low",
+          include_reasoning: false,
+          temperature: 0.1,
+          max_tokens: 400,
+          response_format: {
+            type: "json_object"
           },
-
-
-          messages:[
-
+          messages: [
             {
-              role:"user",
-              content:markingPrompt
+              role: "system",
+              content: "You are an AQA A-Level examiner. Return ONLY valid JSON."
+            },
+            {
+              role: "user",
+              content: markingPrompt
             }
-
           ]
-
-        })
-
-      }
-    );
-
-
-
-    console.log(
-      "OpenRouter status:",
-      openRouterRes.status
-    );
-
-
-    const data =
-    await openRouterRes.json();
-
-
-
-    if(!openRouterRes.ok){
-
-      throw new Error(
-        JSON.stringify(data)
-      );
-
+        }),
+        timeoutPromise
+      ]);
+    } catch (error) {
+      const apiCallEnd = Date.now();
+      const apiCallDuration = apiCallEnd - apiCallStart;
+      console.error(`[ERROR] API call failed after ${apiCallDuration}ms: ${error.message}`);
+      throw error;
     }
 
+    const apiCallEnd = Date.now();
+    const apiCallDuration = apiCallEnd - apiCallStart;
+    console.log(`[TIMING] API call completed in ${apiCallDuration}ms`);
+
+    const duration = Date.now() - startTime;
+    console.log(`[TIMING] Total route duration: ${duration}ms (route start to response)`);
+
+    // Log metrics (without sensitive data)
+    const inputTokens = completion.usage?.prompt_tokens || 0;
+    const outputTokens = completion.usage?.completion_tokens || 0;
+    const totalTokens = inputTokens + outputTokens;
+
+    // Groq pricing for openai/gpt-oss-20b:
+    // Input: $0.075 per million tokens
+    // Output: $0.30 per million tokens
+    const inputCost = (inputTokens * 0.075) / 1000000;
+    const outputCost = (outputTokens * 0.30) / 1000000;
+    const estimatedCost = (inputCost + outputCost).toFixed(6);
+
+    console.log(`[METRICS] Marking completed - Duration: ${duration}ms, Model: openai/gpt-oss-20b, Input: ${inputTokens}, Output: ${outputTokens}, Total: ${totalTokens}, Cost: $${estimatedCost}`);
 
 
-    let raw =
-    data.choices?.[0]?.message?.content;
+    let raw = completion.choices?.[0]?.message?.content;
 
 
 
@@ -1495,14 +1522,20 @@ All line breaks must be written as \n.
 
 
 
-    const safeScore =
-    Math.min(
+    // Validate and sanitize score
+    const rawScore = Number(result.score);
+    const safeScore = Math.min(
       Math.max(
-        Number(result.score) || 0,
+        isNaN(rawScore) ? 0 : rawScore,
         0
       ),
       Number(marks)
     );
+
+    // Log if score was adjusted
+    if (rawScore !== safeScore) {
+      console.log(`[VALIDATION] Score adjusted from ${rawScore} to ${safeScore} (max: ${marks})`);
+    }
 
 
 
@@ -1534,10 +1567,8 @@ All line breaks must be written as \n.
   catch(error){
 
 
-    console.error(
-      "MARKING ERROR:",
-      error
-    );
+    const duration = Date.now() - startTime;
+    console.error(`[ERROR] MARKING FAILED - Duration: ${duration}ms, Error: ${error.message}`);
 
 
 
