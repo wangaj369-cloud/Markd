@@ -1210,7 +1210,7 @@ Rules:
 
 app.post("/mark-answer", async (req, res) => {
 
-  console.log("MARK ANSWER RECEIVED:", req.body);
+  console.log("[MARKING] Answer received");
 
 
   const {
@@ -1384,41 +1384,48 @@ All line breaks must be written as \\n.
     const apiCallStart = Date.now();
     console.log(`[TIMING] API call starting at ${apiCallStart} (route elapsed: ${apiCallStart - routeStart}ms)`);
 
-    // Promise.race with timeout
-    const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Marking operation timeout after 15s')), 15000);
-    });
+    const controller = new AbortController();
 
-    try {
-      completion = await Promise.race([
-        groq.chat.completions.create({
-          model: "openai/gpt-oss-20b",
-          reasoning_effort: "low",
-          include_reasoning: false,
-          temperature: 0.1,
-          max_tokens: 400,
-          response_format: {
-            type: "json_object"
-          },
-          messages: [
-            {
-              role: "system",
-              content: "You are an AQA A-Level examiner. Return ONLY valid JSON."
-            },
-            {
-              role: "user",
-              content: markingPrompt
-            }
-          ]
-        }),
-        timeoutPromise
-      ]);
-    } catch (error) {
-      const apiCallEnd = Date.now();
-      const apiCallDuration = apiCallEnd - apiCallStart;
-      console.error(`[ERROR] API call failed after ${apiCallDuration}ms: ${error.message}`);
-      throw error;
-    }
+const timeoutId = setTimeout(() => {
+  controller.abort();
+}, 15000);
+
+try {
+  completion = await groq.chat.completions.create(
+    {
+      model: "openai/gpt-oss-20b",
+      reasoning_effort: "low",
+      include_reasoning: false,
+      temperature: 0.1,
+      max_tokens: 400,
+      response_format: {
+        type: "json_object"
+      },
+      messages: [
+        {
+          role: "system",
+          content: "You are an AQA A-Level examiner. Return ONLY valid JSON."
+        },
+        {
+          role: "user",
+          content: markingPrompt
+        }
+      ]
+    },
+    {
+  signal: controller.signal,
+  maxRetries: 0,
+  timeout: 15000
+}
+  );
+} catch (error) {
+  console.error(
+    `[ERROR] Marking API failed after ${Date.now() - apiCallStart}ms: ${error.message}`
+  );
+  throw error;
+} finally {
+  clearTimeout(timeoutId);
+}
 
     const apiCallEnd = Date.now();
     const apiCallDuration = apiCallEnd - apiCallStart;
@@ -1446,10 +1453,6 @@ All line breaks must be written as \\n.
 
 
 
-    console.log(
-      "RAW MARK RESPONSE:",
-      raw
-    );
 
 
 
