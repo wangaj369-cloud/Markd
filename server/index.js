@@ -443,6 +443,221 @@ difficulty
 const numberedSubtopics = subtopics
 .map((s,index)=>`${index}: ${s}`)
 .join("\n");
+
+const biologyExamGuide = {
+  "Cells": `
+    Approved AQA A-Level content:
+    - Eukaryotic and prokaryotic cell structures.
+    - Functions of organelles and specialised cells.
+    - Viruses and their basic structure.
+    - Light and electron microscopy.
+    - Magnification, resolution and cell fractionation.
+    - Cell cycle, mitosis and binary fission.
+    - Transport across cell membranes.
+    - Cell recognition and immune responses.
+
+    Avoid:
+    - University-level molecular cell biology.
+    - Advanced microscopy methods outside AQA.
+    - Detailed DNA replication mechanisms under cell structure.
+    - Unspecified advanced biochemical pathways.
+  `,
+
+  "Biological Molecules": `
+    Approved AQA A-Level content:
+    - Carbohydrates, lipids, proteins and enzymes.
+    - Monomers, polymers and biological tests.
+    - DNA, RNA and semi-conservative replication.
+    - ATP, water and inorganic ions.
+
+    Avoid:
+    - Advanced molecular modelling.
+    - University-level protein biochemistry.
+    - Molecular mechanisms beyond the selected subtopic.
+  `
+};
+
+
+const chemistryExamGuide = {
+  "Alkanes": `
+AQA A-Level Chemistry 7405 — Alkanes.
+
+ALLOWED:
+- Saturated hydrocarbons, general formula and nomenclature.
+- Fractional distillation of crude oil.
+- Thermal and catalytic cracking, products and economic reasons.
+- Complete and incomplete combustion, pollution and catalytic converters.
+- Chlorination of methane by free-radical substitution.
+- Initiation, propagation and termination equations.
+
+REACTION RULES:
+- Initiation: UV light causes homolytic fission of Cl2 into two Cl radicals.
+- Propagation: Cl radical reacts with methane, producing HCl and a methyl radical; the methyl radical then reacts with Cl2.
+- Termination: two radicals combine.
+- Do not confuse initiation with propagation.
+- Do not require detailed cracking mechanisms.
+
+AVOID:
+- University-level mechanisms and kinetics.
+- Unsupported numerical or thermochemical claims.
+`,
+
+  "Halogenoalkanes": `
+AQA A-Level Chemistry 7405 — Halogenoalkanes.
+
+ALLOWED:
+- Polar carbon-halogen bonds.
+- Nucleophilic substitution involving OH-, CN- and NH3.
+- Curly-arrow mechanisms for substitution.
+- Hydrolysis and the effect of carbon-halogen bond enthalpy on reaction rates.
+- Competing substitution and elimination reactions.
+- The roles of OH- as a nucleophile and as a base.
+
+REACTION RULES:
+- Aqueous hydroxide generally favours nucleophilic substitution.
+- Hot ethanolic hydroxide generally favours elimination.
+- Conditions must be explicit when distinguishing these reactions.
+- Do not automatically assume only one reaction occurs.
+- Check reaction products and balance equations where appropriate.
+
+AVOID:
+- University-level SN1/SN2 kinetic calculations.
+- Invented reaction constants or concentrations.
+- Unspecified reaction conditions.
+- Unsupported assumptions about reaction yields.
+`,
+
+  "Alkenes": `
+AQA A-Level Chemistry 7405 — Alkenes.
+
+ALLOWED:
+- Unsaturated hydrocarbons and carbon-carbon double bonds.
+- The high electron density of the double bond.
+- Electrophilic addition involving HBr, Br2 and H2SO4.
+- Curly-arrow mechanisms and carbocation intermediates where applicable.
+- Major and minor products from unsymmetrical alkenes.
+- Bromine test for unsaturation.
+- Addition polymerisation and polymer repeat units.
+
+REACTION RULES:
+- Use correct electrophiles, reagents and products.
+- For unsymmetrical alkenes, explain major-product formation using carbocation stability where appropriate.
+- Reaction conditions must be chemically valid.
+- Do not invent peroxide reactions or unusual reaction pathways.
+
+AVOID:
+- Advanced stereochemical mechanisms.
+- Radical polymerisation mechanism details.
+- University-level polymer chemistry.
+- Unspecified reagents or unsupported product predictions.
+`
+
+};
+
+const chemistryQuestionExamples = {
+  "Alkanes": [
+    "State the general formula of an alkane. (1 mark)",
+    "Explain why cracking long-chain alkanes is economically important. (3 marks)",
+    "Write equations for the initiation and two propagation steps in the reaction of methane with chlorine under UV light. (4 marks)",
+    "Explain how carbon monoxide is formed during incomplete combustion and why it is harmful. (3 marks)"
+  ],
+
+  "Halogenoalkanes": [
+    "Explain why 1-bromobutane undergoes hydrolysis faster than 1-chlorobutane under the same conditions. (3 marks)",
+    "Outline the nucleophilic substitution mechanism for the reaction of bromoethane with aqueous hydroxide ions. (4 marks)",
+    "Explain how hydroxide ions can act as both a nucleophile and a base in reactions with 2-bromopropane. (4 marks)"
+  ],
+
+  "Alkenes": [
+    "Describe what happens when bromine water is added to an alkene and explain the observation. (2 marks)",
+    "Outline the mechanism for the electrophilic addition of hydrogen bromide to ethene. (4 marks)",
+    "Explain why the reaction of propene with hydrogen bromide produces a major and a minor organic product. (3 marks)",
+    "Draw the repeating unit of poly(ethene). (1 mark)"
+  ]
+};
+
+
+const psychologyMemoryGuide = {
+  "Multi-store model": `
+    Allowed content:
+    - Atkinson and Shiffrin's multi-store model.
+    - Sensory register, short-term memory and long-term memory.
+    - Coding, capacity and duration of memory stores.
+    - Attention, maintenance rehearsal and retrieval.
+    - Research evidence and evaluation of the model.
+    - Serial position effect and relevant research.
+
+    Avoid:
+    - Invented numerical capacities.
+    - Treating encoding specificity as part of this model.
+    - Attributing hippocampal mechanisms to the model.
+  `,
+
+  "Working memory model": `
+    Allowed content:
+    - Baddeley and Hitch's working memory model.
+    - Central executive.
+    - Phonological loop.
+    - Visuospatial sketchpad.
+    - Episodic buffer.
+    - Supporting research and evaluation.
+
+    Avoid:
+    - Invented numerical capacity calculations.
+    - Serial position effect questions.
+    - Advanced neuroscience outside A-level requirements.
+  `,
+
+  "Types of long-term memory": `
+    Allowed content:
+    - Episodic memory.
+    - Semantic memory.
+    - Procedural memory.
+    - Differences between these memory types.
+    - Appropriate research evidence and evaluation.
+
+    Avoid:
+    - Advanced neuroscience of memory consolidation.
+    - Unrelated mnemonic techniques.
+    - Research outside the selected content.
+  `
+};
+
+const approvedPsychologyContent =
+  subject === "Psychology" && topic === "Memory"
+    ? subtopics
+        .filter(s => psychologyMemoryGuide[s])
+        .map(s => `${s}:\n${psychologyMemoryGuide[s]}`)
+        .join("\n")
+    : "";
+
+const approvedBiologyContent =
+  subject === "Biology"
+    ? biologyExamGuide[topic] || ""
+    : "";
+
+const approvedChemistryContent =
+  subject === "Chemistry"
+    ? subtopics
+        .filter(s => chemistryExamGuide[s])
+        .map(s => `${s}:\n${chemistryExamGuide[s]}`)
+        .join("\n")
+    : "";
+
+const approvedExamContent = [
+  approvedPsychologyContent,
+  approvedBiologyContent,
+  approvedChemistryContent
+].filter(Boolean).join("\n\n");
+const approvedChemistryExamples =
+  subject === "Chemistry"
+    ? subtopics
+        .filter(s => chemistryQuestionExamples[s])
+        .map(s =>
+          `${s}:\n${chemistryQuestionExamples[s].join("\n")}`
+        )
+        .join("\n\n")
+    : "";
 const prompt = `
 Generate a realistic ${level} ${subject} exam paper.
 
@@ -451,6 +666,45 @@ Topic: ${topic || "Full Subject"}
 
 Available subtopics:
 ${numberedSubtopics}
+${approvedChemistryExamples ? `
+REFERENCE EXAMPLES OF VALID AQA A-LEVEL QUESTIONS:
+${approvedChemistryExamples}
+
+Use these examples to understand appropriate A-level difficulty,
+scientifically valid chemistry and realistic mark allocations.
+
+Generate ORIGINAL questions rather than copying these examples.
+QUESTION VARIETY RULES:
+- Reference examples are for style and scientific accuracy only.
+- Do not copy or closely paraphrase any reference example.
+- Vary compounds, question structures and application contexts.
+- Do not simply reproduce the same questions in the same order.
+- Generate different questions when the same exam settings are requested again.
+- Keep all variations scientifically valid and within AQA A-Level content.
+- If changing a compound would make a reaction or calculation invalid, choose a different valid question instead.
+Do not change reaction conditions or numerical values in ways
+that make a question chemically incorrect.
+Only use examples relevant to the assigned subtopic.
+` : ""}
+SUBTOPIC COVERAGE:
+- Generate questions across the selected subtopics.
+- For each question, choose the most relevant subtopic.
+- Do not concentrate all questions on the first subtopic.
+- If the requested number of questions is at least the number of selected subtopics, include at least one question from each selected subtopic.
+- Do NOT force an equal distribution.
+- Keep the paper varied and realistic.
+- Assign each question the correct subtopicIndex.
+${approvedExamContent ? `
+APPROVED AQA A-LEVEL CONTENT:
+${approvedExamContent}
+
+Generate questions using only the relevant approved content
+for the selected topic and assigned subtopic.
+
+Never introduce university-level subject knowledge.
+Do not mix content between unrelated subtopics.
+` : ""}
+
 
 Return ONLY valid JSON.
 
@@ -467,14 +721,49 @@ Format:
  ]
 }
 
-RULES:
-- Create exactly ${questions} questions
-- Difficulty: ${difficulty}
-- Do not ask the student to show working out
-- Use AQA A-Level exam wording
-- Include recall and application questions
-- No markdown, no explanations, only JSON
-- Only use AQA A level terminology 
+ RULES:
+- Create exactly ${questions} questions.
+- Difficulty: ${difficulty}.
+- Use authentic AQA A-Level examination wording.
+- Every question must directly assess content from its assigned subtopic.
+- Do not introduce concepts outside the selected subtopics.
+- Avoid university-level content and unnecessary technical detail.
+- Include a realistic variety of recall, explanation and application questions.
+- Include data interpretation or practical-science questions where appropriate.
+- Use realistic experimental or real-world contexts for application questions.
+- Avoid repeating the same concept across multiple questions.
+- Ensure the number of marks matches the number and depth of assessable points.
+- Use precise command words such as state, describe, explain, calculate, compare and evaluate.
+- Do not request diagrams except where permitted by the subject restrictions.
+- Do not ask students to show working out.
+- Return valid JSON only, without markdown or explanations.
+- Use AQA A-Level terminology.
+
+STRICT AQA A-LEVEL CONTENT AND QUALITY CONTROL:
+
+- All questions must be suitable for UK AQA A-Level students aged approximately 16-18.
+- Never require undergraduate or university-level knowledge.
+- Hard difficulty means challenging A-Level application, analysis or evaluation, NOT more advanced subject content.
+- Stay strictly within the selected topic and assigned subtopic.
+- Do not introduce advanced terminology, mechanisms, experiments or theories unless they are explicitly part of AQA A-Level content.
+- Do not invent scientific relationships, psychological theories, experimental findings or numerical assumptions.
+- Every question must have a clear, scientifically accurate answer.
+- Every question must have enough assessable points to justify its allocated marks.
+- For calculations, use realistic values and provide all information necessary to calculate the answer.
+- Do not invent numerical properties of psychological models.
+- For Biology, use appropriate recall, application, practical and data-analysis questions.
+- For Chemistry, use appropriate explanations, reactions, mechanisms and calculations with chemically valid conditions.
+- For Psychology, use appropriate AO1 knowledge, AO2 application and AO3 evaluation questions, including research evidence where relevant.
+- Include realistic scenarios where appropriate, rather than making every question a simple definition.
+- Never make a question more difficult by introducing content outside the A-Level specification.
+- Ensure each question could reasonably appear in an AQA A-Level assessment.
+
+BEFORE RETURNING JSON:
+- Check every question for A-Level relevance.
+- Check scientific accuracy.
+- Check that marks match the required answer.
+- Check that the assigned subtopic is correct.
+- Replace any question that fails these checks.
 
 MARK LIMITS:
 Easy: 1-3 marks
@@ -502,6 +791,19 @@ Chemistry:
   - structural formula drawing
   - curly arrow mechanisms
   - reaction pathways
+  
+  CHEMISTRY DRAWING RULES:
+- If a question requires students to draw a chemical structure,
+  displayed formula, repeating unit or curly-arrow mechanism,
+  set requiresDiagram to true.
+- If a question can be fully answered in words, calculations
+  or equations without structural drawings, set requiresDiagram
+  to false.
+- Explicitly use "Draw" when a structural drawing is required.
+- Do not label a question as a diagram unless drawing is
+  necessary to receive full marks.
+- Never ask students to draw something that cannot be
+  meaningfully compared with the model answer.
 
 For all other subjects:
 - requiresDiagram MUST always be false.
@@ -519,8 +821,13 @@ SUBTOPIC INDEX:
 Must match the numbered list above
 Example: if topic is "1: Photosynthesis", use subtopicIndex:1
 `;
-const completion = await openrouter.chat.completions.create({
- model:"openrouter/free",
+const examStartTime = Date.now();
+console.log("[EXAM] Generation started");
+const completion = await groq.chat.completions.create({
+ model: "openai/gpt-oss-20b",
+ reasoning_effort: "low",
+include_reasoning: false,
+temperature: 0.3,
 messages:[
 {
 role:"user",
@@ -528,7 +835,14 @@ content:prompt
 }
 ]});
 
+const examDuration = Date.now() - examStartTime;
 
+const inputTokens = completion.usage?.prompt_tokens ?? 0;
+const outputTokens = completion.usage?.completion_tokens ?? 0;
+
+console.log(`[EXAM] Generation completed in ${examDuration}ms`);
+console.log(`[EXAM] Input tokens: ${inputTokens}, Output tokens: ${outputTokens}`);
+console.log(`[EXAM] Model used: ${completion.model || "unknown"}`);
 let text =
 completion.choices[0].message.content;
 
@@ -573,9 +887,8 @@ console.log(
 text
 );
 
-res.status(500).json({
-error:"Exam generation failed",
-details:text
+return res.status(500).json({
+  error: "Exam generation failed"
 });
 
 }
@@ -588,7 +901,70 @@ if(!exam.questions){
   });
 
 }
+// Validate and enforce requested question count
+const requestedCount = Number(questions);
 
+if (
+  !Number.isInteger(requestedCount) ||
+  requestedCount < 1 ||
+  requestedCount > 100
+) {
+  return res.status(400).json({
+    error: "Invalid question count"
+  });
+}
+
+if (!Array.isArray(exam.questions)) {
+  return res.status(500).json({
+    error: "Invalid exam questions"
+  });
+}
+
+if (exam.questions.length > requestedCount) {
+  console.log(
+    `[EXAM] Trimming ${exam.questions.length} questions to ${requestedCount}`
+  );
+
+  exam.questions = exam.questions.slice(0, requestedCount);
+}
+
+if (exam.questions.length < requestedCount) {
+  return res.status(502).json({
+    error: "AI generated fewer questions than requested"
+  });
+}
+
+
+function validateChemistryQuestion(question) {
+  const text = String(question.question || "")
+  .toLowerCase()
+  .replace(/[\u2010-\u2015\u2212\u00AD\uFE63\uFF0D]/g, "-");
+
+  const issues = [];
+
+  // Detect an incorrect expected product from 1-hexene + HBr
+if (
+  /\b(1-hexene|hex-1-ene)\b/.test(text) &&
+  /\bhbr\b|hydrogen bromide/.test(text) &&
+  /\b(1-bromohexane|1 bromohexane)\b/.test(text)
+) {
+  issues.push(
+    "Check product: HBr addition to hex-1-ene generally favours 2-bromohexane, not 1-bromohexane."
+  );
+}
+  // But-2-ene + HBr cannot produce 1-bromobutane.
+  if (
+    /\b(2-butene|but-2-ene)\b/.test(text) &&
+    /\bhbr\b|hydrogen bromide/.test(text) &&
+    /\b(1-bromobutane|1 bromobutane)\b/.test(text)
+  ) {
+    issues.push(
+      "Incorrect product: but-2-ene + HBr produces 2-bromobutane."
+    );
+  }
+
+  return issues;
+}
 
 // Convert subtopicIndex into real saved subtopic
 console.log(
@@ -602,22 +978,59 @@ console.log(
 );
 
 
-exam.questions = exam.questions.map(q => {
 
+
+exam.questions = exam.questions.map((q, questionIndex) => {
   const index = Number(q.subtopicIndex);
+  const questionText =
+    typeof q.question === "string" ? q.question.trim() : "";
+
+  // Validate required question information
+  if (!questionText) {
+    throw new Error(`Question ${questionIndex + 1} has no text`);
+  }
+
+  const questionMarks = Number(q.marks);
+
+  if (
+    !Number.isInteger(questionMarks) ||
+    questionMarks < 1 ||
+    questionMarks > 25
+  ) {
+    throw new Error(`Question ${questionIndex + 1} has invalid marks`);
+  }
+
+  // Validate subtopic assignment
+  if (
+    !Number.isInteger(index) ||
+    index < 0 ||
+    index >= subtopics.length
+  ) {
+    throw new Error(`Question ${questionIndex + 1} has an invalid subtopic`);
+  }
+
+  // Detect explicit drawing requirements in Chemistry
+  const drawingRequired =
+    subject === "Chemistry" &&
+    /\b(draw|sketch|displayed formula|structural formula|curly[- ]arrow|draw the mechanism|draw the repeating unit)\b/i
+      .test(questionText);
+
+  const requiresDiagram =
+    subject === "Chemistry"
+      ? drawingRequired || q.requiresDiagram === true
+      : false;
 
   return {
-
     ...q,
-
+    question: questionText,
+    marks: questionMarks,
+    requiresDiagram,
+    answerType: requiresDiagram ? "diagram" : "short answer",
     topic: topic || "Full Subject",
-
-    subtopic:
-      subtopics[index] || subtopics[0]
-
+    subtopic: subtopics[index]
   };
-
 });
+
 
 
 // remove temporary AI field
@@ -627,10 +1040,20 @@ exam.questions.forEach(q => {
 
 });
 
-console.log(
-"NEMOTRON EXAM RESPONSE:",
-JSON.stringify(completion,null,2)
-);
+if (subject === "Chemistry") {
+  exam.questions.forEach((q, index) => {
+    const issues = validateChemistryQuestion(q);
+
+    if (issues.length > 0) {
+      console.warn(
+        `[CHEMISTRY VALIDATION] Question ${index + 1}:`,
+        issues.join(" | ")
+      );
+    }
+  });
+}
+
+
 console.log(
   "FINAL QUESTIONS WITH SUBTOPICS:",
   exam.questions
